@@ -27,6 +27,7 @@ Pretend it looks like:
 [ s8  s9 s10 s11 ]
 [ s12 s13 s14 s15 ]
 */
+// So col s0 (and down) s1...s3 then diagonals
 
 reg [255:0] current_key;
 reg [95:0] current_nonce;
@@ -72,7 +73,7 @@ reg [1:0] state, next_state;
 
     integer i;
 
-    always @(posedge clk or posedge rst) begin
+    always @(posedge clk or posedge rst) begin // Asynchronous reset
         if (rst) begin
             state <= IDLE;
             busy <= 0;
