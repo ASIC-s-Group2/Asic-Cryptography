@@ -1,4 +1,7 @@
+
 // chacha20_core_tb.sv
+// Testbench for the ChaCha20 core module.
+// Verifies functionality against RFC 8439 Section 2.3 test vector.
 
 `timescale 1ns / 1ps // Defines time units for simulation
 
@@ -6,32 +9,29 @@ module chacha20_core_tb;
 
     // ----------------------------------------------------
     // 1. Declare Testbench Signals (Inputs as reg, Outputs as wire)
-    //    These will connect to your ChaCha20 UUT (Unit Under Test)
+    //    These simulate the external world connected to your ChaCha20 UUT.
     // ----------------------------------------------------
     reg         clk;
-    reg         rst; // Assuming 'rst' is your active-high reset, or rst_n for active-low
-    reg         start;
-    wire        busy;
-    wire        done;
-    reg         mode; // 1 for encrypt, 0 for decrypt
-    reg  [511:0] in_state;
-    wire [511:0] out_state;
+    reg         rst_n; // Active-low reset input
+    reg         start; // Start pulse for the UUT
+    wire        busy;  // UUT busy status
+    wire        done;  // UUT completion signal
+    reg         mode;  // Operation mode (1: encrypt, 0: decrypt)
+    reg  [511:0] in_state; // Data block input (plaintext for encrypt)
+    wire [511:0] out_state; // Data block output (ciphertext from encrypt)
 
-    // TRNG interface signals (controlled by testbench to mock TRNG)
-    reg  [31:0] trng_data;
-    wire        trng_request;
-    reg         trng_ready;
-
-    // Internal testbench variables for FSM state tracking during TRNG acquisition
-    reg [2:0]   trng_chunk_counter; // To mock which chunk the TRNG is delivering
+    // TRNG interface signals (controlled by testbench to mock TRNG behavior)
+    reg  [31:0] trng_data;    // Data provided by TRNG mock to UUT
+    wire        trng_request; // Request from UUT to TRNG mock
+    reg         trng_ready;   // Ready signal from TRNG mock to UUT
 
     // ----------------------------------------------------
     // 2. Instantiate the Unit Under Test (UUT)
-    //    Connect testbench signals to the ChaCha20 module's ports
+    //    Connect testbench signals to the ChaCha20 module's ports.
     // ----------------------------------------------------
     ChaCha20 UUT (
         .clk        (clk),
-        .rst        (rst),
+        .rst_n      (rst_n),
         .start      (start),
         .busy       (busy),
         .done       (done),
@@ -45,7 +45,7 @@ module chacha20_core_tb;
 
     // ----------------------------------------------------
     // 3. Clock Generation
-    //    Creates a free-running clock signal
+    //    Creates a free-running clock signal.
     // ----------------------------------------------------
     parameter CLK_PERIOD = 10; // 10ns period -> 100 MHz clock
     initial begin
@@ -54,146 +54,153 @@ module chacha20_core_tb;
     end
 
     // ----------------------------------------------------
-    // 4. Initial Test Sequence (main 'initial' block)
-    //    This drives inputs and checks outputs
+    // 4. Test Vector Data (from RFC 8439 Section 2.3)
+    //    Important: RFCs often use Little-Endian for words/bytes. Verilog is Big-Endian.
+    //    For all-zero/all-'a' values, direct hex conversion works fine.
+    //    For mixed values, you'd need careful byte/word swapping.
     // ----------------------------------------------------
+    localparam [255:0] TEST_KEY       = 256'h0; // All zeros
+    localparam [95:0]  TEST_NONCE     = 96'h0;  // All zeros
+    localparam [31:0]  TEST_COUNTER   = 32'h0;  // All zeros (for initial counter)
+
+    // Plaintext (64 bytes of ASCII 'a' = 0x61)
+    localparam [511:0] TEST_PLAINTEXT = 512'h61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161;
+
+    // Expected Ciphertext for the above Key, Nonce, Counter, Plaintext
+    localparam [511:0] EXPECTED_CIPHERTEXT = 512'h8e2167eca0b5233c19d4ba6608075737be90b4510c2407c93dd7c089420751b386121251c4d34ec3b519efa60e455b548f0575860d6a42a3cf8458c289a7d320;
+
+    // Array to hold the TRNG mock data in sequence: 8 key chunks, 3 nonce chunks, 1 counter chunk
+    // Total 12 chunks needed
+    localparam NUM_KEY_CHUNKS     = 8;
+    localparam NUM_NONCE_CHUNKS   = 3;
+    localparam NUM_COUNTER_CHUNKS = 1;
+    localparam TOTAL_TRNG_CHUNKS  = NUM_KEY_CHUNKS + NUM_NONCE_CHUNKS + NUM_COUNTER_CHUNKS;
+
+    reg [31:0] trng_mock_data_array [0:TOTAL_TRNG_CHUNKS-1]; // Correct array size
+
+    // Initialize the TRNG mock data array with test vector values
+    // This runs ONCE at time 0
     initial begin
-        // For waveform viewing (optional, but highly recommended for debugging)
-        $dumpfile("chacha20_core.vcd");
-        $dumpvars(0, UUT); // Dump all signals in the UUT
+        // Key chunks (8 chunks)
+        trng_mock_data_array[0] = TEST_KEY[31:0];
+        trng_mock_data_array[1] = TEST_KEY[63:32];
+        trng_mock_data_array[2] = TEST_KEY[95:64];
+        trng_mock_data_array[3] = TEST_KEY[127:96];
+        trng_mock_data_array[4] = TEST_KEY[159:128];
+        trng_mock_data_array[5] = TEST_KEY[191:160];
+        trng_mock_data_array[6] = TEST_KEY[223:192];
+        trng_mock_data_array[7] = TEST_KEY[255:224];
 
-        // --- Test Scenario: RFC 8439 Section 2.3. Test Vector ---
-        // (This is where you put your actual test data)
+        // Nonce chunks (3 chunks)
+        trng_mock_data_array[8] = TEST_NONCE[31:0];
+        trng_mock_data_array[9] = TEST_NONCE[63:32];
+        trng_mock_data_array[10] = TEST_NONCE[95:64];
 
-        // RFC Key (32 bytes / 256 bits):
-        // 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
-        // Important: RFCs often use Little-Endian for words/bytes. Verilog is Big-Endian for multi-bit numbers.
-        // You'll need to reverse the order of 32-bit words or individual bytes when converting RFC hex strings to Verilog literals.
-        // For all zeros, it's easy:
-        localparam [255:0] TEST_KEY = 256'h0;
+        // Counter chunk (1 chunk)
+        trng_mock_data_array[11] = TEST_COUNTER;
+    end
 
-        // RFC Nonce (12 bytes / 96 bits):
-        // 00:00:00:00:00:00:00:00:00:00:00:00
-        localparam [95:0] TEST_NONCE = 96'h0;
 
-        // RFC Initial Counter (4 bytes / 32 bits):
-        // 00:00:00:00
-        localparam [31:0] TEST_COUNTER = 32'h0;
+    // ----------------------------------------------------
+    // 5. TRNG Mocking Logic (responds to UUT's trng_request)
+    //    This simulates the TRNG module's behavior.
+    // ----------------------------------------------------
+    // trng_chunk_index will be driven by UUT.chunk_index; no need for a separate mock index here.
+    initial begin
+        trng_ready = 1'b0; // Start not ready
+        trng_data = 32'b0; // Start with zero data
+    end
 
-        // RFC Plaintext (64 bytes / 512 bits):
-        // (Just one block for simplicity. Full block is 64 bytes of ASCII 'a')
-        // 61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:
-        // 61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61:61
-        localparam [511:0] TEST_PLAINTEXT = 512'h61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161;
-
-        // RFC Expected Ciphertext (64 bytes / 512 bits):
-        // (This is the output you should expect for the above inputs, copy precisely from RFC)
-        // 8e: 21: 67: ec: a0: b5: 23: 3c: 19: d4: ba: 66: 08: 07: 57: 37: be: 90: b4: 51: 0c: 24: 07: c9: 3d: d7: c0: 89: 42: 07: 51: b3:
-        // 86: 12: 12: 51: c4: d3: 4e: c3: b5: 19: ef: a6: 0e: 45: 5b: 54: 8f: 05: 75: 86: 0d: 6a: 42: a3: cf: 84: 58: c2: 89: a7: d3: 20
-        localparam [511:0] EXPECTED_CIPHERTEXT = 512'h8e2167eca0b5233c19d4ba6608075737be90b4510c2407c93dd7c089420751b386121251c4d34ec3b519efa60e455b548f0575860d6a42a3cf8458c289a7d320;
-
-        // --- 5. Reset Sequence ---
-        rst = 1'b1; // Assert reset (active high, assuming your 'rst' port is active high)
-        start = 1'b0;
-        mode = 1'b1; // Test in encryption mode
-        in_state = 512'b0;
-        trng_data = 32'b0;
-        trng_ready = 1'b0;
-        trng_chunk_counter = 3'b0;
-
-        #(CLK_PERIOD * 5); // Hold reset for 5 clock cycles
-        rst = 1'b0;       // De-assert reset
-        #(CLK_PERIOD); // Wait one cycle after reset for stability
-
-        // --- 6. Simulate TRNG Data Acquisition ---
-        // This 'fork-join' block will run in parallel with the main initial block
-        // to respond to trng_request.
-        fork
-            automatic bit [255:0] key_val;
-            automatic bit [95:0] nonce_val;
-            automatic bit [31:0] counter_val;
-            automatic int key_chunk_idx;
-            automatic int nonce_chunk_idx;
-
-            // Assign values from test vectors (ensure correct byte/word order if endianness matters)
-            key_val = TEST_KEY;
-            nonce_val = TEST_NONCE;
-            counter_val = TEST_COUNTER;
-
-            // Wait for requests and provide data
-            always @(posedge clk) begin
-                if (rst) begin // Reset TRNG mock
-                    trng_ready <= 1'b0;
-                    trng_data <= 32'b0;
-                    trng_chunk_counter <= 3'b0;
-                    key_chunk_idx = 0;
-                    nonce_chunk_idx = 0;
-                end else begin
-                    trng_ready <= 1'b0; // Default to not ready
-                    if (trng_request) begin // If ChaCha20 core requests data
-                        // Provide data based on current chunk_index (tracked in ChaCha20 core)
-                        // and internal counters in the testbench
-                        case (UUT.current_fsm_state) // Read the FSM state of the UUT
-                            UUT.S_ACQUIRE_KEY: begin
-                                // Provide key chunk
-                                trng_data <= key_val[key_chunk_idx * 32 +: 32];
-                                trng_ready <= 1'b1; // Data is ready
-                                key_chunk_idx = key_chunk_idx + 1;
-                            end
-                            UUT.S_ACQUIRE_NONCE: begin
-                                // Provide nonce chunk
-                                trng_data <= nonce_val[nonce_chunk_idx * 32 +: 32];
-                                trng_ready <= 1'b1;
-                                nonce_chunk_idx = nonce_chunk_idx + 1;
-                            end
-                            UUT.S_ACQUIRE_COUNTER: begin
-                                // Provide counter chunk
-                                trng_data <= counter_val;
-                                trng_ready <= 1'b1;
-                                // Reset for next operation cycle, or you can manage it based on UUT.current_fsm_state
-                            end
-                            default: begin // Not in an acquire state, stop requesting
-                                trng_data <= 32'b0;
-                                trng_ready <= 1'b0;
-                            end
-                        endcase
+    always @(posedge clk) begin
+        if (rst_n == 1'b0) begin // Reset TRNG mock
+            trng_ready <= 1'b0;
+            trng_data <= 32'b0;
+        end else begin
+            trng_ready <= 1'b0; // Default to not ready each cycle
+            // Respond only if UUT is requesting and we have a valid chunk_index within its current state
+            case (UUT.current_fsm_state)
+                UUT.S_ACQUIRE_KEY: begin
+                    if (trng_request && UUT.chunk_index < NUM_KEY_CHUNKS) begin
+                        trng_data <= trng_mock_data_array[UUT.chunk_index];
+                        trng_ready <= 1'b1; // Signal data is ready for this cycle
                     end
                 end
-            end
-        join_none // Allow this always block to run continuously in parallel
+                UUT.S_ACQUIRE_NONCE: begin
+                    if (trng_request && UUT.chunk_index < NUM_NONCE_CHUNKS) begin
+                        trng_data <= trng_mock_data_array[NUM_KEY_CHUNKS + UUT.chunk_index]; // Offset for nonce chunks
+                        trng_ready <= 1'b1;
+                    end
+                end
+                UUT.S_ACQUIRE_COUNTER: begin
+                    if (trng_request && UUT.chunk_index < NUM_COUNTER_CHUNKS) begin
+                        trng_data <= trng_mock_data_array[NUM_KEY_CHUNKS + NUM_NONCE_CHUNKS + UUT.chunk_index]; // Offset for counter chunk
+                        trng_ready <= 1'b1;
+                    end
+                end
+                default: begin
+                    // Not in an acquire state, stop sending
+                    trng_data <= 32'b0;
+                end
+            endcase
+        end
+    end
 
-        // --- 7. Start ChaCha20 Operation ---
-        #(CLK_PERIOD); // Wait a cycle to ensure TRNG mock is ready
 
-        start = 1'b1; // Pulse start signal
-        #(CLK_PERIOD); // Hold start for one cycle
-        start = 1'b0; // De-assert start
+    // ----------------------------------------------------
+    // 6. Main Test Sequence
+    //    Drives inputs to the UUT and checks outputs.
+    // ----------------------------------------------------
+    initial begin
+        // --- For waveform viewing (highly recommended for debugging) ---
+        $dumpfile("chacha20_core.vcd"); // Create the VCD file
+        $dumpvars(0, UUT);             // Dump all signals within the UUT
+        // You can also dump specific signals from the testbench scope if needed:
+        // $dumpvars(0, clk, rst_n, start, busy, done, mode, in_state, out_state, trng_data, trng_request, trng_ready);
+        // $dumpvars(0, trng_mock_data_array);
 
-        // --- 8. Wait for Completion and Check Results ---
-        #(CLK_PERIOD * 20); // Wait for the operation to complete (approx 20 cycles for rounds)
-        // You might need more cycles depending on TRNG acquisition time
 
-        // Wait until done goes high
-        wait (done);
+        // --- Reset UUT ---
+        rst_n = 1'b0;       // Assert reset (active-low)
+        start = 1'b0;
+        mode = 1'b1;        // Encryption mode
+        in_state = 512'b0;  // Initial input data state
 
-        // Check if busy is low and done is high
+        #(CLK_PERIOD * 5);  // Hold reset for 5 clock cycles (50ns)
+        rst_n = 1'b1;       // De-assert reset
+        #(CLK_PERIOD);      // Wait one cycle after reset for stability
+
+        // --- Start ChaCha20 Operation ---
+        start = 1'b1;              // Pulse start signal
+        in_state = TEST_PLAINTEXT; // Provide the plaintext input
+        #(CLK_PERIOD);             // Hold start for one cycle (10ns)
+        start = 1'b0;              // De-assert start
+
+        // --- Wait for Completion ---
+        // Give it plenty of time for acquisition, init, rounds, and output.
+        // Approx (12 TRNG chunks + 1 init + 20 rounds + 1 output) = ~34 cycles minimum.
+        // We'll wait a generous 50 cycles before checking `done`.
+
+        // The 'wait' will pause the simulation until 'done' goes high.
+        // If it hangs here, the UUT is stuck and not signaling 'done'.
+        wait (done == 1'b1);
+
+        // --- Check Results ---
         if (busy == 1'b0 && done == 1'b1) begin
-            $display("Test Passed: ChaCha20 core completed operation.");
-            $display("Input Plaintext: %h", TEST_PLAINTEXT);
-            $display("Actual Ciphertext: %h", out_state);
+            $display("--- Test Completed ---");
+            $display("Input Plaintext:   %h", TEST_PLAINTEXT);
+            $display("Actual Ciphertext: %h", out_state); // Use out_state directly, not out_state_reg from UUT scope
             $display("Expected Ciphertext: %h", EXPECTED_CIPHERTEXT);
 
-            if (out_state == EXPECTED_CIPHERTEXT) begin
+            if (out_state === EXPECTED_CIPHERTEXT) begin // Use '===' for bit-for-bit comparison including X/Z
                 $display("RESULT: PASS - Output matches expected ciphertext!");
             end else begin
                 $display("RESULT: FAIL - Output does NOT match expected ciphertext!");
-                // You can add more detailed mismatch reporting here
             end
         end else begin
             $display("RESULT: FAIL - ChaCha20 core did not complete successfully (busy=%0b, done=%0b).", busy, done);
         end
 
-        #(CLK_PERIOD * 2); // Small delay to see final outputs
+        #(CLK_PERIOD * 2); // Small delay to see final outputs in waveform before finishing
 
         $finish; // End simulation
     end

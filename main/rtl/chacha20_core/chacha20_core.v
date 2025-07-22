@@ -44,17 +44,36 @@ reg [4:0] round_count;
 reg busy_reg, done_reg, trng_request_reg;
 reg [511:0] out_state_reg;
 reg [511:0] full_keystream_block_temp;
-reg do_copy_state;
 
 assign busy = busy_reg;
 assign done = done_reg;
 assign trng_request = trng_request_reg;
 assign out_state = out_state_reg;
 
-// Wires for column round outputs
-wire [31:0] s_col_out [0:15]; // Holds the state after column rounds
-// Wires for diagonal round outputs
-wire [31:0] s_double_round_out [0:15]; // Holds the state after a full double round
+// Wire for the initial state calculation. Using wires and assign is cleaner for pure combo logic.
+wire [31:0] s_initial_calc [0:15];
+
+assign s_initial_calc[0]  = C0;
+assign s_initial_calc[1]  = C1;
+assign s_initial_calc[2]  = C2;
+assign s_initial_calc[3]  = C3;
+assign s_initial_calc[4]  = current_key[31:0];
+assign s_initial_calc[5]  = current_key[63:32];
+assign s_initial_calc[6]  = current_key[95:64];
+assign s_initial_calc[7]  = current_key[127:96];
+assign s_initial_calc[8]  = current_key[159:128];
+assign s_initial_calc[9]  = current_key[191:160];
+assign s_initial_calc[10] = current_key[223:192];
+assign s_initial_calc[11] = current_key[255:224];
+assign s_initial_calc[12] = current_counter;
+assign s_initial_calc[13] = current_nonce[31:0];
+assign s_initial_calc[14] = current_nonce[63:32];
+assign s_initial_calc[15] = current_nonce[95:64];
+
+
+// Wires for Quarter Round outputs
+wire [31:0] s_col_out [0:15];
+wire [31:0] s_double_round_out [0:15];
 
 // QR COLUMN rounds (operating on the current 's' state)
 QR U_QR_COL_0 (.in_a(s[0]), .in_b(s[4]), .in_c(s[8]),  .in_d(s[12]), .out_a(s_col_out[0]),  .out_b(s_col_out[4]),  .out_c(s_col_out[8]),  .out_d(s_col_out[12]));
@@ -72,16 +91,18 @@ QR U_QR_DIAG_3 (.in_a(s_col_out[3]),  .in_b(s_col_out[4]),  .in_c(s_col_out[9]),
 
 //Now all the different states of this machine. The hex-decimals count from 0-17 in binary and can be compared to the fsm_state variables below
 
-localparam  S_IDLE                 = 3'h0;
-localparam  S_ACQUIRE_KEY          = 3'h1;
-localparam  S_ACQUIRE_NONCE        = 3'h2;
-localparam  S_ACQUIRE_COUNTER      = 3'h3;
-localparam  S_INIT_STATE_MATRIX    = 3'h4;
-localparam  S_RUN_ROUNDS           = 3'h5;
-localparam  S_GENERATE_OUTPUT      = 3'h6;
-localparam  S_DONE_PULSE           = 3'h7;
+localparam  S_IDLE                 = 4'h0;
+localparam  S_ACQUIRE_KEY          = 4'h1;
+localparam  S_ACQUIRE_NONCE        = 4'h2;
+localparam  S_ACQUIRE_COUNTER      = 4'h3;
+localparam  S_INIT_STATE_MATRIX    = 4'h4;
+localparam  S_COPY_INITIAL_STATE   = 4'h5;
+localparam  S_RUN_ROUNDS           = 4'h6;
+localparam  S_GENERATE_OUTPUT      = 4'h7;
+localparam  S_DONE_PULSE           = 4'h8;
 
-reg [2:0] current_fsm_state, next_fsm_state, chunk_index; // The chunk is a sort of substate to use as we move through the key and nonce peice by peice
+reg [3:0] current_fsm_state, next_fsm_state; // Changed to 4 bits
+reg [2:0] chunk_index;
 
 always @(*) begin
     next_fsm_state = current_fsm_state;
@@ -112,11 +133,14 @@ always @(*) begin
                 end
             end
             S_INIT_STATE_MATRIX : begin
-                next_fsm_state = S_RUN_ROUNDS;
+                next_fsm_state = S_COPY_INITIAL_STATE;
             end
-            S_RUN_ROUNDS : begin
-                if (round_count == 4'h14) begin
-                    next_fsm_state = S_GENERATE_OUTPUT;
+            S_COPY_INITIAL_STATE : begin
+                next_fsm_state = S_RUN_ROUNDS;
+             end
+             S_RUN_ROUNDS : begin
+                if (round_count == 5'd9) begin
+                   next_fsm_state = S_GENERATE_OUTPUT;
                 end
             end
             S_GENERATE_OUTPUT : begin
@@ -156,13 +180,17 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
     end else begin // The action on the clock edge.
 
         current_fsm_state <= next_fsm_state; // Update to the next state
-        busy_reg = 1'b1; // Default busy unless in IDLE or DONE
-        done_reg = 1'b0;
+        busy_reg <= 1'b1; // Default busy unless in IDLE or DONE
+        done_reg <= 1'b0;
+        out_state_reg <= 512'b0;
 
         case (current_fsm_state) // What to do at each state
             S_IDLE: begin
                 busy_reg <= 1'b0;
                 done_reg <= 1'b0;
+
+                round_count <= 5'd0;
+                chunk_index <= 3'd0;
             end
             S_ACQUIRE_KEY: begin
                 if (trng_ready) begin
@@ -199,44 +227,22 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
             end
             // Other states' specific sequential assignments will go here:
             S_INIT_STATE_MATRIX: begin
-                // Row 0: Constants
-                s[0]  <= C0;
-                s[1]  <= C1;
-                s[2]  <= C2;
-                s[3]  <= C3;
+                
+                for (int i = 0; i < 16; i = i + 1) begin
+                s[i] <= s_initial_calc[i];
+            end
 
-                // Row 1-3: Key (8 words = 256 bits)
-                s[4]  <= current_key[31:0];     // Key Word 0
-                s[5]  <= current_key[63:32];    // Key Word 1
-                s[6]  <= current_key[95:64];    // Key Word 2
-                s[7]  <= current_key[127:96];   // Key Word 3
-                s[8]  <= current_key[159:128];  // Key Word 4
-                s[9]  <= current_key[191:160];  // Key Word 5
-                s[10] <= current_key[223:192];  // Key Word 6
-                s[11] <= current_key[255:224];  // Key Word 7
-
-                // Row 4 (part): Counter (1 word = 32 bits)
-                s[12] <= current_counter;
-
-                // Row 4 (remainder): Nonce (3 words = 96 bits)
-                s[13] <= current_nonce[31:0];   // Nonce Word 0
-                s[14] <= current_nonce[63:32];  // Nonce Word 1
-                s[15] <= current_nonce[95:64];  // Nonce Word 2
-
-                do_copy_state <= 1'b1;
-
+                round_count <= 5'd0;
+            end
+            S_COPY_INITIAL_STATE: begin
                 // CRITICAL: Make a copy of the *initial* state immediately after loading 's'
                 // This copy is used in the final keystream generation step.
-                if (do_copy_state) begin
                 original_state_copy <= {
                     s[15], s[14], s[13], s[12],
                     s[11], s[10], s[9], s[8],
                     s[7],  s[6],  s[5],  s[4],
                     s[3],  s[2],  s[1],  s[0]
                 };
-                do_copy_state <= 1'b0;
-                end
-                round_count <= 5'd0; //resetting the round_count because it could go over 20
             end
             S_RUN_ROUNDS: begin
                 // Update 's' array with the results of the completed double round
@@ -278,16 +284,9 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
                     s[1]  + original_state_copy[63:32],
                     s[0]  + original_state_copy[31:0]
                 };
-                // Logic for encryption/decryption based on 'mode'
-                // mode = 1 for encryption (plaintext -> ciphertext)
-                // mode = 0 for decryption (ciphertext -> plaintext)
-                if (mode == 1'b1) begin // Encryption mode
-                    out_state_reg <= in_state ^ full_keystream_block_temp; // plaintext XOR keystream
-                end else begin // Decryption mode (mode == 0)
-                    out_state_reg <= in_state ^ full_keystream_block_temp; // ciphertext XOR keystream
-                end //Final Step :) Notice how they are the same either way this is just for user clarity i guess
             end
             S_DONE_PULSE: begin
+                out_state_reg <= in_state ^ full_keystream_block_temp;
                 busy_reg <= 1'b0;
                 done_reg <= 1'b1;
             end
