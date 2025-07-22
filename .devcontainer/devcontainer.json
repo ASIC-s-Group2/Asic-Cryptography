@@ -8,6 +8,9 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				// icon theme (suggested)
+				// "PKief.material-icon-theme",
+
 				// C (c++ extensions work w/C)
 				"ms-vscode.cpptools-extension-pack",
 				"ms-vscode.cpptools-themes",
