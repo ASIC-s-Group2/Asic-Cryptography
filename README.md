@@ -1,1 +1,1 @@
-# Silicon Sipher CAPSTONE Project- Encrypter
+# Silicon Cypher CAPSTONE Project - Encrypter
