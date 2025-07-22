@@ -1,6 +1,6 @@
 module asic_top (
     input wire clk,
-    input wire rst,
+    input wire rst_n, //the n means the reset is applied low on the negative edge
 
     input wire start,
     output wire busy,
@@ -20,7 +20,7 @@ module asic_top (
     // Instantiate
     ChaCha20 chacha_unit (
         .clk(clk),
-        .rst(rst),
+        .rst_n(rst_n),
 
         .start(start),
         .busy(busy),
