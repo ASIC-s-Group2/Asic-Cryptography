@@ -44,6 +44,7 @@ reg [4:0] round_count;
 reg busy_reg, done_reg, trng_request_reg;
 reg [511:0] out_state_reg;
 reg [511:0] full_keystream_block_temp;
+reg do_copy_state;
 
 assign busy = busy_reg;
 assign done = done_reg;
@@ -146,6 +147,7 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
         current_counter <= 32'b0;
         chunk_index <= 3'b0;
         original_state_copy <= 512'b0;
+        
 
         for (int i = 0; i < 16; i++) begin // Reset all the s 32 bit registers
             s[i] <= 0;
@@ -154,6 +156,8 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
     end else begin // The action on the clock edge.
 
         current_fsm_state <= next_fsm_state; // Update to the next state
+        busy_reg = 1'b1; // Default busy unless in IDLE or DONE
+        done_reg = 1'b0;
 
         case (current_fsm_state) // What to do at each state
             S_IDLE: begin
@@ -219,14 +223,20 @@ always @(posedge clk or negedge rst_n) begin // The main machine action on clock
                 s[14] <= current_nonce[63:32];  // Nonce Word 1
                 s[15] <= current_nonce[95:64];  // Nonce Word 2
 
+                do_copy_state <= 1'b1;
+
                 // CRITICAL: Make a copy of the *initial* state immediately after loading 's'
                 // This copy is used in the final keystream generation step.
+                if (do_copy_state) begin
                 original_state_copy <= {
                     s[15], s[14], s[13], s[12],
                     s[11], s[10], s[9], s[8],
                     s[7],  s[6],  s[5],  s[4],
                     s[3],  s[2],  s[1],  s[0]
                 };
+                do_copy_state <= 1'b0;
+                end
+                round_count <= 5'd0; //resetting the round_count because it could go over 20
             end
             S_RUN_ROUNDS: begin
                 // Update 's' array with the results of the completed double round
