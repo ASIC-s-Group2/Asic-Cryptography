@@ -1,9 +1,9 @@
 module RingOsc #(parameter CW = 4) ( //number of oscillators should be odd and equals CW+1
-    (* KEEP="TRUE" *) input RESET,
+    (*keep*) input RESET,
     output RAW_ENTROPY_OUT
 );
 
-	(* KEEP="TRUE" *) wire [CW:0] chain;
+	(*keep*) wire [CW:0] chain;
 	
 	genvar i;
     generate
