@@ -103,7 +103,7 @@ module tb_ChaCha20;
 
         // Use RFC 8439 example inputs for Key, Nonce, Counter
         in_key      = 256'h000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f;
-        in_nonce    =  96'h000000090000004a00000000;
+        in_nonce    =  96'h000000000000004a00000000;
         in_counter  =  32'h00000001;
 
         // Set a non-zero plaintext input for encryption
