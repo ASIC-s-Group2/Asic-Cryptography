@@ -45,6 +45,17 @@ module ChaCha20 (
     wire [31:0] diag_out_s2, diag_out_s7, diag_out_s8, diag_out_s13;
     wire [31:0] diag_out_s3, diag_out_s4, diag_out_s9, diag_out_s14;
 
+
+    QR U_QR_COL_0 (.in_a(state[0]), .in_b(state[4]), .in_c(state[8]),  .in_d(state[12]), .out_a(col_out_s0),  .out_b(col_out_s4),  .out_c(col_out_s8),  .out_d(col_out_s12));
+    QR U_QR_COL_1 (.in_a(state[1]), .in_b(state[5]), .in_c(state[9]),  .in_d(state[13]), .out_a(col_out_s1),  .out_b(col_out_s5),  .out_c(col_out_s9),  .out_d(col_out_s13));
+    QR U_QR_COL_2 (.in_a(state[2]), .in_b(state[6]), .in_c(state[10]), .in_d(state[14]), .out_a(col_out_s2),  .out_b(col_out_s6),  .out_c(col_out_s10), .out_d(col_out_s14));
+    QR U_QR_COL_3 (.in_a(state[3]), .in_b(state[7]), .in_c(state[11]), .in_d(state[15]), .out_a(col_out_s3),  .out_b(col_out_s7),  .out_c(col_out_s11), .out_d(col_out_s15));
+
+    // Diagonal Rounds: Take column round outputs as input
+    QR U_QR_DIAG_0 (.in_a(col_out_s0), .in_b(col_out_s5), .in_c(col_out_s10), .in_d(col_out_s15), .out_a(diag_out_s0), .out_b(diag_out_s5), .out_c(diag_out_s10), .out_d(diag_out_s15));
+    QR U_QR_DIAG_1 (.in_a(col_out_s1), .in_b(col_out_s6), .in_c(col_out_s11), .in_d(col_out_s12), .out_a(diag_out_s1), .out_b(diag_out_s6), .out_c(diag_out_s11), .out_d(diag_out_s12));
+    QR U_QR_DIAG_2 (.in_a(col_out_s2), .in_b(col_out_s7), .in_c(col_out_s8),  .in_d(col_out_s13), .out_a(diag_out_s2), .out_b(diag_out_s7), .out_c(diag_out_s8),  .out_d(diag_out_s13));
+    QR U_QR_DIAG_3 (.in_a(col_out_s3), .in_b(col_out_s4), .in_c(col_out_s9),  .in_d(col_out_s14), .out_a(diag_out_s3), .out_b(diag_out_s4), .out_c(diag_out_s9),  .out_d(diag_out_s14));
     // Main FSM and data path logic
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -68,16 +79,7 @@ module ChaCha20 (
                         busy <= 1; // Indicate that the module is busy
                         fsm_state <= INIT;
                         round_count <= 0;
-                    end else begin
-                        busy <= 0; // Not busy if start is not asserted
-                    end
-                end
-
-                INIT: begin
-                    // Initialize state matrix per RFC 8439
-                    // Assuming key, nonce, and counter inputs are already in the correct
-                    // 32-bit little-endian word order. No byte reordering is performed here.
-                    state[0] <= C0;           // "expa"
+                         state[0] <= C0;           // "expa"
                     state[1] <= C1;           // "nd 3"
                     state[2] <= C2;           // "2-by"
                     state[3] <= C3;           // "te k"
@@ -93,6 +95,15 @@ module ChaCha20 (
                     state[13] <= nonce[31:0];  // nonce[0]
                     state[14] <= nonce[63:32]; // nonce[1]
                     state[15] <= nonce[95:64]; // nonce[2]
+                    end else begin
+                        busy <= 0; // Not busy if start is not asserted
+                    end
+                end
+
+                INIT: begin
+                    // Initialize state matrix per RFC 8439
+                    // Assuming key, nonce, and counter inputs are already in the correct
+                    // 32-bit little-endian word order. No byte reordering is performed here
 
                     // Copy the initial state to 'original' for final addition
                     for (int i = 0; i < 16; i = i + 1) begin
@@ -105,22 +116,8 @@ module ChaCha20 (
                 ROUND: begin
                     // Perform 10 double rounds (20 total rounds)
                     if (round_count < 10) begin
-                        // Instantiate QR modules for column rounds
-                        // These take 'state' as input and produce combinatorial outputs
-                        QR U_QR_COL_0 (.in_a(state[0]), .in_b(state[4]), .in_c(state[8]),  .in_d(state[12]), .out_a(col_out_s0),  .out_b(col_out_s4),  .out_c(col_out_s8),  .out_d(col_out_s12));
-                        QR U_QR_COL_1 (.in_a(state[1]), .in_b(state[5]), .in_c(state[9]),  .in_d(state[13]), .out_a(col_out_s1),  .out_b(col_out_s5),  .out_c(col_out_s9),  .out_d(col_out_s13));
-                        QR U_QR_COL_2 (.in_a(state[2]), .in_b(state[6]), .in_c(state[10]), .in_d(state[14]), .out_a(col_out_s2),  .out_b(col_out_s6),  .out_c(col_out_s10), .out_d(col_out_s14));
-                        QR U_QR_COL_3 (.in_a(state[3]), .in_b(state[7]), .in_c(state[11]), .in_d(state[15]), .out_a(col_out_s3),  .out_b(col_out_s7),  .out_c(col_out_s11), .out_d(col_out_s15));
-
-                        // Instantiate QR modules for diagonal rounds
-                        // These take the outputs of the column QRs as input
-                        QR U_QR_DIAG_0 (.in_a(col_out_s0),  .in_b(col_out_s5),  .in_c(col_out_s10), .in_d(col_out_s15), .out_a(diag_out_s0),  .out_b(diag_out_s5),  .out_c(diag_out_s10), .out_d(diag_out_s15));
-                        QR U_QR_DIAG_1 (.in_a(col_out_s1),  .in_b(col_out_s6),  .in_c(col_out_s11), .in_d(col_out_s12), .out_a(diag_out_s1),  .out_b(diag_out_s6),  .out_c(diag_out_s11), .out_d(diag_out_s12));
-                        QR U_QR_DIAG_2 (.in_a(col_out_s2),  .in_b(col_out_s7),  .in_c(col_out_s8),  .in_d(col_out_s13), .out_a(diag_out_s2),  .out_b(diag_out_s7),  .out_c(diag_out_s8),  .out_d(diag_out_s13));
-                        QR U_QR_DIAG_3 (.in_a(col_out_s3),  .in_b(col_out_s4),  .in_c(col_out_s9),  .in_d(col_out_s14), .out_a(diag_out_s3),  .out_b(diag_out_s4),  .out_c(diag_out_s9),  .out_d(diag_out_s14));
-
-                        // Latch the results of the double round back into the 'state' registers
-                        // Mapping the diagonal QR outputs back to the correct state indices
+                        // The QR logic is now outside. We just latch its results
+                        // from the 'diag_out' wires into the 'state' registers.
                         state[0] <= diag_out_s0;
                         state[1] <= diag_out_s1;
                         state[2] <= diag_out_s2;
@@ -138,9 +135,9 @@ module ChaCha20 (
                         state[14] <= diag_out_s14;
                         state[15] <= diag_out_s15;
 
-                        round_count <= round_count + 1; // Increment double-round counter
+                        round_count <= round_count + 1;
                     end else begin
-                        fsm_state <= OUTPUT; // All rounds completed, move to output generation
+                        fsm_state <= OUTPUT; // All rounds completed
                     end
                 end
 
