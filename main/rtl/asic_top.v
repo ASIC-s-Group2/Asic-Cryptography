@@ -17,17 +17,18 @@ module asic_top (
     input wire chunk_valid,
     input wire [31:0] chunk,
     output reg [4:0] chunk_index,
-    output reg chunk_request //handshaking for streaming in the key
+    output reg chunk_request, //handshaking for streaming in the key
+    output reg [1:0] request_type
 );
     
     //making another FSM controller here 
     reg [2:0] fsm_state;
 
-    localparam IDLE        = 3'b000;
-    localparam ACQUIRE     = 3'b001;
-    localparam CORE        = 3'b010;
-    localparam WAIT        = 3'b011;
-    localparam COMPLETE    = 3'b100;
+    localparam IDLE       = 3'b000;
+    localparam ACQUIRE    = 3'b001;
+    localparam CORE       = 3'b010;
+    localparam WAIT       = 3'b011;
+    localparam COMPLETE   = 3'b100;
 
     //where we will build them
     reg [255:0] temp_key;
@@ -41,9 +42,9 @@ module asic_top (
 
     // Internal FSM for data acquisition (within ACQUIRE_INPUT_DATA state)
     reg [1:0] acquire_sub_state;
-    localparam KEY     = 2'b00;
-    localparam NONCE   = 2'b01;
-    localparam COUNTER = 2'b10;
+    localparam KEY      = 2'b00;
+    localparam NONCE    = 2'b01;
+    localparam COUNTER  = 2'b10;
 
     reg [4:0] current_chunk_id; // Internal register to track which chunk we're on
     reg [255:0] internal_key_storage; // Accumulates the streamed key chunks
@@ -52,7 +53,12 @@ module asic_top (
     reg core_start;
     wire core_done;
     wire core_busy;
+    
+    wire [31:0] trng_data;
+    wire        trng_ready;
+    reg         trng_request;
 
+    wire [31:0] data_to_accumulate; //FIX
     assign data_to_accumulate =
     (acquire_sub_state == KEY && use_streamed_key) ? chunk :
     (acquire_sub_state == NONCE && use_streamed_nonce) ? chunk :
@@ -68,15 +74,15 @@ module asic_top (
         .busy(core_busy),
         .done(core_done),
 
-        .in_key(key),
-        .in_nonce(nonce),
-        .in_counter(counter),
+        .key(key),
+        .nonce(nonce),
+        .counter(counter),
 
         .plaintext(in_state),
         .ciphertext(out_state)
     );
 
-    TRNG trng_unit (
+    TRNGHardened trng_unit (
         .clk(clk),
         .rst_n(rst_n),
 
@@ -85,6 +91,15 @@ module asic_top (
         .trng_request(trng_request)
     );
 
+    wire data_is_from_stream;
+    wire stream_data_is_valid;
+    wire data_source_is_ready;
+    assign data_is_from_stream = (acquire_sub_state == KEY   && use_streamed_key) ||
+                                 (acquire_sub_state == NONCE && use_streamed_nonce) ||
+                                 (acquire_sub_state == COUNTER && use_streamed_counter);
+    assign stream_data_is_valid = chunk_valid && (chunk_type == acquire_sub_state);
+    assign data_source_is_ready = data_is_from_stream ? stream_data_is_valid : trng_ready;
+
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             //reset
@@ -92,7 +107,7 @@ module asic_top (
             busy <= 0;
             done <= 0;
             chunk_request <= 0;
-            chunk_type <= KEY;
+            request_type <= KEY;
             current_chunk_id <= 0;
             key <= 256'b0;
             nonce <= 96'b0;
@@ -107,6 +122,7 @@ module asic_top (
             core_start <= 0;
             chunk_request <= 0;
             trng_request <= 0; 
+            done <= 0;
 
             case (fsm_state)
                 IDLE: begin
@@ -117,42 +133,19 @@ module asic_top (
                         fsm_state <= ACQUIRE;
                         acquire_sub_state <= KEY;
                         current_chunk_id <= 0;
-
-                        if (use_streamed_key) begin //use streamed
-                            chunk_request <= 1;
-                            chunk_type <= KEY;
-                        end else begin //use TRNG
-                            trng_request <= 1;
-                            chunk_type <= KEY;
-                        end
                         // Reset
                         temp_key <= 256'b0;
                         temp_nonce <= 96'b0;
                         temp_counter <= 32'b0;
                         key <= 256'b0;
-                        key <= 96'b0;
-                        key <= 32'b0;
+                        nonce <= 96'b0;
+                        counter <= 32'b0;
                     end
                 end
 
                 ACQUIRE: begin
-                    // Determine if data is ready from the selected source
-                    reg data_source_ready;
-                    if (acquire_sub_state == KEY && use_streamed_key) data_source_ready = (chunk_valid && chunk_type == KEY);
-                    else if (acquire_sub_state == NONCE && use_streamed_nonce) data_source_ready = (chunk_valid && chunk_type == NONCE);
-                    else if (acquire_sub_state == COUNTER && use_streamed_counter) data_source_ready = (chunk_valid && chunk_type == COUNTER);
-                    else data_source_ready = trng_ready; // If not streamed, it's TRNG
-
-                    // Request data if not ready
-                    if (!data_source_ready) begin
-                        if (acquire_sub_state == KEY && use_streamed_key) chunk_request <= 1;
-                        else if (acquire_sub_state == NONCE && use_streamed_nonce) chunk_request <= 1;
-                        else if (acquire_sub_state == COUNTER && use_streamed_counter) chunk_request <= 1;
-                        else trng_request <= 1;
-                    end
-
-                    // Process data if ready
-                    if (data_source_ready) begin
+                    if (data_source_is_ready) begin
+                        // Process data if ready
                         case (acquire_sub_state)
                             KEY: begin
                                 // Accumulate data into key accumulator
@@ -177,7 +170,6 @@ module asic_top (
                             end
 
                             NONCE: begin
-
                                 case (current_chunk_id)
                                     0: temp_nonce[31:0] <= data_to_accumulate;
                                     1: temp_nonce[63:32] <= data_to_accumulate;
@@ -198,6 +190,14 @@ module asic_top (
                                 fsm_state <= CORE;
                             end
                         endcase
+                    end else begin
+                        // Request data if not ready
+                        if (data_is_from_stream) begin
+                            chunk_request <= 1;
+                            request_type <= acquire_sub_state;
+                        end else begin
+                            trng_request <= 1;
+                        end
                     end
                 end
 
