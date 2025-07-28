@@ -82,7 +82,7 @@ module asic_top (
         .ciphertext(out_state)
     );
 
-    TRNGHardened trng_unit (
+    MockTRNGHardened trng_unit (
         .clk(clk),
         .rst_n(rst_n),
 
