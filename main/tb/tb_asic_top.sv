@@ -28,11 +28,6 @@ module tb_asic_top;
     wire chunk_request;
     wire [1:0] request_type;
 
-    // TRNG mock signals
-    wire [31:0] mock_trng_random_number;
-    wire mock_trng_ready;
-    wire mock_trng_request; // This will be the trng_request output from asic_top
-
     // --- Internal Testbench Variables ---
     integer test_id = 0;
     integer pass_count = 0;
@@ -58,20 +53,15 @@ module tb_asic_top;
         .chunk(tb_chunk_data),
         .chunk_index(chunk_index),
         .chunk_request(chunk_request),
-        .request_type(request_type),
-        .trng_random_number(mock_trng_random_number),
-        .trng_ready(mock_trng_ready),
-        .trng_request(mock_trng_request) // asic_top's trng_request output
+        .request_type(request_type)
     );
 
-    // --- Instantiate Mock TRNGHardened ---
-    MockTRNGHardened U_MOCK_TRNG (
-        .clk(clk),
-        .rst_n(rst_n),
-        .trng_request(mock_trng_request), // Connect to asic_top's request
-        .random_number(mock_trng_random_number),
-        .ready(mock_trng_ready)
-    );
+    // --- Mock TRNGHardened Instantiation REMOVED ---
+    // The 'asic_top' module already contains its own 'MockTRNGHardened' instance.
+    // Instantiating another one here and trying to force signals inside the DUT
+    // would cause a "multiple driver" issue, where two modules are trying to
+    // drive the same wire. This is why it has been removed from the testbench.
+    // The testbench will now correctly test the DUT as a self-contained unit.
 
     // --- Clock Generation ---
     always #5 clk = ~clk; // 10ns period (100MHz)
@@ -94,7 +84,7 @@ module tb_asic_top;
         tb_chunk_data = 32'h0;
 
         $display("========================================");
-        $display("  ASIC Top-Level ChaCha20 Testbench     ");
+        $display("  ASIC Top-Level ChaCha20 Testbench   ");
         $display("========================================");
 
         // Release reset
@@ -112,10 +102,7 @@ module tb_asic_top;
         start = 1;
         #10 start = 0; // Pulse start
 
-        // Wait for acquisition to complete (TRNG takes cycles)
-        // Key: 8 chunks, Nonce: 3 chunks, Counter: 1 chunk = 12 TRNG cycles
-        // Plus 1 cycle for CORE_START, multiple for CORE_WAIT
-        // We'll just wait for 'done'
+        // Wait for 'done'
         wait(done);
         #10;
 
@@ -246,7 +233,7 @@ module tb_asic_top;
         tb_chunk_data = 32'h60000000; // Sample counter data
         tb_chunk_type = 2'b10; // COUNTER
         tb_chunk_valid = 1;
-        #10;
+            #10;
         tb_chunk_valid = 0;
 
         // Wait for acquisition and core operation to complete
@@ -265,7 +252,7 @@ module tb_asic_top;
 
         // --- Final Summary ---
         $display("\n========================================");
-        $display("          Test Summary                  ");
+        $display("              Test Summary              ");
         $display("========================================");
         $display("Total Tests Run: %0d", test_id);
         $display("Tests Passed:    %0d", pass_count);
