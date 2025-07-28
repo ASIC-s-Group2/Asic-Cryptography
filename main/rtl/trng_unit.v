@@ -3,7 +3,7 @@ module TRNG (
     input wire rst_n,
 
     input wire trng_request,
-    output wire [31:0] random_number,
+    output reg [31:0] random_number,
     output wire ready
 );
 
