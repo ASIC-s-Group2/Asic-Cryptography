@@ -8,11 +8,12 @@ module TRNGHardened (
 );
     // Instantiate 3 independent ring oscillators
     wire ro_out0, ro_out1, ro_out2;
-
-    RingOsc #(.CW(4)) ro0 (.RESET(~rst_n), .RAW_ENTROPY_OUT(ro_out0));
+    wire dummy, dummy1; // Dummy wire to satisfy the module interface
+    RingOsc #(.CW(3)) ro0 (.RESET(~rst_n), .RAW_ENTROPY_OUT(ro_out0));
     RingOsc #(.CW(5)) ro1 (.RESET(~rst_n), .RAW_ENTROPY_OUT(ro_out1));
     RingOsc #(.CW(7)) ro2 (.RESET(~rst_n), .RAW_ENTROPY_OUT(ro_out2));
-
+    (*keep*) RingOsc #(.CW(3)) ro3 (.RESET(~rst_n), .RAW_ENTROPY_OUT(dummy));
+    (*keep*) RingOsc #(.CW(5)) ro4 (.RESET(~rst_n), .RAW_ENTROPY_OUT(dummy1));
     // Synchronizers for each RO output
     reg ro0_sync1, ro0_sync2;
     reg ro1_sync1, ro1_sync2;
