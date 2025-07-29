@@ -23,7 +23,8 @@ module chacha20_keyinput (
     input  wire        we,           // Write enable (high for writes)
     input  wire [7:0]  addr,         // 8-bit address bus
     input  wire [31:0] write_data,   // 32-bit data input for writes
-    output wire [31:0] read_data     // 32-bit data output for reads
+    output wire [31:0] read_data,     // 32-bit data output for reads
+    output wire        ready         // <<< ADDED: Ready signal for the core
     // input  wire [255:0] key,      // <<< REMOVED: Key is no longer a direct input.
 );
 
@@ -80,6 +81,7 @@ module chacha20_keyinput (
 
     // Status signals from core
     wire         core_ready;
+    assign ready = core_ready; // <<< ADDED: Connect core ready to top-level ready
 
     // Output register for read_data bus
     reg [31:0]  tmp_read_data;
