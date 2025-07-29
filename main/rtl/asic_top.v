@@ -6,8 +6,15 @@ module asic_top (
     output reg busy,
     output reg done,
 
-    input wire [511:0] in_state,
-    output wire [511:0] out_state,
+    // Streaming state input (plaintext) - 32 bits wide
+    input wire [31:0] in_state_word,
+    input wire in_state_valid,
+    output reg in_state_ready,
+
+    // Streaming state output (ciphertext) - 32 bits wide
+    output reg [31:0] out_state_word,
+    output reg out_state_valid,
+    input wire out_state_ready,
 
     input wire use_streamed_key,
     input wire use_streamed_nonce,
@@ -17,25 +24,37 @@ module asic_top (
     input wire chunk_valid,
     input wire [31:0] chunk,
     output reg [4:0] chunk_index,
-    output reg chunk_request, //handshaking for streaming in the key
-    output reg [1:0] request_type
+    output reg chunk_request, //handshaking for streaming in the key/nonce/counter
+    output reg [1:0] request_type,
+
+    // TRNG signals (restored)
+    input wire [31:0] trng_data,
+    input wire trng_ready,
+    output reg trng_request
 );
-    
-    //making another FSM controller here 
+
+    // Main FSM controller
     reg [2:0] fsm_state;
 
     localparam IDLE       = 3'b000;
     localparam ACQUIRE    = 3'b001;
-    localparam CORE       = 3'b010;
-    localparam WAIT       = 3'b011;
-    localparam COMPLETE   = 3'b100;
+    localparam LOAD_IN    = 3'b010;
+    localparam CORE       = 3'b011;
+    localparam OUTPUT     = 3'b100;
+    localparam COMPLETE   = 3'b101;
 
-    //where we will build them
+    // Buffers for streaming in/out the ChaCha block
+    reg [511:0] in_state;
+    reg [3:0] in_state_ptr;
+    reg [511:0] out_state;
+    reg [3:0] out_state_ptr;
+
+    // Where we build the key, nonce, and counter
     reg [255:0] temp_key;
     reg [95:0] temp_nonce;
     reg [31:0] temp_counter;
 
-    //The stuff passed to the core
+    // The stuff passed to the core
     reg [255:0] key;
     reg [95:0] nonce;
     reg [31:0] counter;
@@ -47,59 +66,39 @@ module asic_top (
     localparam COUNTER  = 2'b10;
 
     reg [4:0] current_chunk_id; // Internal register to track which chunk we're on
-    reg [255:0] internal_key_storage; // Accumulates the streamed key chunks
-    assign chunk_index = current_chunk_id;
+
+    // Data selection logic for key/nonce/counter
+    wire data_is_from_stream;
+    assign data_is_from_stream = (acquire_sub_state == KEY   && use_streamed_key) ||
+                                 (acquire_sub_state == NONCE && use_streamed_nonce) ||
+                                 (acquire_sub_state == COUNTER && use_streamed_counter);
+
+    wire stream_data_is_valid;
+    assign stream_data_is_valid = chunk_valid && (chunk_type == acquire_sub_state);
+
+    wire data_source_is_ready;
+    assign data_source_is_ready = data_is_from_stream ? stream_data_is_valid : trng_ready;
+
+    wire [31:0] data_to_accumulate;
+    assign data_to_accumulate = data_is_from_stream ? chunk : trng_data;
 
     reg core_start;
     wire core_done;
     wire core_busy;
-    
-    wire [31:0] trng_data;
-    wire        trng_ready;
-    reg         trng_request;
 
-    wire [31:0] data_to_accumulate; //FIX
-    assign data_to_accumulate =
-    (acquire_sub_state == KEY && use_streamed_key) ? chunk :
-    (acquire_sub_state == NONCE && use_streamed_nonce) ? chunk :
-    (acquire_sub_state == COUNTER && use_streamed_counter) ? chunk :
-    trng_data; //Uses ternary to see if it should assign the current data to chunk (streamed in) or use the trng data if its not available
-
-    // Instantiate
+    // Instantiate ChaCha20 core
     ChaCha20 chacha_unit (
         .clk(clk),
         .rst_n(rst_n),
-
         .start(core_start),
         .busy(core_busy),
         .done(core_done),
-
         .key(key),
         .nonce(nonce),
         .counter(counter),
-
         .plaintext(in_state),
         .ciphertext(out_state)
     );
-///REPLACE WITH REAL TRNG HARDENED MODULE
-    // For simulation purposes, we use a mock TRNG module
-    MockTRNGHardened trng_unit (
-        .clk(clk),
-        .rst_n(rst_n),
-
-        .random_number(trng_data),
-        .ready(trng_ready),
-        .trng_request(trng_request)
-    );
-
-    wire data_is_from_stream;
-    wire stream_data_is_valid;
-    wire data_source_is_ready;
-    assign data_is_from_stream = (acquire_sub_state == KEY   && use_streamed_key) ||
-                                 (acquire_sub_state == NONCE && use_streamed_nonce) ||
-                                 (acquire_sub_state == COUNTER && use_streamed_counter);
-    assign stream_data_is_valid = chunk_valid && (chunk_type == acquire_sub_state);
-    assign data_source_is_ready = data_is_from_stream ? stream_data_is_valid : trng_ready;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -109,6 +108,7 @@ module asic_top (
             done <= 0;
             chunk_request <= 0;
             request_type <= KEY;
+            chunk_index <= 0;
             current_chunk_id <= 0;
             key <= 256'b0;
             nonce <= 96'b0;
@@ -118,12 +118,19 @@ module asic_top (
             temp_counter <= 32'b0;
             core_start <= 0;
             trng_request <= 0;
+            in_state_ptr <= 0;
+            out_state_ptr <= 0;
+            in_state_ready <= 0;
+            out_state_valid <= 0;
+            out_state_word <= 0;
         end else begin
             // Default assignments for current cycle (overridden by FSM state)
             core_start <= 0;
             chunk_request <= 0;
             trng_request <= 0; 
             done <= 0;
+            in_state_ready <= 0;
+            out_state_valid <= 0;
 
             case (fsm_state)
                 IDLE: begin
@@ -141,6 +148,8 @@ module asic_top (
                         key <= 256'b0;
                         nonce <= 96'b0;
                         counter <= 32'b0;
+                        in_state_ptr <= 0;
+                        out_state_ptr <= 0;
                     end
                 end
 
@@ -151,10 +160,10 @@ module asic_top (
                             KEY: begin
                                 // Accumulate data into key accumulator
                                 case (current_chunk_id)
-                                    0: temp_key[31:0] <= data_to_accumulate;
-                                    1: temp_key[63:32] <= data_to_accumulate;
-                                    2: temp_key[95:64] <= data_to_accumulate;
-                                    3: temp_key[127:96] <= data_to_accumulate;
+                                    0: temp_key[31:0]    <= data_to_accumulate;
+                                    1: temp_key[63:32]   <= data_to_accumulate;
+                                    2: temp_key[95:64]   <= data_to_accumulate;
+                                    3: temp_key[127:96]  <= data_to_accumulate;
                                     4: temp_key[159:128] <= data_to_accumulate;
                                     5: temp_key[191:160] <= data_to_accumulate;
                                     6: temp_key[223:192] <= data_to_accumulate;
@@ -172,9 +181,9 @@ module asic_top (
 
                             NONCE: begin
                                 case (current_chunk_id)
-                                    0: temp_nonce[31:0] <= data_to_accumulate;
-                                    1: temp_nonce[63:32] <= data_to_accumulate;
-                                    2: temp_nonce[95:64] <= data_to_accumulate;
+                                    0: temp_nonce[31:0]   <= data_to_accumulate;
+                                    1: temp_nonce[63:32]  <= data_to_accumulate;
+                                    2: temp_nonce[95:64]  <= data_to_accumulate;
                                 endcase
 
                                 if (current_chunk_id < 2) begin
@@ -187,8 +196,9 @@ module asic_top (
                             end
 
                             COUNTER: begin
+                                temp_counter <= data_to_accumulate;
                                 counter <= data_to_accumulate;
-                                fsm_state <= CORE;
+                                fsm_state <= LOAD_IN;
                             end
                         endcase
                     end else begin
@@ -196,22 +206,46 @@ module asic_top (
                         if (data_is_from_stream) begin
                             chunk_request <= 1;
                             request_type <= acquire_sub_state;
+                            chunk_index <= current_chunk_id;
                         end else begin
                             trng_request <= 1;
                         end
                     end
                 end
 
-                CORE: begin
-                    core_start <= 1;
-                    fsm_state <= WAIT;
+                LOAD_IN: begin
+                    // Stream 16 words (512 bits) into in_state buffer
+                    in_state_ready <= 1;
+                    if (in_state_valid) begin
+                        in_state[in_state_ptr*32 +: 32] <= in_state_word;
+                        if (in_state_ptr < 15)
+                            in_state_ptr <= in_state_ptr + 1;
+                        else begin
+                            in_state_ptr <= 0;
+                            fsm_state <= CORE;
+                        end
+                    end
                 end
 
-                WAIT: begin
-                    if (core_done) begin
-                        fsm_state <= COMPLETE;
+                CORE: begin
+                    core_start <= 1;
+                    fsm_state <= OUTPUT;
+                end
+
+                OUTPUT: begin
+                    // Stream 16 words (512 bits) out from out_state buffer
+                    if (out_state_ptr < 16) begin
+                        out_state_word <= out_state[out_state_ptr*32 +: 32];
+                        out_state_valid <= 1;
+                        if (out_state_ready) begin
+                            if (out_state_ptr < 15) begin
+                                out_state_ptr <= out_state_ptr + 1;
+                            end else begin
+                                out_state_ptr <= 0;
+                                fsm_state <= COMPLETE;
+                            end
+                        end
                     end
-                    // Stay in WAIT until core_done is high
                 end
 
                 COMPLETE: begin
