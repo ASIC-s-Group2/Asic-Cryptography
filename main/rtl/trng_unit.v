@@ -1,7 +1,7 @@
 module TRNG (
     input wire clk,
     input wire rst_n,
-
+    input wire raw_entropy_in, // This is the raw entropy input
     input wire trng_request,
     output reg [31:0] random_number,
     output wire ready
