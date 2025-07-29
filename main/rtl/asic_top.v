@@ -81,7 +81,8 @@ module asic_top (
         .plaintext(in_state),
         .ciphertext(out_state)
     );
-
+///REPLACE WITH REAL TRNG HARDENED MODULE
+    // For simulation purposes, we use a mock TRNG module
     MockTRNGHardened trng_unit (
         .clk(clk),
         .rst_n(rst_n),
