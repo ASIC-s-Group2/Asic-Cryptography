@@ -1,0 +1,21 @@
+
+// Add this timeout block to the original tb_asic_top.sv
+// Right after the main initial begin block:
+
+initial begin
+    #100000; // 100,000 time units timeout
+    $display("ERROR: Simulation timeout - possible deadlock in wait() statements");
+    $display("Check that:");
+    $display("1. Clock is running properly");
+    $display("2. Reset is released correctly");  
+    $display("3. All wait() conditions can be satisfied");
+    $display("4. DUT is actually generating the expected control signals");
+    $finish;
+end
+
+// Also add debug displays before each wait() statement like this:
+// Before: wait(tb_in_state_ready);
+// Add: $display("Waiting for tb_in_state_ready, current value: %b", tb_in_state_ready);
+
+// Before: wait(chunk_request && request_type == 2'b00);
+// Add: $display("Waiting for key chunk request, chunk_request=%b, request_type=%b", chunk_request, request_type);
