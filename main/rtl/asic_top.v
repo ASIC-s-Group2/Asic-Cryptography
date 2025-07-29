@@ -68,6 +68,7 @@ module asic_top (
     reg [4:0] current_chunk_id; // Internal register to track which chunk we're on
 
     // Data selection logic for key/nonce/counter
+    // Basically all if does it loads in either the streamed data or the TRNG data
     wire data_is_from_stream;
     assign data_is_from_stream = (acquire_sub_state == KEY   && use_streamed_key) ||
                                  (acquire_sub_state == NONCE && use_streamed_nonce) ||
