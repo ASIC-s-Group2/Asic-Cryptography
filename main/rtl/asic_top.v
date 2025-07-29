@@ -1,3 +1,4 @@
+// Corrected asic_top module with a wait state for the core
 module asic_top (
     input wire clk,
     input wire rst_n, //the n means the reset is applied low on the negative edge
@@ -27,7 +28,7 @@ module asic_top (
     output reg chunk_request, //handshaking for streaming in the key/nonce/counter
     output reg [1:0] request_type,
 
-    // TRNG signals (restored)
+    // TRNG signals
     input wire [31:0] trng_data,
     input wire trng_ready,
     output reg trng_request
@@ -36,12 +37,14 @@ module asic_top (
     // Main FSM controller
     reg [2:0] fsm_state;
 
+    // FSM States - Added CORE_WAIT state
     localparam IDLE       = 3'b000;
     localparam ACQUIRE    = 3'b001;
     localparam LOAD_IN    = 3'b010;
     localparam CORE       = 3'b011;
-    localparam OUTPUT     = 3'b100;
-    localparam COMPLETE   = 3'b101;
+    localparam CORE_WAIT  = 3'b100; // New state to wait for ChaCha20 core
+    localparam OUTPUT     = 3'b101;
+    localparam COMPLETE   = 3'b110;
 
     // Buffers for streaming in/out the ChaCha block
     reg [511:0] in_state;
@@ -68,7 +71,6 @@ module asic_top (
     reg [4:0] current_chunk_id; // Internal register to track which chunk we're on
 
     // Data selection logic for key/nonce/counter
-    // Basically all if does it loads in either the streamed data or the TRNG data
     wire data_is_from_stream;
     assign data_is_from_stream = (acquire_sub_state == KEY   && use_streamed_key) ||
                                  (acquire_sub_state == NONCE && use_streamed_nonce) ||
@@ -128,7 +130,7 @@ module asic_top (
             // Default assignments for current cycle (overridden by FSM state)
             core_start <= 0;
             chunk_request <= 0;
-            trng_request <= 0; 
+            trng_request <= 0;
             done <= 0;
             in_state_ready <= 0;
             out_state_valid <= 0;
@@ -161,17 +163,17 @@ module asic_top (
                             KEY: begin
                                 // Accumulate data into key accumulator
                                 case (current_chunk_id)
-                                    0: temp_key[31:0]    <= data_to_accumulate;
-                                    1: temp_key[63:32]   <= data_to_accumulate;
-                                    2: temp_key[95:64]   <= data_to_accumulate;
-                                    3: temp_key[127:96]  <= data_to_accumulate;
-                                    4: temp_key[159:128] <= data_to_accumulate;
-                                    5: temp_key[191:160] <= data_to_accumulate;
-                                    6: temp_key[223:192] <= data_to_accumulate;
-                                    7: temp_key[255:224] <= data_to_accumulate;
+                                    0: temp_key[31:0]   <= data_to_accumulate;
+                                    1: temp_key[63:32]  <= data_to_accumulate;
+                                    2: temp_key[95:64]  <= data_to_accumulate;
+                                    3: temp_key[127:96] <= data_to_accumulate;
+                                    4: temp_key[159:128]<= data_to_accumulate;
+                                    5: temp_key[191:160]<= data_to_accumulate;
+                                    6: temp_key[223:192]<= data_to_accumulate;
+                                    7: temp_key[255:224]<= data_to_accumulate;
                                 endcase
 
-                                if (current_chunk_id < 7) begin 
+                                if (current_chunk_id < 7) begin
                                     current_chunk_id <= current_chunk_id + 1;
                                 end else begin // All key chunks received
                                     key <= temp_key;
@@ -182,9 +184,9 @@ module asic_top (
 
                             NONCE: begin
                                 case (current_chunk_id)
-                                    0: temp_nonce[31:0]   <= data_to_accumulate;
-                                    1: temp_nonce[63:32]  <= data_to_accumulate;
-                                    2: temp_nonce[95:64]  <= data_to_accumulate;
+                                    0: temp_nonce[31:0]  <= data_to_accumulate;
+                                    1: temp_nonce[63:32] <= data_to_accumulate;
+                                    2: temp_nonce[95:64] <= data_to_accumulate;
                                 endcase
 
                                 if (current_chunk_id < 2) begin
@@ -230,7 +232,13 @@ module asic_top (
 
                 CORE: begin
                     core_start <= 1;
-                    fsm_state <= OUTPUT;
+                    fsm_state <= CORE_WAIT; // *** FIX: Go to wait state, not directly to OUTPUT
+                end
+
+                CORE_WAIT: begin
+                    if (core_done) begin
+                        fsm_state <= OUTPUT;
+                    end
                 end
 
                 OUTPUT: begin

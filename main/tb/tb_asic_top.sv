@@ -6,35 +6,48 @@ module tb_asic_top;
     reg clk;
     reg rst_n;
     reg start;
-    reg [511:0] in_state; // Plaintext input
 
-    // asic_top outputs
+    // --- DUT Connections ---
+    // Outputs from DUT
     wire busy;
     wire done;
-    wire [511:0] out_state; // Ciphertext output
+    wire [4:0] chunk_index;
+    wire chunk_request;
+    wire [1:0] request_type;
+    wire trng_request;
 
-    // asic_top control inputs
+    // Inputs to DUT
     reg use_streamed_key;
     reg use_streamed_nonce;
     reg use_streamed_counter;
 
-    // asic_top streaming inputs (driven by testbench)
+    // Chunk Streaming (Key/Nonce/Counter)
     reg [1:0] tb_chunk_type;
     reg tb_chunk_valid;
     reg [31:0] tb_chunk_data;
 
-    // asic_top streaming outputs (monitored by testbench)
-    wire [4:0] chunk_index;
-    wire chunk_request;
-    wire [1:0] request_type;
+    // State Streaming (Plaintext/Ciphertext)
+    reg [31:0] tb_in_state_word;
+    reg tb_in_state_valid;
+    wire tb_in_state_ready;
+    wire [31:0] tb_out_state_word;
+    wire tb_out_state_valid;
+    reg tb_out_state_ready;
+
+    // TRNG signals driven by the mock TRNG in the testbench
+    reg [31:0] tb_trng_data;
+    reg tb_trng_ready;
 
     // --- Internal Testbench Variables ---
     integer test_id = 0;
     integer pass_count = 0;
-    reg [255:0] expected_key_val;
-    reg [95:0] expected_nonce_val;
-    reg [31:0] expected_counter_val;
-    reg [511:0] expected_ciphertext_val;
+    reg [511:0] original_plaintext;
+    reg [511:0] intermediate_ciphertext;
+    reg [511:0] final_plaintext;
+    // Variables for the test vectors
+    reg [255:0] test_key;
+    reg [95:0]  test_nonce;
+    reg [31:0]  test_counter;
 
     // --- Instantiate asic_top ---
     asic_top U_ASIC_TOP (
@@ -43,221 +56,184 @@ module tb_asic_top;
         .start(start),
         .busy(busy),
         .done(done),
-        .in_state(in_state),
-        .out_state(out_state),
+
+        // State Streaming
+        .in_state_word(tb_in_state_word),
+        .in_state_valid(tb_in_state_valid),
+        .in_state_ready(tb_in_state_ready),
+        .out_state_word(tb_out_state_word),
+        .out_state_valid(tb_out_state_valid),
+        .out_state_ready(tb_out_state_ready),
+
+        // K/N/C Control
         .use_streamed_key(use_streamed_key),
         .use_streamed_nonce(use_streamed_nonce),
         .use_streamed_counter(use_streamed_counter),
+
+        // K/N/C Streaming
         .chunk_type(tb_chunk_type),
         .chunk_valid(tb_chunk_valid),
         .chunk(tb_chunk_data),
         .chunk_index(chunk_index),
         .chunk_request(chunk_request),
-        .request_type(request_type)
+        .request_type(request_type),
+
+        // TRNG Interface
+        .trng_data(tb_trng_data),
+        .trng_ready(tb_trng_ready),
+        .trng_request(trng_request)
     );
 
-    // --- Mock TRNGHardened Instantiation REMOVED ---
-    // The 'asic_top' module already contains its own 'MockTRNGHardened' instance.
-    // Instantiating another one here and trying to force signals inside the DUT
-    // would cause a "multiple driver" issue, where two modules are trying to
-    // drive the same wire. This is why it has been removed from the testbench.
-    // The testbench will now correctly test the DUT as a self-contained unit.
+    // --- Instantiate Mock TRNG ---
+    MockTRNGHardened U_MOCK_TRNG (
+        .clk(clk),
+        .rst_n(rst_n),
+        .trng_request(trng_request),
+        .random_number(tb_trng_data),
+        .ready(tb_trng_ready)
+    );
 
     // --- Clock Generation ---
-    always #5 clk = ~clk; // 10ns period (100MHz)
+    always #5 clk = ~clk;
+
+    // --- Testbench Tasks ---
+
+    // Task to stream a 512-bit data block into the DUT
+    task stream_in_data(input [511:0] data_block);
+        begin
+            for (integer i = 0; i < 16; i = i + 1) begin
+                wait(tb_in_state_ready);
+                @(posedge clk);
+                tb_in_state_word  = data_block[i*32 +: 32];
+                tb_in_state_valid = 1;
+                @(posedge clk);
+                tb_in_state_valid = 0;
+            end
+        end
+    endtask
+
+    // Task to capture a 512-bit data block from the DUT
+    task stream_out_data(output [511:0] captured_block);
+        begin
+            for (integer i = 0; i < 16; i = i + 1) begin
+                tb_out_state_ready = 1;
+                wait(tb_out_state_valid);
+                @(posedge clk);
+                captured_block[i*32 +: 32] = tb_out_state_word;
+            end
+            tb_out_state_ready = 0;
+        end
+    endtask
+
+    // Task to stream in a known key, nonce, and counter
+    task stream_in_k_n_c(input [255:0] key, input [95:0] nonce, input [31:0] counter);
+        begin
+            // Stream 8 key chunks
+            for (integer i = 0; i < 8; i = i + 1) begin
+                wait(chunk_request && request_type == 2'b00);
+                @(posedge clk);
+                tb_chunk_data = key[i*32 +: 32];
+                tb_chunk_type = 2'b00; // KEY
+                tb_chunk_valid = 1;
+                @(posedge clk);
+                tb_chunk_valid = 0;
+            end
+
+            // Stream 3 nonce chunks
+            for (integer i = 0; i < 3; i = i + 1) begin
+                wait(chunk_request && request_type == 2'b01);
+                @(posedge clk);
+                tb_chunk_data = nonce[i*32 +: 32];
+                tb_chunk_type = 2'b01; // NONCE
+                tb_chunk_valid = 1;
+                @(posedge clk);
+                tb_chunk_valid = 0;
+            end
+
+            // Stream 1 counter chunk
+            wait(chunk_request && request_type == 2'b10);
+            @(posedge clk);
+            tb_chunk_data = counter;
+            tb_chunk_type = 2'b10; // COUNTER
+            tb_chunk_valid = 1;
+            @(posedge clk);
+            tb_chunk_valid = 0;
+        end
+    endtask
+
 
     // --- Main Test Sequence ---
     initial begin
-        $dumpfile("tb_asic_top.vcd");
+        $dumpfile("tb_asic_top_full_cycle.vcd");
         $dumpvars(0, tb_asic_top);
 
         // Initialize all signals
-        clk = 0;
-        rst_n = 0; // Assert reset
-        start = 0;
-        in_state = 512'h0;
-        use_streamed_key = 0;
-        use_streamed_nonce = 0;
-        use_streamed_counter = 0;
-        tb_chunk_type = 2'b00; // KEY
-        tb_chunk_valid = 0;
-        tb_chunk_data = 32'h0;
+        clk = 0; rst_n = 0; start = 0;
+        use_streamed_key = 0; use_streamed_nonce = 0; use_streamed_counter = 0;
+        tb_chunk_type = 2'b00; tb_chunk_valid = 0; tb_chunk_data = 32'h0;
+        tb_in_state_word = 32'h0; tb_in_state_valid = 0; tb_out_state_ready = 0;
 
         $display("========================================");
-        $display("  ASIC Top-Level ChaCha20 Testbench   ");
+        $display(" ASIC Top-Level Encrypt/Decrypt Testbench ");
         $display("========================================");
 
-        // Release reset
-        #20 rst_n = 1;
-        #10; // Allow reset to propagate
+        #20 rst_n = 1; #10;
 
-        // --- Test Case 1: All TRNG-Generated Inputs ---
+        // --- Test Case 1: All Streamed Inputs, Encrypt then Decrypt ---
         test_id = 1;
-        $display("\n--- Test %0d: All Inputs TRNG-Generated ---", test_id);
-        use_streamed_key = 0;
-        use_streamed_nonce = 0;
-        use_streamed_counter = 0;
-        in_state = 512'hAABBCCDDEEFF00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF00112233445566778899; // Sample plaintext
+        $display("\n--- Test %0d: All Streamed Inputs Encrypt/Decrypt Cycle ---", test_id);
+        use_streamed_key = 1; use_streamed_nonce = 1; use_streamed_counter = 1;
 
-        start = 1;
-        #10 start = 0; // Pulse start
+        // Define a known plaintext and key material for the test
+        original_plaintext = 512'h000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F;
+        test_key = 256'hDEADBEEF_CAFEF00D_01020304_05060708_DEADBEEF_CAFEF00D_01020304_05060708;
+        test_nonce = 96'h12345678_9ABCDEF0_FEDCBA98;
+        test_counter = 32'hA0B0C0D0;
 
-        // Wait for 'done'
-        wait(done);
-        #10;
+        // -- ENCRYPTION PASS --
+        $display("Test %0d: Starting Encryption Pass...", test_id);
+        start = 1; #10; start = 0;
 
-        $display("Test %0d Results:", test_id);
-        $display("  Busy: %b, Done: %b", busy, done);
-        $display("  Ciphertext: %h", out_state);
-        // We can't predict TRNG output, so we just check if it completed.
-        if (done) begin
-            $display("  PASS: All TRNG acquisition and core operation completed.");
+        fork
+            stream_in_k_n_c(test_key, test_nonce, test_counter);
+            stream_in_data(original_plaintext);
+            stream_out_data(intermediate_ciphertext);
+        join
+
+        wait(done); #10;
+        $display("Encryption Pass Complete. Ciphertext: %h", intermediate_ciphertext);
+
+        // -- DECRYPTION PASS --
+        $display("Test %0d: Starting Decryption Pass...", test_id);
+        start = 1; #10; start = 0;
+
+        fork
+            stream_in_k_n_c(test_key, test_nonce, test_counter); // Use same key material
+            stream_in_data(intermediate_ciphertext);              // Use ciphertext as input
+            stream_out_data(final_plaintext);
+        join
+
+        wait(done); #10;
+        $display("Decryption Pass Complete. Final Plaintext: %h", final_plaintext);
+
+        // -- VERIFICATION --
+        if (final_plaintext == original_plaintext) begin
+            $display("  PASS: Decrypted text matches original plaintext!");
             pass_count = pass_count + 1;
         end else begin
-            $display("  FAIL: All TRNG acquisition and core operation did not complete.");
-        end
-
-        // --- Test Case 2: Streamed Key, TRNG Nonce, TRNG Counter ---
-        test_id = 2;
-        $display("\n--- Test %0d: Streamed Key, TRNG Nonce/Counter ---", test_id);
-        use_streamed_key = 1;
-        use_streamed_nonce = 0;
-        use_streamed_counter = 0;
-        in_state = 512'h11223344556677889900AABBCCDDEEFF11223344556677889900AABBCCDDEEFF11223344556677889900AABBCCDDEEFF11223344556677889900AABBCCDDEEFF; // Different plaintext
-
-        start = 1;
-        #10 start = 0; // Pulse start
-
-        // Stream 8 key chunks
-        for (integer i = 0; i < 8; i = i + 1) begin
-            wait(chunk_request && request_type == 2'b00); // Wait for key request
-            tb_chunk_data = 32'h10000000 + i; // Sample key data
-            tb_chunk_type = 2'b00; // KEY
-            tb_chunk_valid = 1;
-            #10; // Allow ASIC to latch
-            tb_chunk_valid = 0; // Deassert valid
-        end
-
-        // Wait for acquisition and core operation to complete
-        wait(done);
-        #10;
-
-        $display("Test %0d Results:", test_id);
-        $display("  Busy: %b, Done: %b", busy, done);
-        $display("  Ciphertext: %h", out_state);
-        if (done) begin
-            $display("  PASS: Streamed Key, TRNG Nonce/Counter acquisition and core operation completed.");
-            pass_count = pass_count + 1;
-        end else begin
-            $display("  FAIL: Streamed Key, TRNG Nonce/Counter acquisition and core operation did not complete.");
-        end
-
-        // --- Test Case 3: Streamed Key, Streamed Nonce, TRNG Counter ---
-        test_id = 3;
-        $display("\n--- Test %0d: Streamed Key/Nonce, TRNG Counter ---", test_id);
-        use_streamed_key = 1;
-        use_streamed_nonce = 1;
-        use_streamed_counter = 0;
-        in_state = 512'hAAAABBBBCCCCDDDDEEEEFFFF0000111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFF0000111122223333444455556666777788889999; // Different plaintext
-
-        start = 1;
-        #10 start = 0; // Pulse start
-
-        // Stream 8 key chunks
-        for (integer i = 0; i < 8; i = i + 1) begin
-            wait(chunk_request && request_type == 2'b00); // Wait for key request
-            tb_chunk_data = 32'h20000000 + i; // Sample key data
-            tb_chunk_type = 2'b00; // KEY
-            tb_chunk_valid = 1;
-            #10;
-            tb_chunk_valid = 0;
-        end
-
-        // Stream 3 nonce chunks
-        for (integer i = 0; i < 3; i = i + 1) begin
-            wait(chunk_request && request_type == 2'b01); // Wait for nonce request
-            tb_chunk_data = 32'h30000000 + i; // Sample nonce data
-            tb_chunk_type = 2'b01; // NONCE
-            tb_chunk_valid = 1;
-            #10;
-            tb_chunk_valid = 0;
-        end
-
-        // Wait for acquisition and core operation to complete
-        wait(done);
-        #10;
-
-        $display("Test %0d Results:", test_id);
-        $display("  Busy: %b, Done: %b", busy, done);
-        $display("  Ciphertext: %h", out_state);
-        if (done) begin
-            $display("  PASS: Streamed Key/Nonce, TRNG Counter acquisition and core operation completed.");
-            pass_count = pass_count + 1;
-        end else begin
-            $display("  FAIL: Streamed Key/Nonce, TRNG Counter acquisition and core operation did not complete.");
-        end
-
-        // --- Test Case 4: All Streamed Inputs (Key, Nonce, Counter) ---
-        test_id = 4;
-        $display("\n--- Test %0d: All Streamed Inputs ---", test_id);
-        use_streamed_key = 1;
-        use_streamed_nonce = 1;
-        use_streamed_counter = 1;
-        in_state = 512'h0000111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFF0000111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFF; // Different plaintext
-
-        start = 1;
-        #10 start = 0; // Pulse start
-
-        // Stream 8 key chunks
-        for (integer i = 0; i < 8; i = i + 1) begin
-            wait(chunk_request && request_type == 2'b00); // Wait for key request
-            tb_chunk_data = 32'h40000000 + i; // Sample key data
-            tb_chunk_type = 2'b00; // KEY
-            tb_chunk_valid = 1;
-            #10;
-            tb_chunk_valid = 0;
-        end
-
-        // Stream 3 nonce chunks
-        for (integer i = 0; i < 3; i = i + 1) begin
-            wait(chunk_request && request_type == 2'b01); // Wait for nonce request
-            tb_chunk_data = 32'h50000000 + i; // Sample nonce data
-            tb_chunk_type = 2'b01; // NONCE
-            tb_chunk_valid = 1;
-            #10;
-            tb_chunk_valid = 0;
-        end
-
-        // Stream 1 counter chunk
-        wait(chunk_request && request_type == 2'b10); // Wait for counter request
-        tb_chunk_data = 32'h60000000; // Sample counter data
-        tb_chunk_type = 2'b10; // COUNTER
-        tb_chunk_valid = 1;
-            #10;
-        tb_chunk_valid = 0;
-
-        // Wait for acquisition and core operation to complete
-        wait(done);
-        #10;
-
-        $display("Test %0d Results:", test_id);
-        $display("  Busy: %b, Done: %b", busy, done);
-        $display("  Ciphertext: %h", out_state);
-        if (done) begin
-            $display("  PASS: All Streamed Inputs acquisition and core operation completed.");
-            pass_count = pass_count + 1;
-        end else begin
-            $display("  FAIL: All Streamed Inputs acquisition and core operation did not complete.");
+            $display("  FAIL: Decrypted text DOES NOT match original plaintext!");
+            $display("    Original:  %h", original_plaintext);
+            $display("    Final:     %h", final_plaintext);
         end
 
         // --- Final Summary ---
         $display("\n========================================");
         $display("              Test Summary              ");
         $display("========================================");
-        $display("Total Tests Run: %0d", test_id);
+        $display("Total Tests Run: 1");
         $display("Tests Passed:    %0d", pass_count);
-        $display("Tests Failed:    %0d", test_id - pass_count);
-        if (pass_count == test_id) begin
+        $display("Tests Failed:    %0d", 1 - pass_count);
+        if (pass_count == 1) begin
             $display("*** ALL TESTS PASSED! ***");
         end else begin
             $display("!!! SOME TESTS FAILED !!!");
