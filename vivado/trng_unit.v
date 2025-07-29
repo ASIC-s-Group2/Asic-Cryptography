@@ -15,6 +15,14 @@ module TRNG (
         .RAW_ENTROPY_OUT(ring_oscillator_output)
     );
 
+    trng_uart_stream uart_stream (
+        .clk(clk),
+        .rst(~rst_n),
+        .random_number(random_number),
+        .ready(ready),
+        .tx(uart_tx)
+    );
+
     //Make a shift register to collect bits from the ring oscillator
 
     reg [31:0] shift_reg = 32'b0;
