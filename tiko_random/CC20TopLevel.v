@@ -528,6 +528,30 @@ endmodule
 //----------------------------------------------------------------------
 // chacha_qr - ChaCha quarterround, unchanged from reference implementation
 //----------------------------------------------------------------------
+// ChaCha20 Quarter Round Function
+// -------------------------------
+// The Quarter Round operates on 4 of the 16 state words: (a, b, c, d)
+// It mixes them using 32-bit addition, XOR, and left rotation:
+// 
+//   a += b; d ^= a; d <<< = 16;
+//   c += d; b ^= c; b <<< = 12;
+//   a += b; d ^= a; d <<< = 8;
+//   c += d; b ^= c; b <<< = 7;
+//
+// Each operation spreads input bits across the output in a non-linear way,
+// ensuring diffusion. All additions are mod 2^32 (i.e., 32-bit wrapping).
+//
+// The ChaCha20 core applies these QR steps in two phases:
+//   - Column rounds (QRs on columns of the 4x4 state matrix)
+//   - Diagonal rounds (QRs on diagonals of the matrix)
+//
+// A total of 10 "double rounds" (i.e., 20 rounds) are applied.
+// The final state is then added to the original input state.
+//
+// This mixing strategy gives ChaCha20 strong cryptographic security
+// with excellent performance in both software and hardware.
+//----------------------------------------------------------------------
+
 module chacha_qr(
     input  wire [31:0] a,
     input  wire [31:0] b,
