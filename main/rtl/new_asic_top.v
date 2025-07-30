@@ -54,7 +54,6 @@ module asic_top (
     localparam STREAM_KEY_OUT     = 4'b0010;
     localparam STREAM_NONCE_OUT   = 4'b0011;
     localparam LOAD_IN            = 4'b0100;
-    // PADDING state removed
     localparam CORE               = 4'b0101;
     localparam CORE_WAIT          = 4'b0110;
     localparam OUTPUT             = 4'b0111;
@@ -75,7 +74,6 @@ module asic_top (
     localparam NONCE  = 2'b01;
 
     reg [4:0] current_chunk_id;
-    // 'bytes_processed' removed
     reg [4:0] out_chunk_ptr;
     reg last_block_flag; // Flag to remember if the current block is the last one
 
