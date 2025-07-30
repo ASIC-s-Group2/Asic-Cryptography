@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/a32e2a4e35584b6e8ffbeefedea50312.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/a32e2a4e35584b6e8ffbeefedea50312.bb.v"

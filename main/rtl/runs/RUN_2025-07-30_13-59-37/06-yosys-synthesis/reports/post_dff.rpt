@@ -1,0 +1,42 @@
+135. Printing statistics.
+
+=== asic_top ===
+
+   Number of wires:              21778
+   Number of wire bits:          26081
+   Number of public wires:          87
+   Number of public wire bits:    3056
+   Number of ports:                 23
+   Number of port bits:            153
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              25988
+     $_ANDNOT_                    5883
+     $_AND_                        760
+     $_MUX_                       4092
+     $_NAND_                       579
+     $_NOR_                       1439
+     $_NOT_                        928
+     $_ORNOT_                      893
+     $_OR_                        3844
+     $_XNOR_                      2037
+     $_XOR_                       2555
+     sky130_fd_sc_hd__dfrtp_2     2426
+     sky130_fd_sc_hd__dfstp_2        1
+     sky130_fd_sc_hd__dfxtp_2      551
+
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+
+   Chip area for module '\asic_top': 75489.900800
+     of which used for sequential elements: 75489.900800 (100.00%)
+

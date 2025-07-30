@@ -11,15 +11,15 @@
 - `chacha20_main_fsm.png` - Main controller FSM with sub-states
 - `chacha20_core_fsm.png` - ChaCha20 core FSM diagram
 - `chacha20_complete_fsm.png` - Complete hierarchical FSM overview
-- `chacha20_nested_fsm.png` - **NEW: Nested FSM showing core embedded in main controller**
-- `chacha20_detailed_nested.png` - **NEW: Zoom-in view of nested core FSM**
+- `chacha20_nested_fsm.png` - **Nested FSM showing core embedded in main controller**
+- `chacha20_detailed_nested.png` - **Zoom-in view of nested core FSM**
 
 ### Source Code
 - `rtl/` - Original RTL source files
 - `testbenches/` - Original testbench files  
 - `working_versions/` - Verilog-2005 compatible versions
 
-### Verification (NEW!)
+### Verification
 - `verification/testbenches/working/` - **Ready-to-run testbenches with RTL**
 - `verification/testbenches/unit_tests/` - Individual module tests
 - `verification/testbenches/integration/` - Full system tests
@@ -34,7 +34,7 @@
 
 ## Quick Start
 
-### Run Simulation
+### Run Simulation (Recommended)
 ```bash
 cd verification/testbenches/working/
 python run_simulation.py

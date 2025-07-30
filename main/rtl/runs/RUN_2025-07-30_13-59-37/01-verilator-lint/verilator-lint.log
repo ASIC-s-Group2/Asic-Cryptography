@@ -1,0 +1,29 @@
+%Warning-WIDTHEXPAND: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265:39: Operator LT expects 32 or 5 bits on the LHS, but LHS's VARREF 'out_state_ptr' generates 4 bits.
+                                                                                     : ... note: In instance 'asic_top'
+  265 |                     if (out_state_ptr < 16) begin
+      |                                       ^
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.018
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:72:16: Signal is not used: 'temp_counter'
+                                                                                     : ... note: In instance 'asic_top'
+   72 |     reg [31:0] temp_counter;
+      |                ^~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:101:10: Signal is not used: 'core_busy'
+                                                                                      : ... note: In instance 'asic_top'
+  101 |     wire core_busy;
+      |          ^~~~~~~~~
+%Warning-UNUSEDSIGNAL: /Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:11:10: Signal is not used: 'dummy'
+                                                                                       : ... note: In instance 'asic_top.trng_inst'
+   11 |     wire dummy, dummy1;  
+      |          ^~~~~
+%Warning-UNUSEDSIGNAL: /Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:11:17: Signal is not used: 'dummy1'
+                                                                                       : ... note: In instance 'asic_top.trng_inst'
+   11 |     wire dummy, dummy1;  
+      |                 ^~~~~~
+%Warning-UNUSEDSIGNAL: /Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38:16: Bits of signal are not used: 'shift_reg'[31]
+                                                                                       : ... note: In instance 'asic_top.trng_inst'
+   38 |     reg [31:0] shift_reg = 32'b0;
+      |                ^~~~~~~~~
+%Warning-CASEINCOMPLETE: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:175:25: Case values incompletely covered (example pattern 0x3)
+  175 |                         case (acquire_sub_state)
+      |                         ^~~~
