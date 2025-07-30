@@ -1,0 +1,10 @@
+
+19. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\QR.\out_a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.

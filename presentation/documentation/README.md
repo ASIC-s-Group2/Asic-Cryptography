@@ -8,11 +8,23 @@
 - `chacha20_chip_top_view.png` - Top view floorplan
 - `chacha20_block_diagram.png` - Architecture block diagram
 - `chacha20_dataflow.png` - Data flow diagram
+- `chacha20_main_fsm.png` - Main controller FSM with sub-states
+- `chacha20_core_fsm.png` - ChaCha20 core FSM diagram
+- `chacha20_complete_fsm.png` - Complete hierarchical FSM overview
+- `chacha20_nested_fsm.png` - **Nested FSM showing core embedded in main controller**
+- `chacha20_detailed_nested.png` - **Zoom-in view of nested core FSM**
 
 ### Source Code
 - `rtl/` - Original RTL source files
 - `testbenches/` - Original testbench files  
 - `working_versions/` - Verilog-2005 compatible versions
+
+### Verification
+- `verification/testbenches/working/` - **Ready-to-run testbenches with RTL**
+- `verification/testbenches/unit_tests/` - Individual module tests
+- `verification/testbenches/integration/` - Full system tests
+- `verification/simulation_results/` - All VCD waveform files organized
+- `verification/scripts/` - Test automation tools
 
 ### Simulation Results
 - `*.vcd` - Waveform files for analysis
@@ -22,7 +34,13 @@
 
 ## Quick Start
 
-### Run Simulation
+### Run Simulation (Recommended)
+```bash
+cd verification/testbenches/working/
+python run_simulation.py
+```
+
+### Run Original Source
 ```bash
 cd source_code/working_versions/
 python run_simulation.py

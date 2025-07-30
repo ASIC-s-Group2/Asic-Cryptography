@@ -1,0 +1,926 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2024  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 16.0.6 -fPIC -O3)
+Loaded SDC plugin
+
+1. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/a32e2a4e35584b6e8ffbeefedea50312.bb.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/a32e2a4e35584b6e8ffbeefedea50312.bb.v' to AST representation.
+Generating RTLIL representation for module `\sky130_ef_sc_hd__decap_12'.
+Generating RTLIL representation for module `\sky130_ef_sc_hd__fill_12'.
+Generating RTLIL representation for module `\sky130_ef_sc_hd__fill_4'.
+Generating RTLIL representation for module `\sky130_ef_sc_hd__fill_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111oi_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2111oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a211oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21bo_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21bo_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21bo_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21boi_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21boi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21boi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21boi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a21oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a221oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a222oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a22oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a2bb2oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a311oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a31oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a32oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41o_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41o_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41o_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41oi_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41oi_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__a41oi_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and2b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and3b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4bb_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4bb_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__and4bb_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_12'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_6'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__buf_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__bufbuf_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__bufbuf_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__bufinv_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__bufinv_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkbuf_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkbuf_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkbuf_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkbuf_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkbuf_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s15_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s15_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s18_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s18_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s25_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s25_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s50_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkdlybuf4s50_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinv_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinv_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinv_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinv_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinv_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinvlp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__clkinvlp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__conb_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__decap_12'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__decap_3'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__decap_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__decap_6'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__decap_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfbbn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfbbn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfbbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrtn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfrtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfsbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfsbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfstp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfstp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfstp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfxbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfxbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfxtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfxtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dfxtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__diode_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlclkp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlclkp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlclkp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrbn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrbn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtn_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlrtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxbn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxbn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxtn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxtn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxtn_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlxtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlygate4sd1_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlygate4sd2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlygate4sd3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlymetal6s2s_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlymetal6s4s_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__dlymetal6s6s_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ebufn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ebufn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ebufn_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ebufn_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__edfxbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__edfxtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvn_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvn_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvn_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__einvp_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fa_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fa_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fa_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fah_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fahcin_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fahcon_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fill_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fill_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fill_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__fill_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ha_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ha_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__ha_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_12'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_6'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__inv_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_bleeder_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkbufkapwr_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkbufkapwr_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkbufkapwr_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkbufkapwr_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkbufkapwr_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkinvkapwr_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkinvkapwr_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkinvkapwr_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkinvkapwr_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_clkinvkapwr_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_decapkapwr_12'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_decapkapwr_3'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_decapkapwr_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_decapkapwr_6'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_decapkapwr_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_inputiso0n_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_inputiso0p_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_inputiso1n_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_inputiso1p_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_inputisolatch_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrc_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrc_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrc_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrc_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrc_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_isobufsrckapwr_16'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__macro_sparecell'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__maj3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__maj3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__maj3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2i_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2i_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux2i_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux4_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux4_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__mux4_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand2b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand3b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4bb_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4bb_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nand4bb_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor2b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor3b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4bb_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4bb_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__nor4bb_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2111ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o211ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ai_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ba_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ba_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21ba_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21bai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21bai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o21bai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o221ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o22ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o2bb2ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311ai_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o311ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o31ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o32ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41a_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41a_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41a_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41ai_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41ai_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__o41ai_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2_0'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or2b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or3b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4b_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4b_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4b_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4bb_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4bb_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__or4bb_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__probe_p_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__probec_p_8'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfbbn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfbbn_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfbbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrtn_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfrtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfsbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfsbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfstp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfstp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfstp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfxbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfxbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfxtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfxtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdfxtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdlclkp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdlclkp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sdlclkp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sedfxbp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sedfxbp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sedfxtp_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sedfxtp_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__sedfxtp_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__tap_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__tap_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__tapvgnd2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__tapvgnd_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__tapvpwrvgnd_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xnor3_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor2_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor2_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor2_4'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor3_1'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor3_2'.
+Generating RTLIL representation for module `\sky130_fd_sc_hd__xor3_4'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v' to AST representation.
+Storing AST representation for module `$abstract\asic_top'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v' to AST representation.
+Storing AST representation for module `$abstract\TRNGHardened'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v' to AST representation.
+Storing AST representation for module `$abstract\RingOsc'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/qr.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/qr.v' to AST representation.
+Storing AST representation for module `$abstract\QR'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v' to AST representation.
+Storing AST representation for module `$abstract\ChaCha20'.
+Successfully finished Verilog frontend.
+
+7. Executing HIERARCHY pass (managing design hierarchy).
+
+8. Executing AST frontend in derive mode using pre-parsed AST for module `\asic_top'.
+Generating RTLIL representation for module `\asic_top'.
+
+8.1. Analyzing design hierarchy..
+Top module:  \asic_top
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\ChaCha20'.
+Generating RTLIL representation for module `\ChaCha20'.
+Warning: Replacing memory \original with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:71
+Warning: Replacing memory \state with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:70
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\TRNGHardened'.
+Generating RTLIL representation for module `\TRNGHardened'.
+
+8.4. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:     \TRNGHardened
+Parameter \CW = 4
+
+8.5. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 4
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000100'.
+Parameter \CW = 2
+
+8.6. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 2
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000010'.
+Parameter \CW = 6
+
+8.7. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 6
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000110'.
+Parameter \CW = 4
+Found cached RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000100'.
+Parameter \CW = 2
+Found cached RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000010'.
+
+8.8. Executing AST frontend in derive mode using pre-parsed AST for module `\QR'.
+Generating RTLIL representation for module `\QR'.
+Reprocessing module ChaCha20 because instantiated module QR has become available.
+Generating RTLIL representation for module `\ChaCha20'.
+Warning: Replacing memory \original with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:71
+Warning: Replacing memory \state with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:70
+
+8.9. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+
+8.10. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+Removing unused module `$abstract\ChaCha20'.
+Removing unused module `$abstract\QR'.
+Removing unused module `$abstract\RingOsc'.
+Removing unused module `$abstract\TRNGHardened'.
+Removing unused module `$abstract\asic_top'.
+Removed 5 unused modules.
+Renaming module asic_top to asic_top.
+
+9. Executing PROC pass (convert processes to netlists).
+
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24 in module asic_top.
+Marked 14 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24 in module asic_top.
+Marked 4 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210 in module ChaCha20.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+Marked 2 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154 in module TRNGHardened.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147 in module TRNGHardened.
+Removed a total of 1 dead cases.
+
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 15 redundant assignments.
+Promoted 21 assignments to connections.
+
+9.4. Executing PROC_INIT pass (extract init attributes).
+Found init rule in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+  Set init value: \bit_count = 6'000000
+Found init rule in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+  Set init value: \shift_reg = 0
+
+9.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Found async reset \rst_n in `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+Found async reset \rst_n in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Found async reset \rst_n in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~22 debug messages>
+
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+     1/46: $3$lookahead\in_state$23[511:0]$83
+     2/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$82
+     3/46: $5$lookahead\temp_key$21[255:0]$52
+     4/46: $4$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$50
+     5/46: $5$lookahead\temp_nonce$22[95:0]$53
+     6/46: $4$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$51
+     7/46: $4$lookahead\temp_nonce$22[95:0]$49
+     8/46: $4$lookahead\temp_key$21[255:0]$48
+     9/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$47
+    10/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$46
+    11/46: $3$lookahead\temp_nonce$22[95:0]$45
+    12/46: $3$lookahead\temp_key$21[255:0]$44
+    13/46: $2$lookahead\temp_nonce$22[95:0]$42
+    14/46: $2$lookahead\temp_key$21[255:0]$41
+    15/46: $2$lookahead\in_state$23[511:0]$43
+    16/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$40
+    17/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$39
+    18/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$38
+    19/46: $1$lookahead\in_state$23[511:0]$37
+    20/46: $1$lookahead\temp_nonce$22[95:0]$36
+    21/46: $1$lookahead\temp_key$21[255:0]$35
+    22/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$34
+    23/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$33
+    24/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$32
+    25/46: $0\out_state_valid[0:0]
+    26/46: $0\in_state_ready[0:0]
+    27/46: $0\done[0:0]
+    28/46: $0\trng_request[0:0]
+    29/46: $0\chunk_request[0:0]
+    30/46: $0\core_start[0:0]
+    31/46: $0\current_chunk_id[4:0]
+    32/46: $0\acquire_sub_state[1:0]
+    33/46: $0\out_key_ptr[3:0]
+    34/46: $0\counter[31:0]
+    35/46: $0\nonce[95:0]
+    36/46: $0\key[255:0]
+    37/46: $0\temp_counter[31:0]
+    38/46: $0\out_state_ptr[3:0]
+    39/46: $0\in_state_ptr[3:0]
+    40/46: $0\fsm_state[2:0]
+    41/46: $0\request_type[1:0]
+    42/46: $0\chunk_index[4:0]
+    43/46: $0\out_key_valid[0:0]
+    44/46: $0\out_key_word[31:0]
+    45/46: $0\out_state_word[31:0]
+    46/46: $0\busy[0:0]
+Creating decoders for process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+Creating decoders for process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+     1/40: $2$fordecl_block$4.i[31:0]$216
+     2/40: $1$fordecl_block$4.i[31:0]$215
+     3/40: $1$fordecl_block$2.i[31:0]$214
+     4/40: $0\original[15][31:0]
+     5/40: $0\original[14][31:0]
+     6/40: $0\original[13][31:0]
+     7/40: $0\original[12][31:0]
+     8/40: $0\original[11][31:0]
+     9/40: $0\original[10][31:0]
+    10/40: $0\original[9][31:0]
+    11/40: $0\original[8][31:0]
+    12/40: $0\original[7][31:0]
+    13/40: $0\original[6][31:0]
+    14/40: $0\original[5][31:0]
+    15/40: $0\original[4][31:0]
+    16/40: $0\original[3][31:0]
+    17/40: $0\original[2][31:0]
+    18/40: $0\original[1][31:0]
+    19/40: $0\original[0][31:0]
+    20/40: $0\state[15][31:0]
+    21/40: $0\state[14][31:0]
+    22/40: $0\state[13][31:0]
+    23/40: $0\state[12][31:0]
+    24/40: $0\state[11][31:0]
+    25/40: $0\state[10][31:0]
+    26/40: $0\state[9][31:0]
+    27/40: $0\state[8][31:0]
+    28/40: $0\state[7][31:0]
+    29/40: $0\state[6][31:0]
+    30/40: $0\state[5][31:0]
+    31/40: $0\state[4][31:0]
+    32/40: $0\state[3][31:0]
+    33/40: $0\state[2][31:0]
+    34/40: $0\state[1][31:0]
+    35/40: $0\state[0][31:0]
+    36/40: $0\round_count[4:0]
+    37/40: $0\ciphertext[511:0]
+    38/40: $0\fsm_state[2:0]
+    39/40: $0\done[0:0]
+    40/40: $0\busy[0:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+     1/1: $0\chain[6:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+     1/1: $0\chain[2:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+     1/1: $0\chain[4:0]
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+     1/4: $0\bit_count[5:0]
+     2/4: $0\shift_reg[31:0]
+     3/4: $0\ready[0:0]
+     4/4: $0\random_number[31:0]
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+     1/6: $0\ro2_sync2[0:0]
+     2/6: $0\ro2_sync1[0:0]
+     3/6: $0\ro1_sync2[0:0]
+     4/6: $0\ro1_sync1[0:0]
+     5/6: $0\ro0_sync2[0:0]
+     6/6: $0\ro0_sync1[0:0]
+
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\QR.\out_a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\asic_top.\busy' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1151' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\done' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1156' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\in_state_ready' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1161' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_word' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1166' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_valid' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1171' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_key_word' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1178' with positive edge clock.
+Creating register for signal `\asic_top.\out_key_valid' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1185' with positive edge clock.
+Creating register for signal `\asic_top.\chunk_index' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1190' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\chunk_request' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1195' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\request_type' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1200' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\trng_request' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1205' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\fsm_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1210' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\in_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1217' with positive edge clock.
+Creating register for signal `\asic_top.\in_state_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1222' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1227' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_key' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1232' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_nonce' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1237' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_counter' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1242' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\key' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1247' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\nonce' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1252' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\counter' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1257' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_key_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1264' with positive edge clock.
+Creating register for signal `\asic_top.\acquire_sub_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1271' with positive edge clock.
+Creating register for signal `\asic_top.\current_chunk_id' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1276' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\core_start' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1281' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1286' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1291' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1296' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\temp_key$21' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1301' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\temp_nonce$22' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1306' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\in_state$23' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1311' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\busy' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1316' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\done' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1321' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\fsm_state' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1326' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\ciphertext' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1331' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\round_count' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1336' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.$fordecl_block$2.i' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1341' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.$fordecl_block$4.i' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $dff cell `$procdff$1348' with positive edge clock.
+Creating register for signal `\ChaCha20.\state[0]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1353' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[1]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1358' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[2]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1363' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[3]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1368' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[4]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1373' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[5]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1378' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[6]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1383' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[7]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1388' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[8]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1393' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[9]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1398' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[10]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1403' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[11]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1408' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[12]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1413' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[13]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1418' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[14]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1423' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[15]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1428' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[0]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1433' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[1]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1438' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[2]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1443' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[3]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1448' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[4]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1453' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[5]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1458' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[6]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1463' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[7]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1468' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[8]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1473' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[9]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1478' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[10]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1483' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[11]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1488' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[12]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1493' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[13]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1498' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[14]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1503' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[15]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1508' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+  created $adff cell `$procdff$1511' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+  created $adff cell `$procdff$1514' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+  created $adff cell `$procdff$1517' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\random_number' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1522' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ready' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1527' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\shift_reg' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1532' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\bit_count' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1537' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro0_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1542' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro0_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1547' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro1_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1552' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro1_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1557' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro2_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1562' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro2_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1567' with positive edge clock and positive level reset.
+
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 16 empty switches in `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Removing empty process `asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Removing empty process `QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+Found and cleaned up 3 empty switches in `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Removing empty process `ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+Found and cleaned up 3 empty switches in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+Cleaned up 22 empty switches.
+
+9.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~88 debug messages>
+Optimizing module QR.
+<suppressed ~8 debug messages>
+Optimizing module ChaCha20.
+<suppressed ~98 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+<suppressed ~1 debug messages>
+Optimizing module TRNGHardened.
+<suppressed ~23 debug messages>
+
+10. Executing FLATTEN pass (flatten design).
+Deleting now unused module QR.
+Deleting now unused module ChaCha20.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+Deleting now unused module TRNGHardened.
+<suppressed ~15 debug messages>
+
+11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 176 unused cells and 750 unused wires.
+<suppressed ~277 debug messages>
