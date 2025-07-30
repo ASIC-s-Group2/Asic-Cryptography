@@ -1,0 +1,4 @@
+Running: xsim.dir/TRNG_func_synth/xsimk.exe -simmode gui -wdb TRNG_func_synth.wdb -simrunnum 0 -socket 61427
+Design successfully loaded
+Design Loading Memory Usage: 11300 KB (Peak: 11300 KB)
+Design Loading CPU Usage: 15 ms
