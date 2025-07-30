@@ -18,6 +18,10 @@ module asic_top (
     output reg out_state_valid,
     input wire out_state_ready,
 
+    output reg [31:0] out_key_word,
+    output reg out_key_valid,
+    input  wire out_key_ready,
+
     input wire use_streamed_key,
     input wire use_streamed_nonce,
     input wire use_streamed_counter,
@@ -54,6 +58,7 @@ module asic_top (
     localparam CORE_WAIT  = 3'b100; // New state to wait for ChaCha20 core
     localparam OUTPUT     = 3'b101;
     localparam COMPLETE   = 3'b110;
+    localparam OUTPUT_KEY = 3'b111;
 
     // Buffers for streaming in/out the ChaCha block
     reg [511:0] in_state;
@@ -71,6 +76,7 @@ module asic_top (
     reg [95:0] nonce;
     reg [31:0] counter;
 
+    reg [3:0] out_key_ptr;
     // Internal FSM for data acquisition (within ACQUIRE state)
     reg [1:0] acquire_sub_state;
     localparam KEY      = 2'b00;
@@ -141,41 +147,35 @@ module asic_top (
             out_state_valid <= 0;
 
             case (fsm_state)
+                // Wait for start signal
                 IDLE: begin
-                    done <= 0;
-                    busy <= 0;
+                    done         <= 0;
+                    busy         <= 0;
+                    out_key_valid<= 0;
                     if (start) begin
-                        busy <= 1;
-                        fsm_state <= ACQUIRE;
+                        busy         <= 1;
+                        fsm_state    <= ACQUIRE;
                         acquire_sub_state <= KEY;
-                        current_chunk_id <= 0;
-                        // Reset
-                        temp_key <= 256'b0;
-                        temp_nonce <= 96'b0;
-                        temp_counter <= 32'b0;
-                        key <= 256'b0;
-                        nonce <= 96'b0;
-                        counter <= 32'b0;
-                        in_state_ptr <= 0;
-                        out_state_ptr <= 0;
+                        current_chunk_id  <= 0;
+                        out_key_ptr       <= 0;
+                        temp_key          <= 256'b0;
+                        temp_nonce        <= 96'b0;
+                        temp_counter      <= 32'b0;
+                        key               <= 256'b0;
+                        nonce             <= 96'b0;
+                        counter           <= 32'b0;
+                        in_state_ptr      <= 0;
+                        out_state_ptr     <= 0;
                     end
                 end
 
+                // Acquire key, nonce, and counter (stream/TRNG)
                 ACQUIRE: begin
                     if (data_source_is_ready) begin
-                        // Process data if ready
                         case (acquire_sub_state)
                             KEY: begin
-                                case (current_chunk_id)
-                                    0:  temp_key[31:0]    <= data_to_accumulate;
-                                    1:  temp_key[63:32]   <= data_to_accumulate;
-                                    2:  temp_key[95:64]   <= data_to_accumulate;
-                                    3:  temp_key[127:96]  <= data_to_accumulate;
-                                    4:  temp_key[159:128] <= data_to_accumulate;
-                                    5:  temp_key[191:160] <= data_to_accumulate;
-                                    6:  temp_key[223:192] <= data_to_accumulate;
-                                    7:  temp_key[255:224] <= data_to_accumulate;
-                                endcase
+                                // Store each 32-bit chunk into temp_key
+                                temp_key[current_chunk_id*32 +: 32] <= data_to_accumulate;
                                 if (current_chunk_id < 7) begin
                                     current_chunk_id <= current_chunk_id + 1;
                                 end else begin
@@ -184,13 +184,8 @@ module asic_top (
                                     acquire_sub_state <= NONCE;
                                 end
                             end
-
                             NONCE: begin
-                                case (current_chunk_id)
-                                    0: temp_nonce[31:0]   <= data_to_accumulate;
-                                    1: temp_nonce[63:32]  <= data_to_accumulate;
-                                    2: temp_nonce[95:64]  <= data_to_accumulate;
-                                endcase
+                                temp_nonce[current_chunk_id*32 +: 32] <= data_to_accumulate;
                                 if (current_chunk_id < 2) begin
                                     current_chunk_id <= current_chunk_id + 1;
                                 end else begin
@@ -199,25 +194,46 @@ module asic_top (
                                     acquire_sub_state <= COUNTER;
                                 end
                             end
-
                             COUNTER: begin
                                 temp_counter <= data_to_accumulate;
                                 counter <= data_to_accumulate;
-                                fsm_state <= LOAD_IN;
+                                // Move to key output state
+                                fsm_state <= OUTPUT_KEY;
                             end
                         endcase
                     end else begin
-                        // Request data if not ready
+                        // Request next chunk or TRNG
                         if (data_is_from_stream) begin
                             chunk_request <= 1;
-                            request_type <= acquire_sub_state;
-                            chunk_index <= current_chunk_id;
+                            request_type  <= acquire_sub_state;
+                            chunk_index   <= current_chunk_id;
                         end else begin
-                            trng_request <= 1;
+                            trng_request  <= 1;
                         end
                     end
                 end
 
+                // Stream out the key, 32 bits at a time
+                OUTPUT_KEY: begin
+                    if (out_key_ptr < 8) begin
+                        out_key_word  <= key[out_key_ptr*32 +: 32];
+                        out_key_valid <= 1;
+                        if (out_key_ready) begin
+                            if (out_key_ptr < 7)
+                                out_key_ptr <= out_key_ptr + 1;
+                            else begin
+                                out_key_ptr   <= 0;
+                                out_key_valid <= 0;
+                                fsm_state     <= LOAD_IN; // Next step: load plaintext
+                            end
+                        end
+                    end else begin
+                        out_key_valid <= 0;
+                        fsm_state     <= LOAD_IN;
+                    end
+                end
+
+                // Load plaintext state in as 32-bit words
                 LOAD_IN: begin
                     in_state_ready <= 1;
                     if (in_state_valid) begin
@@ -226,40 +242,47 @@ module asic_top (
                             in_state_ptr <= in_state_ptr + 1;
                         else begin
                             in_state_ptr <= 0;
-                            fsm_state <= CORE;
+                            fsm_state    <= CORE;
                         end
                     end
                 end
 
+                // Start the ChaCha20 core
                 CORE: begin
                     core_start <= 1;
-                    fsm_state <= CORE_WAIT;
+                    fsm_state  <= CORE_WAIT;
                 end
 
+                // Wait for core to finish
                 CORE_WAIT: begin
                     if (core_done) begin
                         fsm_state <= OUTPUT;
                     end
                 end
 
+                // Output 512-bit state as 32-bit words
                 OUTPUT: begin
                     if (out_state_ptr < 16) begin
-                        out_state_word <= out_state[out_state_ptr*32 +: 32];
+                        out_state_word  <= out_state[out_state_ptr*32 +: 32];
                         out_state_valid <= 1;
                         if (out_state_ready) begin
-                            if (out_state_ptr < 15) begin
+                            if (out_state_ptr < 15)
                                 out_state_ptr <= out_state_ptr + 1;
-                            end else begin
+                            else begin
                                 out_state_ptr <= 0;
-                                fsm_state <= COMPLETE;
+                                fsm_state     <= COMPLETE;
                             end
                         end
+                    end else begin
+                        out_state_valid <= 0;
+                        fsm_state       <= COMPLETE;
                     end
                 end
 
+                // Finish, reset everything
                 COMPLETE: begin
-                    done <= 1;
-                    busy <= 0;
+                    done      <= 1;
+                    busy      <= 0;
                     fsm_state <= IDLE;
                 end
 

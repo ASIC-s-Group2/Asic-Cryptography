@@ -1,0 +1,2542 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2024  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 16.0.6 -fPIC -O3)
+Loaded SDC plugin
+
+1. Executing Liberty frontend: /Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+[INFO] Using SDC file '/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/synthesis.abc.sdc' for ABC…
+
+2. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v' to AST representation.
+Storing AST representation for module `$abstract\asic_top'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v' to AST representation.
+Storing AST representation for module `$abstract\TRNGHardened'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v' to AST representation.
+Storing AST representation for module `$abstract\RingOsc'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/qr.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/qr.v' to AST representation.
+Storing AST representation for module `$abstract\QR'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v
+Parsing SystemVerilog input from `/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v' to AST representation.
+Storing AST representation for module `$abstract\ChaCha20'.
+Successfully finished Verilog frontend.
+
+7. Executing HIERARCHY pass (managing design hierarchy).
+
+8. Executing AST frontend in derive mode using pre-parsed AST for module `\asic_top'.
+Generating RTLIL representation for module `\asic_top'.
+
+8.1. Analyzing design hierarchy..
+Top module:  \asic_top
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\ChaCha20'.
+Generating RTLIL representation for module `\ChaCha20'.
+Warning: Replacing memory \original with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:71
+Warning: Replacing memory \state with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:70
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\TRNGHardened'.
+Generating RTLIL representation for module `\TRNGHardened'.
+
+8.4. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:     \TRNGHardened
+Parameter \CW = 4
+
+8.5. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 4
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000100'.
+Parameter \CW = 2
+
+8.6. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 2
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000010'.
+Parameter \CW = 6
+
+8.7. Executing AST frontend in derive mode using pre-parsed AST for module `\RingOsc'.
+Parameter \CW = 6
+Generating RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000110'.
+Parameter \CW = 4
+Found cached RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000100'.
+Parameter \CW = 2
+Found cached RTLIL representation for module `$paramod\RingOsc\CW=s32'00000000000000000000000000000010'.
+
+8.8. Executing AST frontend in derive mode using pre-parsed AST for module `\QR'.
+Generating RTLIL representation for module `\QR'.
+Reprocessing module ChaCha20 because instantiated module QR has become available.
+Generating RTLIL representation for module `\ChaCha20'.
+Warning: Replacing memory \original with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:71
+Warning: Replacing memory \state with list of registers. See /Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:70
+
+8.9. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+
+8.10. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+Removing unused module `$abstract\ChaCha20'.
+Removing unused module `$abstract\QR'.
+Removing unused module `$abstract\RingOsc'.
+Removing unused module `$abstract\TRNGHardened'.
+Removing unused module `$abstract\asic_top'.
+Removed 5 unused modules.
+Renaming module asic_top to asic_top.
+
+9. Generating Graphviz representation of design.
+Writing dot description to `/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/hierarchy.dot'.
+Dumping module asic_top to page 1.
+
+10. Executing TRIBUF pass.
+
+11. Executing HIERARCHY pass (managing design hierarchy).
+
+11.1. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+
+11.2. Analyzing design hierarchy..
+Top module:  \asic_top
+Used module:     \ChaCha20
+Used module:         \QR
+Used module:     \TRNGHardened
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000100
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000010
+Used module:         $paramod\RingOsc\CW=s32'00000000000000000000000000000110
+Removed 0 unused modules.
+
+12. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+13. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24 in module asic_top.
+Marked 14 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24 in module asic_top.
+Marked 4 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210 in module ChaCha20.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163 in module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+Marked 2 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154 in module TRNGHardened.
+Marked 1 switch rules as full_case in process $proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147 in module TRNGHardened.
+Removed a total of 1 dead cases.
+
+14. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 15 redundant assignments.
+Promoted 21 assignments to connections.
+
+15. Executing PROC_INIT pass (extract init attributes).
+Found init rule in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+  Set init value: \bit_count = 6'000000
+Found init rule in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+  Set init value: \shift_reg = 0
+
+16. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Found async reset \rst_n in `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+Found async reset \RESET in `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+Found async reset \rst_n in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Found async reset \rst_n in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+
+17. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~22 debug messages>
+
+18. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+     1/46: $3$lookahead\in_state$23[511:0]$83
+     2/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$82
+     3/46: $5$lookahead\temp_key$21[255:0]$52
+     4/46: $4$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$50
+     5/46: $5$lookahead\temp_nonce$22[95:0]$53
+     6/46: $4$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$51
+     7/46: $4$lookahead\temp_nonce$22[95:0]$49
+     8/46: $4$lookahead\temp_key$21[255:0]$48
+     9/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$47
+    10/46: $3$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$46
+    11/46: $3$lookahead\temp_nonce$22[95:0]$45
+    12/46: $3$lookahead\temp_key$21[255:0]$44
+    13/46: $2$lookahead\temp_nonce$22[95:0]$42
+    14/46: $2$lookahead\temp_key$21[255:0]$41
+    15/46: $2$lookahead\in_state$23[511:0]$43
+    16/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$40
+    17/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$39
+    18/46: $2$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$38
+    19/46: $1$lookahead\in_state$23[511:0]$37
+    20/46: $1$lookahead\temp_nonce$22[95:0]$36
+    21/46: $1$lookahead\temp_key$21[255:0]$35
+    22/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8[31:0]$34
+    23/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7[31:0]$33
+    24/46: $1$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6[31:0]$32
+    25/46: $0\out_state_valid[0:0]
+    26/46: $0\in_state_ready[0:0]
+    27/46: $0\done[0:0]
+    28/46: $0\trng_request[0:0]
+    29/46: $0\chunk_request[0:0]
+    30/46: $0\core_start[0:0]
+    31/46: $0\current_chunk_id[4:0]
+    32/46: $0\acquire_sub_state[1:0]
+    33/46: $0\out_key_ptr[3:0]
+    34/46: $0\counter[31:0]
+    35/46: $0\nonce[95:0]
+    36/46: $0\key[255:0]
+    37/46: $0\temp_counter[31:0]
+    38/46: $0\out_state_ptr[3:0]
+    39/46: $0\in_state_ptr[3:0]
+    40/46: $0\fsm_state[2:0]
+    41/46: $0\request_type[1:0]
+    42/46: $0\chunk_index[4:0]
+    43/46: $0\out_key_valid[0:0]
+    44/46: $0\out_key_word[31:0]
+    45/46: $0\out_state_word[31:0]
+    46/46: $0\busy[0:0]
+Creating decoders for process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+Creating decoders for process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+     1/40: $2$fordecl_block$4.i[31:0]$216
+     2/40: $1$fordecl_block$4.i[31:0]$215
+     3/40: $1$fordecl_block$2.i[31:0]$214
+     4/40: $0\original[15][31:0]
+     5/40: $0\original[14][31:0]
+     6/40: $0\original[13][31:0]
+     7/40: $0\original[12][31:0]
+     8/40: $0\original[11][31:0]
+     9/40: $0\original[10][31:0]
+    10/40: $0\original[9][31:0]
+    11/40: $0\original[8][31:0]
+    12/40: $0\original[7][31:0]
+    13/40: $0\original[6][31:0]
+    14/40: $0\original[5][31:0]
+    15/40: $0\original[4][31:0]
+    16/40: $0\original[3][31:0]
+    17/40: $0\original[2][31:0]
+    18/40: $0\original[1][31:0]
+    19/40: $0\original[0][31:0]
+    20/40: $0\state[15][31:0]
+    21/40: $0\state[14][31:0]
+    22/40: $0\state[13][31:0]
+    23/40: $0\state[12][31:0]
+    24/40: $0\state[11][31:0]
+    25/40: $0\state[10][31:0]
+    26/40: $0\state[9][31:0]
+    27/40: $0\state[8][31:0]
+    28/40: $0\state[7][31:0]
+    29/40: $0\state[6][31:0]
+    30/40: $0\state[5][31:0]
+    31/40: $0\state[4][31:0]
+    32/40: $0\state[3][31:0]
+    33/40: $0\state[2][31:0]
+    34/40: $0\state[1][31:0]
+    35/40: $0\state[0][31:0]
+    36/40: $0\round_count[4:0]
+    37/40: $0\ciphertext[511:0]
+    38/40: $0\fsm_state[2:0]
+    39/40: $0\done[0:0]
+    40/40: $0\busy[0:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+     1/1: $0\chain[6:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+     1/1: $0\chain[2:0]
+Creating decoders for process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+     1/1: $0\chain[4:0]
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+     1/4: $0\bit_count[5:0]
+     2/4: $0\shift_reg[31:0]
+     3/4: $0\ready[0:0]
+     4/4: $0\random_number[31:0]
+Creating decoders for process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+     1/6: $0\ro2_sync2[0:0]
+     2/6: $0\ro2_sync1[0:0]
+     3/6: $0\ro1_sync2[0:0]
+     4/6: $0\ro1_sync1[0:0]
+     5/6: $0\ro0_sync2[0:0]
+     6/6: $0\ro0_sync1[0:0]
+
+19. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\QR.\out_a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.\out_d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.a' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.b' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.c' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+No latch inferred for signal `\QR.$unnamed_block$1.d' from process `\QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+
+20. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\asic_top.\busy' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1151' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\done' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1156' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\in_state_ready' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1161' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_word' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1166' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_valid' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1171' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_key_word' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1178' with positive edge clock.
+Creating register for signal `\asic_top.\out_key_valid' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1185' with positive edge clock.
+Creating register for signal `\asic_top.\chunk_index' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1190' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\chunk_request' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1195' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\request_type' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1200' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\trng_request' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1205' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\fsm_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1210' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\in_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1217' with positive edge clock.
+Creating register for signal `\asic_top.\in_state_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1222' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_state_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1227' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_key' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1232' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_nonce' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1237' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\temp_counter' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1242' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\key' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1247' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\nonce' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1252' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\counter' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1257' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\out_key_ptr' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1264' with positive edge clock.
+Creating register for signal `\asic_top.\acquire_sub_state' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $dff cell `$procdff$1271' with positive edge clock.
+Creating register for signal `\asic_top.\current_chunk_id' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1276' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.\core_start' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1281' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:178$6' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1286' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:188$7' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1291' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$bitselwrite$pos$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:240$8' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1296' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\temp_key$21' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1301' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\temp_nonce$22' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1306' with positive edge clock and positive level reset.
+Creating register for signal `\asic_top.$lookahead\in_state$23' using process `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+  created $adff cell `$procdff$1311' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\busy' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1316' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\done' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1321' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\fsm_state' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1326' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\ciphertext' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1331' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\round_count' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1336' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.$fordecl_block$2.i' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1341' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.$fordecl_block$4.i' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $dff cell `$procdff$1348' with positive edge clock.
+Creating register for signal `\ChaCha20.\state[0]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1353' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[1]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1358' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[2]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1363' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[3]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1368' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[4]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1373' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[5]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1378' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[6]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1383' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[7]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1388' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[8]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1393' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[9]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1398' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[10]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1403' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[11]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1408' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[12]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1413' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[13]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1418' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[14]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1423' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\state[15]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1428' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[0]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1433' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[1]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1438' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[2]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1443' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[3]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1448' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[4]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1453' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[5]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1458' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[6]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1463' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[7]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1468' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[8]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1473' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[9]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1478' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[10]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1483' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[11]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1488' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[12]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1493' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[13]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1498' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[14]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1503' with positive edge clock and positive level reset.
+Creating register for signal `\ChaCha20.\original[15]' using process `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+  created $adff cell `$procdff$1508' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+  created $adff cell `$procdff$1511' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+  created $adff cell `$procdff$1514' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.\chain' using process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+  created $adff cell `$procdff$1517' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\random_number' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1522' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ready' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1527' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\shift_reg' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1532' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\bit_count' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+  created $adff cell `$procdff$1537' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro0_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1542' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro0_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1547' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro1_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1552' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro1_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1557' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro2_sync1' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1562' with positive edge clock and positive level reset.
+Creating register for signal `\TRNGHardened.\ro2_sync2' using process `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+  created $adff cell `$procdff$1567' with positive edge clock and positive level reset.
+
+21. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+22. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 16 empty switches in `\asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Removing empty process `asic_top.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:117$24'.
+Removing empty process `QR.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:14$169'.
+Found and cleaned up 3 empty switches in `\ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Removing empty process `ChaCha20.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:60$210'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000110.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$167'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000010.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$165'.
+Removing empty process `$paramod\RingOsc\CW=s32'00000000000000000000000000000100.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:9$163'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:39$162'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:38$161'.
+Found and cleaned up 3 empty switches in `\TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:41$154'.
+Removing empty process `TRNGHardened.$proc$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:22$147'.
+Cleaned up 22 empty switches.
+
+23. Executing CHECK pass (checking for obvious problems).
+Checking module asic_top...
+Checking module QR...
+Checking module ChaCha20...
+Checking module $paramod\RingOsc\CW=s32'00000000000000000000000000000110...
+Checking module $paramod\RingOsc\CW=s32'00000000000000000000000000000010...
+Checking module $paramod\RingOsc\CW=s32'00000000000000000000000000000100...
+Checking module TRNGHardened...
+Found and reported 0 problems.
+
+24. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~103 debug messages>
+Optimizing module QR.
+<suppressed ~8 debug messages>
+Optimizing module ChaCha20.
+<suppressed ~98 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+<suppressed ~1 debug messages>
+Optimizing module TRNGHardened.
+<suppressed ~23 debug messages>
+
+25. Executing FLATTEN pass (flatten design).
+Deleting now unused module QR.
+Deleting now unused module ChaCha20.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000110.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000010.
+Deleting now unused module $paramod\RingOsc\CW=s32'00000000000000000000000000000100.
+Deleting now unused module TRNGHardened.
+<suppressed ~15 debug messages>
+
+26. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~5 debug messages>
+
+27. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 164 unused cells and 674 unused wires.
+<suppressed ~184 debug messages>
+
+28. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~384 debug messages>
+Removed a total of 128 cells.
+
+30. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$258.
+    dead port 2/2 on $mux $procmux$281.
+    dead port 2/2 on $mux $procmux$283.
+    dead port 2/2 on $mux $procmux$312.
+    dead port 2/2 on $mux $procmux$314.
+    dead port 2/2 on $mux $procmux$340.
+    dead port 2/2 on $mux $procmux$351.
+    dead port 2/2 on $mux $procmux$385.
+    dead port 2/2 on $mux $procmux$397.
+Removed 9 multiplexer ports.
+<suppressed ~66 debug messages>
+
+31. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+    New ctrl vector for $pmux cell $procmux$399: { $procmux$386_CMP $procmux$284_CMP $auto$opt_reduce.cc:134:opt_pmux$1584 }
+    New ctrl vector for $pmux cell $procmux$408: { $procmux$386_CMP $procmux$284_CMP $auto$opt_reduce.cc:134:opt_pmux$1586 }
+    New ctrl vector for $pmux cell $procmux$417: { $procmux$259_CMP $auto$opt_reduce.cc:134:opt_pmux$1588 }
+  Optimizing cells in module \asic_top.
+Performed a total of 3 changes.
+
+32. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+33. Executing OPT_DFF pass (perform DFF optimizations).
+
+34. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 0 unused cells and 138 unused wires.
+<suppressed ~1 debug messages>
+
+35. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+36. Rerunning OPT passes. (Maybe there is more to do…)
+
+37. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~66 debug messages>
+
+38. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+39. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+40. Executing OPT_DFF pass (perform DFF optimizations).
+
+41. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+42. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+43. Executing FSM pass (extract and optimize FSM).
+
+43.1. Executing FSM_DETECT pass (finding FSMs in design).
+Not marking asic_top.acquire_sub_state as FSM state register:
+    Users of register don't seem to benefit from recoding.
+Not marking asic_top.chacha_unit.fsm_state as FSM state register:
+    Circuit seems to be self-resetting.
+Found FSM state register asic_top.fsm_state.
+
+43.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\fsm_state' from module `\asic_top'.
+  found $adff cell for state register: $procdff$1210
+  root of input selection tree: $0\fsm_state[2:0]
+  found reset state: 3'000 (from async reset)
+  found ctrl input: $procmux$400_CMP
+  found ctrl input: $procmux$401_CMP
+  found ctrl input: $procmux$402_CMP
+  found ctrl input: $procmux$403_CMP
+  found ctrl input: $procmux$259_CMP
+  found ctrl input: $procmux$405_CMP
+  found ctrl input: $procmux$284_CMP
+  found ctrl input: $procmux$386_CMP
+  found ctrl input: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95_Y
+  found state code: 3'110
+  found ctrl input: \out_state_ready
+  found ctrl input: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99_Y
+  found ctrl input: \chacha_unit.done
+  found state code: 3'101
+  found state code: 3'100
+  found ctrl input: \in_state_valid
+  found ctrl input: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93_Y
+  found state code: 3'011
+  found ctrl input: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76_Y
+  found state code: 3'010
+  found ctrl input: \out_key_ready
+  found ctrl input: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80_Y
+  found ctrl input: \data_source_is_ready
+  found ctrl input: $eq$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:91$14_Y
+  found state code: 3'111
+  found ctrl input: \start
+  found state code: 3'001
+  found ctrl output: $procmux$259_CMP
+  found ctrl output: $procmux$284_CMP
+  found ctrl output: $procmux$386_CMP
+  found ctrl output: $procmux$400_CMP
+  found ctrl output: $procmux$401_CMP
+  found ctrl output: $procmux$402_CMP
+  found ctrl output: $procmux$403_CMP
+  found ctrl output: $procmux$405_CMP
+  ctrl inputs: { \chacha_unit.done $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99_Y $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95_Y $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93_Y $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80_Y $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76_Y $eq$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:91$14_Y \data_source_is_ready \out_key_ready \out_state_ready \in_state_valid \start }
+  ctrl outputs: { $procmux$405_CMP $procmux$403_CMP $procmux$402_CMP $procmux$401_CMP $procmux$400_CMP $procmux$386_CMP $procmux$284_CMP $0\fsm_state[2:0] $procmux$259_CMP }
+  transition:      3'000 12'-----------0 ->      3'000 11'00000100000
+  transition:      3'000 12'-----------1 ->      3'001 11'00000100010
+  transition:      3'100 12'0----------- ->      3'100 11'00100001000
+  transition:      3'100 12'1----------- ->      3'101 11'00100001010
+  transition:      3'010 12'----------0- ->      3'010 11'00000000101
+  transition:      3'010 12'---0------1- ->      3'011 11'00000000111
+  transition:      3'010 12'---1------1- ->      3'010 11'00000000101
+  transition:      3'110 12'------------ ->      3'000 11'00001000000
+  transition:      3'001 12'-------0---- ->      3'001 11'00000010010
+  transition:      3'001 12'------01---- ->      3'001 11'00000010010
+  transition:      3'001 12'------11---- ->      3'111 11'00000011110
+  transition:      3'101 12'--0--------- ->      3'110 11'00010001100
+  transition:      3'101 12'--1------0-- ->      3'101 11'00010001010
+  transition:      3'101 12'-01------1-- ->      3'110 11'00010001100
+  transition:      3'101 12'-11------1-- ->      3'101 11'00010001010
+  transition:      3'011 12'------------ ->      3'100 11'01000001000
+  transition:      3'111 12'-----0------ ->      3'010 11'10000000100
+  transition:      3'111 12'-----1--0--- ->      3'111 11'10000001110
+  transition:      3'111 12'----01--1--- ->      3'010 11'10000000100
+  transition:      3'111 12'----11--1--- ->      3'111 11'10000001110
+
+43.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\fsm_state$1589' from module `\asic_top'.
+
+43.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 22 unused cells and 22 unused wires.
+<suppressed ~23 debug messages>
+
+43.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\fsm_state$1589' from module `\asic_top'.
+  Removing unused output signal $0\fsm_state[2:0] [0].
+  Removing unused output signal $0\fsm_state[2:0] [1].
+  Removing unused output signal $0\fsm_state[2:0] [2].
+
+43.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\fsm_state$1589' from module `\asic_top' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> -------1
+  100 -> ------1-
+  010 -> -----1--
+  110 -> ----1---
+  001 -> ---1----
+  101 -> --1-----
+  011 -> -1------
+  111 -> 1-------
+
+43.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\fsm_state$1589' from module `asic_top':
+-------------------------------------
+
+  Information on FSM $fsm$\fsm_state$1589 (\fsm_state):
+
+  Number of input signals:   12
+  Number of output signals:   8
+  Number of state bits:       8
+
+  Input signals:
+    0: \start
+    1: \in_state_valid
+    2: \out_state_ready
+    3: \out_key_ready
+    4: \data_source_is_ready
+    5: $eq$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:91$14_Y
+    6: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76_Y
+    7: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80_Y
+    8: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93_Y
+    9: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95_Y
+   10: $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99_Y
+   11: \chacha_unit.done
+
+  Output signals:
+    0: $procmux$259_CMP
+    1: $procmux$284_CMP
+    2: $procmux$386_CMP
+    3: $procmux$400_CMP
+    4: $procmux$401_CMP
+    5: $procmux$402_CMP
+    6: $procmux$403_CMP
+    7: $procmux$405_CMP
+
+  State encoding:
+    0: 8'-------1  <RESET STATE>
+    1: 8'------1-
+    2: 8'-----1--
+    3: 8'----1---
+    4: 8'---1----
+    5: 8'--1-----
+    6: 8'-1------
+    7: 8'1-------
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 12'-----------0   ->     0 8'00000100
+      1:     0 12'-----------1   ->     4 8'00000100
+      2:     1 12'0-----------   ->     1 8'00100000
+      3:     1 12'1-----------   ->     5 8'00100000
+      4:     2 12'----------0-   ->     2 8'00000001
+      5:     2 12'---1------1-   ->     2 8'00000001
+      6:     2 12'---0------1-   ->     6 8'00000001
+      7:     3 12'------------   ->     0 8'00001000
+      8:     4 12'-------0----   ->     4 8'00000010
+      9:     4 12'------01----   ->     4 8'00000010
+     10:     4 12'------11----   ->     7 8'00000010
+     11:     5 12'-01------1--   ->     3 8'00010000
+     12:     5 12'--0---------   ->     3 8'00010000
+     13:     5 12'--1------0--   ->     5 8'00010000
+     14:     5 12'-11------1--   ->     5 8'00010000
+     15:     6 12'------------   ->     1 8'01000000
+     16:     7 12'----01--1---   ->     2 8'10000000
+     17:     7 12'-----0------   ->     2 8'10000000
+     18:     7 12'-----1--0---   ->     7 8'10000000
+     19:     7 12'----11--1---   ->     7 8'10000000
+
+-------------------------------------
+
+43.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\fsm_state$1589' from module `\asic_top'.
+
+44. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~8 debug messages>
+
+45. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+46. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~65 debug messages>
+
+47. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+48. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+49. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$1276 ($adff) from module asic_top (D = $0\current_chunk_id[4:0], Q = \current_chunk_id).
+Adding EN signal on $procdff$1271 ($dff) from module asic_top (D = $0\acquire_sub_state[1:0], Q = \acquire_sub_state).
+Adding EN signal on $procdff$1264 ($dff) from module asic_top (D = $0\out_key_ptr[3:0], Q = \out_key_ptr).
+Adding EN signal on $procdff$1257 ($adff) from module asic_top (D = $0\counter[31:0], Q = \counter).
+Adding EN signal on $procdff$1252 ($adff) from module asic_top (D = $0\nonce[95:0], Q = \nonce).
+Adding EN signal on $procdff$1247 ($adff) from module asic_top (D = $0\key[255:0], Q = \key).
+Adding EN signal on $procdff$1237 ($adff) from module asic_top (D = $0$lookahead\temp_nonce$22[95:0]$29, Q = \temp_nonce).
+Adding EN signal on $procdff$1232 ($adff) from module asic_top (D = $0$lookahead\temp_key$21[255:0]$28, Q = \temp_key).
+Adding EN signal on $procdff$1227 ($adff) from module asic_top (D = $0\out_state_ptr[3:0], Q = \out_state_ptr).
+Adding EN signal on $procdff$1222 ($adff) from module asic_top (D = $0\in_state_ptr[3:0], Q = \in_state_ptr).
+Adding EN signal on $procdff$1217 ($dff) from module asic_top (D = $0$lookahead\in_state$23[511:0]$30, Q = \in_state).
+Adding EN signal on $procdff$1200 ($adff) from module asic_top (D = \acquire_sub_state, Q = \request_type).
+Adding EN signal on $procdff$1190 ($adff) from module asic_top (D = \current_chunk_id, Q = \chunk_index).
+Adding EN signal on $procdff$1185 ($dff) from module asic_top (D = $0\out_key_valid[0:0], Q = \out_key_valid).
+Adding EN signal on $procdff$1178 ($dff) from module asic_top (D = $shiftx$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$79_Y, Q = \out_key_word).
+Adding EN signal on $procdff$1166 ($adff) from module asic_top (D = $shiftx$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$98_Y, Q = \out_state_word).
+Adding EN signal on $procdff$1151 ($adff) from module asic_top (D = $0\busy[0:0], Q = \busy).
+Adding EN signal on $flatten\trng_inst.$procdff$1537 ($adff) from module asic_top (D = $flatten\trng_inst.$0\bit_count[5:0], Q = \trng_inst.bit_count).
+Adding EN signal on $flatten\trng_inst.$procdff$1532 ($adff) from module asic_top (D = $flatten\trng_inst.$0\shift_reg[31:0], Q = \trng_inst.shift_reg).
+Adding EN signal on $flatten\trng_inst.$procdff$1527 ($adff) from module asic_top (D = $flatten\trng_inst.$0\ready[0:0], Q = \trng_inst.ready).
+Adding EN signal on $flatten\trng_inst.$procdff$1522 ($adff) from module asic_top (D = { \trng_inst.shift_reg [30:0] \trng_inst.entropy_bit }, Q = \trng_inst.random_number).
+Adding EN signal on $flatten\chacha_unit.$procdff$1508 ($adff) from module asic_top (D = \chacha_unit.state[15], Q = \chacha_unit.original[15]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1503 ($adff) from module asic_top (D = \chacha_unit.state[14], Q = \chacha_unit.original[14]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1498 ($adff) from module asic_top (D = \chacha_unit.state[13], Q = \chacha_unit.original[13]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1493 ($adff) from module asic_top (D = \chacha_unit.state[12], Q = \chacha_unit.original[12]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1488 ($adff) from module asic_top (D = \chacha_unit.state[11], Q = \chacha_unit.original[11]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1483 ($adff) from module asic_top (D = \chacha_unit.state[10], Q = \chacha_unit.original[10]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1478 ($adff) from module asic_top (D = \chacha_unit.state[9], Q = \chacha_unit.original[9]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1473 ($adff) from module asic_top (D = \chacha_unit.state[8], Q = \chacha_unit.original[8]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1468 ($adff) from module asic_top (D = \chacha_unit.state[7], Q = \chacha_unit.original[7]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1463 ($adff) from module asic_top (D = \chacha_unit.state[6], Q = \chacha_unit.original[6]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1458 ($adff) from module asic_top (D = \chacha_unit.state[5], Q = \chacha_unit.original[5]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1453 ($adff) from module asic_top (D = \chacha_unit.state[4], Q = \chacha_unit.original[4]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1448 ($adff) from module asic_top (D = \chacha_unit.state[3], Q = \chacha_unit.original[3]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1443 ($adff) from module asic_top (D = \chacha_unit.state[2], Q = \chacha_unit.original[2]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1438 ($adff) from module asic_top (D = \chacha_unit.state[1], Q = \chacha_unit.original[1]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1433 ($adff) from module asic_top (D = \chacha_unit.state[0], Q = \chacha_unit.original[0]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1428 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[15][31:0], Q = \chacha_unit.state[15]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1423 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[14][31:0], Q = \chacha_unit.state[14]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1418 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[13][31:0], Q = \chacha_unit.state[13]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1413 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[12][31:0], Q = \chacha_unit.state[12]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1408 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[11][31:0], Q = \chacha_unit.state[11]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1403 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[10][31:0], Q = \chacha_unit.state[10]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1398 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[9][31:0], Q = \chacha_unit.state[9]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1393 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[8][31:0], Q = \chacha_unit.state[8]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1388 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[7][31:0], Q = \chacha_unit.state[7]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1383 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[6][31:0], Q = \chacha_unit.state[6]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1378 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[5][31:0], Q = \chacha_unit.state[5]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1373 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[4][31:0], Q = \chacha_unit.state[4]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1368 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[3][31:0], Q = \chacha_unit.state[3]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1363 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[2][31:0], Q = \chacha_unit.state[2]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1358 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[1][31:0], Q = \chacha_unit.state[1]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1353 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\state[0][31:0], Q = \chacha_unit.state[0]).
+Adding EN signal on $flatten\chacha_unit.$procdff$1336 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\round_count[4:0], Q = \chacha_unit.round_count).
+Adding EN signal on $flatten\chacha_unit.$procdff$1331 ($adff) from module asic_top (D = { $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:149$250_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:150$248_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:151$246_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:152$244_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:153$242_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:154$240_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:155$238_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:156$236_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:157$234_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:158$232_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:159$230_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:160$228_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:161$226_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:162$224_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:163$222_Y $flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:164$220_Y }, Q = \chacha_unit.ciphertext).
+Adding EN signal on $flatten\chacha_unit.$procdff$1326 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\fsm_state[2:0], Q = \chacha_unit.fsm_state).
+Adding EN signal on $flatten\chacha_unit.$procdff$1321 ($adff) from module asic_top (D = $flatten\chacha_unit.$0\done[0:0], Q = \chacha_unit.done).
+
+50. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 34 unused cells and 47 unused wires.
+<suppressed ~35 debug messages>
+
+51. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~31 debug messages>
+
+52. Rerunning OPT passes. (Maybe there is more to do…)
+
+53. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~43 debug messages>
+
+54. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+    New ctrl vector for $pmux cell $procmux$399: { \fsm_state [0] \fsm_state [4] }
+    New ctrl vector for $pmux cell $procmux$408: { \fsm_state [0] \fsm_state [4] }
+    New ctrl vector for $pmux cell $procmux$417: \fsm_state [2]
+  Optimizing cells in module \asic_top.
+Performed a total of 3 changes.
+
+55. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~303 debug messages>
+Removed a total of 101 cells.
+
+56. Executing OPT_DFF pass (perform DFF optimizations).
+
+57. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 0 unused cells and 101 unused wires.
+<suppressed ~1 debug messages>
+
+58. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+59. Rerunning OPT passes. (Maybe there is more to do…)
+
+60. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~46 debug messages>
+
+61. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+62. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+63. Executing OPT_DFF pass (perform DFF optimizations).
+
+64. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+65. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+66. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell asic_top.$eq$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:90$11 ($eq).
+Removed top 22 bits (of 33) from port A of cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56 ($neg).
+Converting cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56 ($neg) from signed to unsigned.
+Removed top 1 bits (of 11) from port A of cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56 ($neg).
+Removed top 29 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:179$63 ($lt).
+Removed top 31 bits (of 32) from port B of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64 ($add).
+Removed top 27 bits (of 32) from port Y of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64 ($add).
+Removed top 30 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:189$74 ($lt).
+Removed top 28 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76 ($lt).
+Removed top 22 bits (of 32) from port B of cell asic_top.$shiftx$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$79 ($shiftx).
+Removed top 29 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80 ($lt).
+Removed top 31 bits (of 32) from port B of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81 ($add).
+Removed top 28 bits (of 32) from port Y of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81 ($add).
+Removed top 23 bits (of 33) from port A of cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86 ($neg).
+Converting cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86 ($neg) from signed to unsigned.
+Removed top 1 bits (of 10) from port A of cell asic_top.$neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86 ($neg).
+Removed top 28 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93 ($lt).
+Removed top 31 bits (of 32) from port B of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94 ($add).
+Removed top 28 bits (of 32) from port Y of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94 ($add).
+Removed top 27 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95 ($lt).
+Removed top 22 bits (of 32) from port B of cell asic_top.$shiftx$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$98 ($shiftx).
+Removed top 28 bits (of 32) from port B of cell asic_top.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99 ($lt).
+Removed top 31 bits (of 32) from port B of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:270$100 ($add).
+Removed top 28 bits (of 32) from port Y of cell asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:270$100 ($add).
+Removed top 1 bits (of 2) from port B of cell asic_top.$auto$opt_dff.cc:195:make_patterns_logic$1867 ($ne).
+Removed top 1 bits (of 2) from port B of cell asic_top.$auto$opt_dff.cc:195:make_patterns_logic$1831 ($ne).
+Removed top 1 bits (of 3) from port B of cell asic_top.$auto$fsm_map.cc:77:implement_pattern_cache$1631 ($eq).
+Removed top 1 bits (of 3) from port B of cell asic_top.$auto$fsm_map.cc:77:implement_pattern_cache$1622 ($eq).
+Removed top 1 bits (of 32) from FF cell asic_top.$auto$ff.cc:266:slice$1832 ($adffe).
+Removed top 1 bits (of 32) from mux cell asic_top.$flatten\trng_inst.$procmux$1133 ($mux).
+Removed top 1 bits (of 32) from mux cell asic_top.$flatten\trng_inst.$procmux$1130 ($mux).
+Removed top 1 bits (of 6) from port B of cell asic_top.$flatten\trng_inst.$eq$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:51$159 ($eq).
+Removed top 31 bits (of 32) from port B of cell asic_top.$flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158 ($add).
+Removed top 26 bits (of 32) from port Y of cell asic_top.$flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158 ($add).
+Removed top 31 bits (of 32) from port B of cell asic_top.$flatten\trng_inst.\ro2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$168 ($add).
+Removed top 25 bits (of 32) from port Y of cell asic_top.$flatten\trng_inst.\ro2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$168 ($add).
+Removed top 31 bits (of 32) from port B of cell asic_top.$flatten\trng_inst.\ro1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$164 ($add).
+Removed top 27 bits (of 32) from port Y of cell asic_top.$flatten\trng_inst.\ro1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$164 ($add).
+Removed top 31 bits (of 32) from port B of cell asic_top.$flatten\trng_inst.\ro0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$166 ($add).
+Removed top 29 bits (of 32) from port Y of cell asic_top.$flatten\trng_inst.\ro0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$166 ($add).
+Removed top 1 bits (of 2) from port B of cell asic_top.$auto$fsm_map.cc:77:implement_pattern_cache$1648 ($eq).
+Removed top 1 bits (of 2) from port B of cell asic_top.$auto$fsm_map.cc:77:implement_pattern_cache$1666 ($eq).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_3.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_2.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_1.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 25 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$193 ($or).
+Removed top 16 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$178 ($or).
+Removed top 24 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$188 ($or).
+Removed top 20 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.\U_QR_COL_0.$or$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$183 ($or).
+Removed top 2 bits (of 3) from port B of cell asic_top.$flatten\chacha_unit.$procmux$1109_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell asic_top.$flatten\chacha_unit.$procmux$1100_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell asic_top.$flatten\chacha_unit.$procmux$1008_CMP0 ($eq).
+Removed top 31 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218 ($add).
+Removed top 27 bits (of 32) from port Y of cell asic_top.$flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218 ($add).
+Removed top 28 bits (of 32) from port B of cell asic_top.$flatten\chacha_unit.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:118$217 ($lt).
+Removed top 27 bits (of 32) from wire asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64_Y.
+Removed top 28 bits (of 32) from wire asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81_Y.
+Removed top 28 bits (of 32) from wire asic_top.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94_Y.
+Removed top 27 bits (of 32) from wire asic_top.$flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218_Y.
+Removed top 4 bits (of 32) from wire asic_top.$flatten\chacha_unit.$xor$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:164$220_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_COL_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_0.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_1.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_2.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 16 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:29$177_Y.
+Removed top 20 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:34$182_Y.
+Removed top 24 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:39$187_Y.
+Removed top 25 bits (of 32) from wire asic_top.$flatten\chacha_unit.\U_QR_DIAG_3.$shr$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:44$192_Y.
+Removed top 1 bits (of 32) from wire asic_top.$flatten\trng_inst.$0\shift_reg[31:0].
+Removed top 26 bits (of 32) from wire asic_top.$flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158_Y.
+Removed top 1 bits (of 32) from wire asic_top.$flatten\trng_inst.$procmux$1130_Y.
+Removed top 78 bits (of 256) from wire asic_top.$not$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$58_Y.
+
+67. Executing PEEPOPT pass (run peephole optimizers).
+
+68. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 0 unused cells and 44 unused wires.
+<suppressed ~1 debug messages>
+
+69. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module asic_top:
+  creating $macc model for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64 ($add).
+  creating $macc model for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81 ($add).
+  creating $macc model for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94 ($add).
+  creating $macc model for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:270$100 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:149$249 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:150$247 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:151$245 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:152$243 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:153$241 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:154$239 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:155$237 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:156$235 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:157$233 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:158$231 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:159$229 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:160$227 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:161$225 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:162$223 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:163$221 ($add).
+  creating $macc model for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:164$219 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184 ($add).
+  creating $macc model for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189 ($add).
+  creating $macc model for $flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158 ($add).
+  creating $macc model for $flatten\trng_inst.\ro0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$166 ($add).
+  creating $macc model for $flatten\trng_inst.\ro1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$164 ($add).
+  creating $macc model for $flatten\trng_inst.\ro2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$168 ($add).
+  creating $macc model for $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56 ($neg).
+  creating $macc model for $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86 ($neg).
+  creating $alu model for $macc $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86.
+  creating $alu model for $macc $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56.
+  creating $alu model for $macc $flatten\trng_inst.\ro2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$168.
+  creating $alu model for $macc $flatten\trng_inst.\ro1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$164.
+  creating $alu model for $macc $flatten\trng_inst.\ro0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$166.
+  creating $alu model for $macc $flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179.
+  creating $alu model for $macc $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:164$219.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:163$221.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:162$223.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:161$225.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:160$227.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:159$229.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:158$231.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:157$233.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:156$235.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:155$237.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:154$239.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:153$241.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:152$243.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:151$245.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:150$247.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:149$249.
+  creating $alu model for $macc $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218.
+  creating $alu model for $macc $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:270$100.
+  creating $alu model for $macc $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94.
+  creating $alu model for $macc $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81.
+  creating $alu model for $macc $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64.
+  creating $alu model for $flatten\chacha_unit.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:118$217 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:179$63 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:189$74 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95 ($lt): new $alu
+  creating $alu model for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99 ($lt): new $alu
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:269$99: $auto$alumacc.cc:485:replace_alu$2074
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:265$95: $auto$alumacc.cc:485:replace_alu$2079
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:241$93: $auto$alumacc.cc:485:replace_alu$2084
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:222$80: $auto$alumacc.cc:485:replace_alu$2089
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:218$76: $auto$alumacc.cc:485:replace_alu$2100
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:189$74: $auto$alumacc.cc:485:replace_alu$2105
+  creating $alu cell for $lt$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:179$63: $auto$alumacc.cc:485:replace_alu$2116
+  creating $alu cell for $flatten\chacha_unit.$lt$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:118$217: $auto$alumacc.cc:485:replace_alu$2127
+  creating $alu cell for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:180$64: $auto$alumacc.cc:485:replace_alu$2138
+  creating $alu cell for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81: $auto$alumacc.cc:485:replace_alu$2141
+  creating $alu cell for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:242$94: $auto$alumacc.cc:485:replace_alu$2144
+  creating $alu cell for $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:270$100: $auto$alumacc.cc:485:replace_alu$2147
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:138$218: $auto$alumacc.cc:485:replace_alu$2150
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:149$249: $auto$alumacc.cc:485:replace_alu$2153
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:150$247: $auto$alumacc.cc:485:replace_alu$2156
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:151$245: $auto$alumacc.cc:485:replace_alu$2159
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:152$243: $auto$alumacc.cc:485:replace_alu$2162
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:153$241: $auto$alumacc.cc:485:replace_alu$2165
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:154$239: $auto$alumacc.cc:485:replace_alu$2168
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:155$237: $auto$alumacc.cc:485:replace_alu$2171
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:156$235: $auto$alumacc.cc:485:replace_alu$2174
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:157$233: $auto$alumacc.cc:485:replace_alu$2177
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:158$231: $auto$alumacc.cc:485:replace_alu$2180
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:159$229: $auto$alumacc.cc:485:replace_alu$2183
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:160$227: $auto$alumacc.cc:485:replace_alu$2186
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:161$225: $auto$alumacc.cc:485:replace_alu$2189
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:162$223: $auto$alumacc.cc:485:replace_alu$2192
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:163$221: $auto$alumacc.cc:485:replace_alu$2195
+  creating $alu cell for $flatten\chacha_unit.$add$/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v:164$219: $auto$alumacc.cc:485:replace_alu$2198
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2201
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2204
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2207
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2210
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2213
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2216
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2219
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2222
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2225
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2228
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2231
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2234
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2237
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2240
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2243
+  creating $alu cell for $flatten\chacha_unit.\U_QR_COL_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2246
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2249
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2252
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2255
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2258
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2261
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2264
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2267
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2270
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2273
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2276
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2279
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2282
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:27$174: $auto$alumacc.cc:485:replace_alu$2285
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:32$179: $auto$alumacc.cc:485:replace_alu$2288
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:37$184: $auto$alumacc.cc:485:replace_alu$2291
+  creating $alu cell for $flatten\chacha_unit.\U_QR_DIAG_3.$add$/Users/prahalad/Asic-Cryptography/main/rtl/qr.v:42$189: $auto$alumacc.cc:485:replace_alu$2294
+  creating $alu cell for $flatten\trng_inst.$add$/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v:50$158: $auto$alumacc.cc:485:replace_alu$2297
+  creating $alu cell for $flatten\trng_inst.\ro0.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$166: $auto$alumacc.cc:485:replace_alu$2300
+  creating $alu cell for $flatten\trng_inst.\ro1.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$164: $auto$alumacc.cc:485:replace_alu$2303
+  creating $alu cell for $flatten\trng_inst.\ro2.$add$/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v:13$168: $auto$alumacc.cc:485:replace_alu$2306
+  creating $alu cell for $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$56: $auto$alumacc.cc:485:replace_alu$2309
+  creating $alu cell for $neg$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:0$86: $auto$alumacc.cc:485:replace_alu$2312
+  created 67 $alu and 0 $macc cells.
+
+70. Executing SHARE pass (SAT-based resource sharing).
+
+71. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~34 debug messages>
+
+72. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+73. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~46 debug messages>
+
+74. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+75. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+76. Executing OPT_DFF pass (perform DFF optimizations).
+
+77. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+78. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+79. Rerunning OPT passes. (Maybe there is more to do…)
+
+80. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~46 debug messages>
+
+81. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+82. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+83. Executing OPT_DFF pass (perform DFF optimizations).
+
+84. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+85. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+86. Executing MEMORY pass.
+
+86.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+86.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+86.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+86.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+86.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+86.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+86.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+86.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+86.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+86.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+87. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+88. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~118 debug messages>
+
+89. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~15 debug messages>
+Removed a total of 5 cells.
+
+90. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:266:slice$1708 ($dffe) from module asic_top (D = $procmux$563_Y, Q = \out_key_ptr, rval = 4'0000).
+Adding SRST signal on $auto$ff.cc:266:slice$1693 ($dffe) from module asic_top (D = $procmux$544_Y, Q = \acquire_sub_state, rval = 2'00).
+
+91. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 12 unused cells and 92 unused wires.
+<suppressed ~13 debug messages>
+
+92. Rerunning OPT passes (Removed registers in this run.)
+
+93. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~1 debug messages>
+
+94. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+95. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:266:slice$2341 ($sdffce) from module asic_top (D = $add$/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v:223$81_Y, Q = \out_key_ptr, rval = 4'0000).
+
+96. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 1 unused cells and 2 unused wires.
+<suppressed ~2 debug messages>
+
+97. Rerunning OPT passes (Removed registers in this run.)
+
+98. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+99. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+100. Executing OPT_DFF pass (perform DFF optimizations).
+
+101. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+102. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+103. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+104. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+105. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~35 debug messages>
+
+106. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+107. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+108. Executing OPT_SHARE pass.
+
+109. Executing OPT_DFF pass (perform DFF optimizations).
+
+110. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+111. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+112. Executing TECHMAP pass (map to technology primitives).
+
+112.1. Executing Verilog-2005 frontend: /nix/store/6zc2kdlrqrp4xxm125k2rsl0lf5n3bqz-yosys-with-plugins/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/nix/store/6zc2kdlrqrp4xxm125k2rsl0lf5n3bqz-yosys-with-plugins/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+112.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $mux.
+Using template $paramod$91e48372c4727ea71d55ab176117dd734d7fabbc\_90_alu for cells of type $alu.
+Using template $paramod$40ec39fdbb40e313957832362e47914160e3dfcb\_90_alu for cells of type $alu.
+Using template $paramod$constmap:b9339d5ee12754187b4004ae27187c55585df1a2$paramod$bd8f57972c6734bdd3586d8acc092285d02dd375\_90_shift_shiftx for cells of type $shift.
+Using extmapper simplemap for cells of type $not.
+Analyzing pattern of constant bits for this cell:
+Creating constmapped module `$paramod$constmap:61cdf675d1ca6d01343d13c52fc237f241bb7682$paramod$bd8f57972c6734bdd3586d8acc092285d02dd375\_90_shift_shiftx'.
+
+112.12. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$constmap:61cdf675d1ca6d01343d13c52fc237f241bb7682$paramod$bd8f57972c6734bdd3586d8acc092285d02dd375\_90_shift_shiftx..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$2583.
+    dead port 2/2 on $mux $procmux$2577.
+    dead port 2/2 on $mux $procmux$2571.
+    dead port 2/2 on $mux $procmux$2565.
+    dead port 2/2 on $mux $procmux$2559.
+    dead port 2/2 on $mux $procmux$2553.
+    dead port 2/2 on $mux $procmux$2547.
+    dead port 2/2 on $mux $procmux$2541.
+    dead port 2/2 on $mux $procmux$2535.
+Removed 9 multiplexer ports.
+<suppressed ~429 debug messages>
+
+112.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$constmap:61cdf675d1ca6d01343d13c52fc237f241bb7682$paramod$bd8f57972c6734bdd3586d8acc092285d02dd375\_90_shift_shiftx.
+<suppressed ~25 debug messages>
+Removed 0 unused cells and 14 unused wires.
+Using template $paramod$constmap:61cdf675d1ca6d01343d13c52fc237f241bb7682$paramod$bd8f57972c6734bdd3586d8acc092285d02dd375\_90_shift_shiftx for cells of type $shift.
+Using template $paramod$83dd457849c736323edf2edb15923eb27f99c683\_90_alu for cells of type $alu.
+Using template $paramod$32a7b7b86c07519b7537abc18e96f0331f97914d\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using template $paramod$constmap:3eb94887d3567d63dc98a4865f6ed8dd3c7ce2d6$paramod$aafa63fe2d35c9eb58a86d5be8024588390c7548\_90_shift_shiftx for cells of type $shift.
+Analyzing pattern of constant bits for this cell:
+Creating constmapped module `$paramod$constmap:a8bb92f431e44c7fa723c59e141f10c2f3c940e8$paramod$aafa63fe2d35c9eb58a86d5be8024588390c7548\_90_shift_shiftx'.
+
+112.23. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$constmap:a8bb92f431e44c7fa723c59e141f10c2f3c940e8$paramod$aafa63fe2d35c9eb58a86d5be8024588390c7548\_90_shift_shiftx..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$3516.
+    dead port 2/2 on $mux $procmux$3510.
+    dead port 2/2 on $mux $procmux$3504.
+    dead port 2/2 on $mux $procmux$3498.
+    dead port 2/2 on $mux $procmux$3492.
+    dead port 2/2 on $mux $procmux$3486.
+    dead port 2/2 on $mux $procmux$3480.
+    dead port 2/2 on $mux $procmux$3474.
+Removed 8 multiplexer ports.
+<suppressed ~338 debug messages>
+
+112.24. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$constmap:a8bb92f431e44c7fa723c59e141f10c2f3c940e8$paramod$aafa63fe2d35c9eb58a86d5be8024588390c7548\_90_shift_shiftx.
+<suppressed ~26 debug messages>
+Removed 0 unused cells and 13 unused wires.
+Using template $paramod$constmap:a8bb92f431e44c7fa723c59e141f10c2f3c940e8$paramod$aafa63fe2d35c9eb58a86d5be8024588390c7548\_90_shift_shiftx for cells of type $shift.
+Using template $paramod$d1615bf4e5e328245ffd1550e5fe105901cda77b\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$3ac6e4268d0279df14823f25676acf685165517e\_90_alu for cells of type $alu.
+Using template $paramod$constmap:0a5e2f538d4ce2a9410df62fec94d6dd4ce0473d$paramod$77525b6dbd50eae3d859818cf4fba70b0c5cb773\_90_shift_shiftx for cells of type $shiftx.
+Using template $paramod$fc972a7a46956c1788f3cb5257b53c8f1df2d0cc\_90_alu for cells of type $alu.
+Using template $paramod$constmap:048b533edfaf4d1018275ac15fe876c3e122472f$paramod$c3074ebf10f4d9279c8fcaff5babfb6674335b21\_90_shift_shiftx for cells of type $shift.
+Using extmapper simplemap for cells of type $reduce_and.
+Analyzing pattern of constant bits for this cell:
+Creating constmapped module `$paramod$constmap:7cc7fc41de6a0171b440ec925b0b7833329a4026$paramod$c3074ebf10f4d9279c8fcaff5babfb6674335b21\_90_shift_shiftx'.
+
+112.41. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$constmap:7cc7fc41de6a0171b440ec925b0b7833329a4026$paramod$c3074ebf10f4d9279c8fcaff5babfb6674335b21\_90_shift_shiftx..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$4048.
+    dead port 2/2 on $mux $procmux$4042.
+    dead port 2/2 on $mux $procmux$4036.
+    dead port 2/2 on $mux $procmux$4030.
+    dead port 2/2 on $mux $procmux$4024.
+    dead port 2/2 on $mux $procmux$4018.
+    dead port 2/2 on $mux $procmux$4012.
+    dead port 2/2 on $mux $procmux$4006.
+    dead port 2/2 on $mux $procmux$4000.
+    dead port 2/2 on $mux $procmux$3994.
+Removed 10 multiplexer ports.
+<suppressed ~564 debug messages>
+
+112.42. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$constmap:7cc7fc41de6a0171b440ec925b0b7833329a4026$paramod$c3074ebf10f4d9279c8fcaff5babfb6674335b21\_90_shift_shiftx.
+<suppressed ~24 debug messages>
+Removed 0 unused cells and 15 unused wires.
+Using template $paramod$constmap:7cc7fc41de6a0171b440ec925b0b7833329a4026$paramod$c3074ebf10f4d9279c8fcaff5babfb6674335b21\_90_shift_shiftx for cells of type $shift.
+Using template $paramod$adbaf76fa5a3091a329503792521395f8ff4d1a4\_90_alu for cells of type $alu.
+Using template $paramod$740b056ede97228d3eae64ea2fdc81f0a33e0fe7\_90_alu for cells of type $alu.
+Using template $paramod$constmap:0cad27ca6349084e43df20e3c740100586895926$paramod$dd96e9f7bfdc5f69df6e091780a399022c2e2c0a\_90_shift_shiftx for cells of type $shiftx.
+Using template $paramod$672a140277c71df8314410f22acc08d55222c3c7\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $sdffce.
+Using template $paramod$3ef7d3dd227da7627a99c5e5a6a4deb817573e39\_90_alu for cells of type $alu.
+Using template $paramod$103b4016182df467cceab67bcf3e18e6361ec0fd\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod$32efbfac1c4dc57230cf86180788fdfd12e3b511\_90_alu for cells of type $alu.
+Using template $paramod$fbc7873bff55778c0b3173955b7e4bce1d9d6834\_90_alu for cells of type $alu.
+Using template $paramod$d31bf4d7d72e59528d18fbd4f322e9d608532043\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000111 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~9916 debug messages>
+
+113. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~64398 debug messages>
+
+114. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~15744 debug messages>
+Removed a total of 5248 cells.
+
+115. Executing OPT_DFF pass (perform DFF optimizations).
+
+116. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 5728 unused cells and 3399 unused wires.
+<suppressed ~5729 debug messages>
+
+117. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~78 debug messages>
+
+118. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+119. Executing OPT_DFF pass (perform DFF optimizations).
+
+120. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 0 unused cells and 47 unused wires.
+<suppressed ~1 debug messages>
+
+121. Executing ABC pass (technology mapping using ABC).
+
+121.1. Extracting gate netlist of module `\asic_top' to `<abc-temp-dir>/input.blif'..
+Replacing 32 occurrences of constant undef bits with constant zero bits
+Extracted 19271 gates and 22246 wires to a netlist network with 2972 inputs and 2442 outputs.
+
+121.1.1. Executing ABC.
+Running ABC command: "/nix/store/nfc55yg37krxzn5va3s91rns1l725sc8-yosys-abc/bin/abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+121.1.2. Re-integrating ABC results.
+ABC RESULTS:               MUX cells:     1131
+ABC RESULTS:               AND cells:      762
+ABC RESULTS:              XNOR cells:     2037
+ABC RESULTS:               NOR cells:     1439
+ABC RESULTS:               XOR cells:     2555
+ABC RESULTS:               NOT cells:      930
+ABC RESULTS:             ORNOT cells:      893
+ABC RESULTS:                OR cells:     3844
+ABC RESULTS:              NAND cells:      579
+ABC RESULTS:            ANDNOT cells:     5884
+ABC RESULTS:        internal signals:    16832
+ABC RESULTS:           input signals:     2972
+ABC RESULTS:          output signals:     2442
+Removing temp directory.
+
+122. Executing OPT pass (performing simple optimizations).
+
+122.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+<suppressed ~706 debug messages>
+
+122.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+122.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+122.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 2 unused cells and 9545 unused wires.
+<suppressed ~87 debug messages>
+
+122.5. Finished fast OPT passes.
+
+123. Executing HIERARCHY pass (managing design hierarchy).
+
+123.1. Analyzing design hierarchy..
+Top module:  \asic_top
+
+123.2. Analyzing design hierarchy..
+Top module:  \asic_top
+Removed 0 unused modules.
+
+124. Executing CHECK pass (checking for obvious problems).
+Checking module asic_top...
+Found and reported 0 problems.
+
+125. Printing statistics.
+
+=== asic_top ===
+
+   Number of wires:              18858
+   Number of wire bits:          25103
+   Number of public wires:         128
+   Number of public wire bits:    5039
+   Number of ports:                 23
+   Number of port bits:            153
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              23042
+     $_ANDNOT_                    5883
+     $_AND_                        760
+     $_DFFE_PN0N_                 1024
+     $_DFFE_PN0P_                 1380
+     $_DFFE_PP_                    545
+     $_DFF_PN0_                     22
+     $_DFF_PN1_                      1
+     $_MUX_                       1131
+     $_NAND_                       579
+     $_NOR_                       1439
+     $_NOT_                        928
+     $_ORNOT_                      893
+     $_OR_                        3844
+     $_SDFFCE_PN0P_                  2
+     $_SDFFCE_PP0P_                  4
+     $_XNOR_                      2037
+     $_XOR_                       2555
+     $scopeinfo                     15
+
+126. Generating Graphviz representation of design.
+Writing dot description to `/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/primitive_techmap.dot'.
+Dumping module asic_top to page 1.
+
+127. Executing OPT pass (performing simple optimizations).
+
+127.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+127.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+127.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \asic_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+127.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \asic_top.
+Performed a total of 0 changes.
+
+127.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\asic_top'.
+Removed a total of 0 cells.
+
+127.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+127.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+
+127.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module asic_top.
+
+127.9. Finished OPT passes. (There is nothing left to do.)
+
+128. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 15 unused cells and 41 unused wires.
+<suppressed ~56 debug messages>
+{
+   "creator": "Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 16.0.6 -fPIC -O3)",
+   "invocation": "stat -json -liberty /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/329b866ebb9747d8859729c260b97fd2.lib ",
+   "modules": {
+      "\\asic_top": {
+         "num_wires":         18817,
+         "num_wire_bits":     23120,
+         "num_pub_wires":     87,
+         "num_pub_wire_bits": 3056,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         23027,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 5883,
+            "$_AND_": 760,
+            "$_DFFE_PN0N_": 1024,
+            "$_DFFE_PN0P_": 1380,
+            "$_DFFE_PP_": 545,
+            "$_DFF_PN0_": 22,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 1131,
+            "$_NAND_": 579,
+            "$_NOR_": 1439,
+            "$_NOT_": 928,
+            "$_ORNOT_": 893,
+            "$_OR_": 3844,
+            "$_SDFFCE_PN0P_": 2,
+            "$_SDFFCE_PP0P_": 4,
+            "$_XNOR_": 2037,
+            "$_XOR_": 2555
+         }
+      }
+   },
+      "design": {
+         "num_wires":         18817,
+         "num_wire_bits":     23120,
+         "num_pub_wires":     87,
+         "num_pub_wire_bits": 3056,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         23027,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 5883,
+            "$_AND_": 760,
+            "$_DFFE_PN0N_": 1024,
+            "$_DFFE_PN0P_": 1380,
+            "$_DFFE_PP_": 545,
+            "$_DFF_PN0_": 22,
+            "$_DFF_PN1_": 1,
+            "$_MUX_": 1131,
+            "$_NAND_": 579,
+            "$_NOR_": 1439,
+            "$_NOT_": 928,
+            "$_ORNOT_": 893,
+            "$_OR_": 3844,
+            "$_SDFFCE_PN0P_": 2,
+            "$_SDFFCE_PP0P_": 4,
+            "$_XNOR_": 2037,
+            "$_XOR_": 2555
+         }
+      }
+}
+
+129. Printing statistics.
+
+=== asic_top ===
+
+   Number of wires:              18817
+   Number of wire bits:          23120
+   Number of public wires:          87
+   Number of public wire bits:    3056
+   Number of ports:                 23
+   Number of port bits:            153
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              23027
+     $_ANDNOT_                    5883
+     $_AND_                        760
+     $_DFFE_PN0N_                 1024
+     $_DFFE_PN0P_                 1380
+     $_DFFE_PP_                    545
+     $_DFF_PN0_                     22
+     $_DFF_PN1_                      1
+     $_MUX_                       1131
+     $_NAND_                       579
+     $_NOR_                       1439
+     $_NOT_                        928
+     $_ORNOT_                      893
+     $_OR_                        3844
+     $_SDFFCE_PN0P_                  2
+     $_SDFFCE_PP0P_                  4
+     $_XNOR_                      2037
+     $_XOR_                       2555
+
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_DFFE_PP_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_DFF_PN1_ is unknown!
+   Area for cell type $_DFFE_PN0N_ is unknown!
+   Area for cell type $_DFFE_PN0P_ is unknown!
+   Area for cell type $_SDFFCE_PN0P_ is unknown!
+   Area for cell type $_SDFFCE_PP0P_ is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v'…
+
+130. Executing TECHMAP pass (map to technology primitives).
+
+130.1. Executing Verilog-2005 frontend: /Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v
+Parsing Verilog input from `/Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `\$_TBUF_'.
+Successfully finished Verilog frontend.
+
+130.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+131. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v'…
+
+132. Executing TECHMAP pass (map to technology primitives).
+
+132.1. Executing Verilog-2005 frontend: /Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v
+Parsing Verilog input from `/Users/prahalad/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v' to AST representation.
+Generating RTLIL representation for module `\$_DLATCH_P_'.
+Generating RTLIL representation for module `\$_DLATCH_N_'.
+Successfully finished Verilog frontend.
+
+132.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~4 debug messages>
+
+133. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+134. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_2 (noninv, pins=3, area=21.27) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__dfbbn_2 (noninv, pins=6, area=35.03) is a direct match for cell type $_DFFSR_NNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_2 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_2 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    \sky130_fd_sc_hd__dfbbn_2 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+134.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\asic_top':
+  mapped 2426 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_2 cells.
+  mapped 1 $_DFF_PN1_ cells to \sky130_fd_sc_hd__dfstp_2 cells.
+  mapped 551 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_2 cells.
+{
+   "creator": "Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 16.0.6 -fPIC -O3)",
+   "invocation": "stat -json -liberty /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/329b866ebb9747d8859729c260b97fd2.lib ",
+   "modules": {
+      "\\asic_top": {
+         "num_wires":         21778,
+         "num_wire_bits":     26081,
+         "num_pub_wires":     87,
+         "num_pub_wire_bits": 3056,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         25988,
+         "area":              75489.900800,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 5883,
+            "$_AND_": 760,
+            "$_MUX_": 4092,
+            "$_NAND_": 579,
+            "$_NOR_": 1439,
+            "$_NOT_": 928,
+            "$_ORNOT_": 893,
+            "$_OR_": 3844,
+            "$_XNOR_": 2037,
+            "$_XOR_": 2555,
+            "sky130_fd_sc_hd__dfrtp_2": 2426,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 551
+         }
+      }
+   },
+      "design": {
+         "num_wires":         21778,
+         "num_wire_bits":     26081,
+         "num_pub_wires":     87,
+         "num_pub_wire_bits": 3056,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         25988,
+         "area":              75489.900800,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 5883,
+            "$_AND_": 760,
+            "$_MUX_": 4092,
+            "$_NAND_": 579,
+            "$_NOR_": 1439,
+            "$_NOT_": 928,
+            "$_ORNOT_": 893,
+            "$_OR_": 3844,
+            "$_XNOR_": 2037,
+            "$_XOR_": 2555,
+            "sky130_fd_sc_hd__dfrtp_2": 2426,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 551
+         }
+      }
+}
+
+135. Printing statistics.
+
+=== asic_top ===
+
+   Number of wires:              21778
+   Number of wire bits:          26081
+   Number of public wires:          87
+   Number of public wire bits:    3056
+   Number of ports:                 23
+   Number of port bits:            153
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              25988
+     $_ANDNOT_                    5883
+     $_AND_                        760
+     $_MUX_                       4092
+     $_NAND_                       579
+     $_NOR_                       1439
+     $_NOT_                        928
+     $_ORNOT_                      893
+     $_OR_                        3844
+     $_XNOR_                      2037
+     $_XOR_                       2555
+     sky130_fd_sc_hd__dfrtp_2     2426
+     sky130_fd_sc_hd__dfstp_2        1
+     sky130_fd_sc_hd__dfxtp_2      551
+
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+
+   Chip area for module '\asic_top': 75489.900800
+     of which used for sequential elements: 75489.900800 (100.00%)
+
+[INFO] Using generated ABC script '/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/AREA_0.abc'…
+
+136. Executing ABC pass (technology mapping using ABC).
+
+136.1. Extracting gate netlist of module `\asic_top' to `/tmp/yosys-abc-C0TULD/input.blif'..
+Extracted 23010 gates and 26057 wires to a netlist network with 3046 inputs and 2968 outputs.
+
+136.1.1. Executing ABC.
+Running ABC command: "/nix/store/nfc55yg37krxzn5va3s91rns1l725sc8-yosys-abc/bin/abc" -s -f /tmp/yosys-abc-C0TULD/abc.script 2>&1
+ABC: ABC command line: "source /tmp/yosys-abc-C0TULD/abc.script".
+ABC: 
+ABC: + read_blif /tmp/yosys-abc-C0TULD/input.blif 
+ABC: + read_lib -w /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/329b866ebb9747d8859729c260b97fd2.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/329b866ebb9747d8859729c260b97fd2.lib" has 175 cells (17 skipped: 14 seq; 3 tri-state; 0 no func; 0 dont_use).  Time =     0.07 sec
+ABC: Memory =    9.54 MB. Time =     0.07 sec
+ABC: Warning: Detected 2 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + read_constr -v /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sky130_fd_sc_hd__inv_2/Y".
+ABC: Setting output load to be 33.442001.
+ABC: + source /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (sky130_fd_sc_hd__inv_2/Y) in the library.
+ABC: WireLoad = "none"  Gates =  15625 (  2.0 %)   Cap = 13.0 ff (  3.1 %)   Area =   150332.94 ( 88.2 %)   Delay = 23973.34 ps  (  3.6 %)               
+ABC: Path  0 --     220 : 0    7 pi                        A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =  30.5 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --    6247 : 2    2 sky130_fd_sc_hd__xor2_2   A =  16.27  Df = 204.9  -30.9 ps  S = 212.3 ps  Cin =  8.6 ff  Cout =  13.7 ff  Cmax = 130.0 ff  G =  152  
+ABC: Path  2 --    6249 : 4    3 sky130_fd_sc_hd__a31oi_2  A =  12.51  Df = 463.8  -93.4 ps  S = 269.2 ps  Cin =  4.4 ff  Cout =  15.7 ff  Cmax = 118.1 ff  G =  341  
+ABC: Path  3 --    6253 : 5    3 sky130_fd_sc_hd__o311a_2  A =  11.26  Df = 762.9  -63.1 ps  S =  88.1 ps  Cin =  2.4 ff  Cout =  12.7 ff  Cmax = 293.9 ff  G =  519  
+ABC: Path  4 --    6269 : 3    2 sky130_fd_sc_hd__or3_2    A =   7.51  Df =1261.9 -428.5 ps  S =  91.0 ps  Cin =  1.5 ff  Cout =   7.0 ff  Cmax = 310.4 ff  G =  443  
+ABC: Path  5 --    6373 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =1494.9 -534.3 ps  S =  47.9 ps  Cin =  2.4 ff  Cout =   6.6 ff  Cmax = 309.5 ff  G =  265  
+ABC: Path  6 --    6379 : 5    4 sky130_fd_sc_hd__a311o_2  A =  11.26  Df =1917.1 -741.0 ps  S = 100.1 ps  Cin =  2.3 ff  Cout =  15.4 ff  Cmax = 298.5 ff  G =  641  
+ABC: Path  7 --    6402 : 5    4 sky130_fd_sc_hd__o41ai_2  A =  16.27  Df =2477.4-1167.5 ps  S = 551.7 ps  Cin =  4.3 ff  Cout =  18.6 ff  Cmax =  62.3 ff  G =  412  
+ABC: Path  8 --    6413 : 3    2 sky130_fd_sc_hd__a21oi_2  A =   8.76  Df =2596.9-1117.0 ps  S = 126.6 ps  Cin =  4.6 ff  Cout =   7.1 ff  Cmax = 128.2 ff  G =  148  
+ABC: Path  9 --    6420 : 5    2 sky130_fd_sc_hd__o311a_2  A =  11.26  Df =3004.0-1321.7 ps  S =  65.9 ps  Cin =  2.4 ff  Cout =   7.2 ff  Cmax = 293.9 ff  G =  287  
+ABC: Path 10 --    6423 : 4    1 sky130_fd_sc_hd__o31a_2   A =  10.01  Df =3311.6-1486.7 ps  S =  67.5 ps  Cin =  2.3 ff  Cout =   9.0 ff  Cmax = 285.7 ff  G =  369  
+ABC: Path 11 --    6425 : 2    2 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =3578.0-1573.8 ps  S = 270.3 ps  Cin =  8.5 ff  Cout =  17.5 ff  Cmax = 121.8 ff  G =  198  
+ABC: Path 12 --    6426 : 2    4 sky130_fd_sc_hd__xor2_2   A =  16.27  Df =3944.1-1734.1 ps  S = 328.6 ps  Cin =  8.6 ff  Cout =  24.4 ff  Cmax = 130.0 ff  G =  273  
+ABC: Path 13 --    6428 : 2    2 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =4192.7-1780.2 ps  S = 193.5 ps  Cin =  8.5 ff  Cout =  10.9 ff  Cmax = 121.8 ff  G =  122  
+ABC: Path 14 --    6442 : 4    2 sky130_fd_sc_hd__or4_2    A =   8.76  Df =4863.8-1035.3 ps  S = 103.8 ps  Cin =  1.5 ff  Cout =   4.0 ff  Cmax = 310.4 ff  G =  253  
+ABC: Path 15 --    6534 : 3    3 sky130_fd_sc_hd__nand3b_2 A =  11.26  Df =5107.8-1154.2 ps  S =  90.2 ps  Cin =  3.5 ff  Cout =   9.1 ff  Cmax = 263.7 ff  G =  250  
+ABC: Path 16 --    6542 : 4    1 sky130_fd_sc_hd__a211o_2  A =  10.01  Df =5452.8-1154.0 ps  S =  52.7 ps  Cin =  2.4 ff  Cout =   4.5 ff  Cmax = 325.0 ff  G =  184  
+ABC: Path 17 --    6553 : 4    3 sky130_fd_sc_hd__a31oi_2  A =  12.51  Df =5659.8-1265.1 ps  S = 191.5 ps  Cin =  4.4 ff  Cout =   9.1 ff  Cmax = 118.1 ff  G =  196  
+ABC: Path 18 --    7532 : 5    3 sky130_fd_sc_hd__a41o_2   A =  11.26  Df =5921.4-1237.2 ps  S =  91.6 ps  Cin =  2.3 ff  Cout =  14.3 ff  Cmax = 325.0 ff  G =  588  
+ABC: Path 19 --    7910 : 4    2 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =6105.3-1192.7 ps  S =  80.5 ps  Cin =  2.4 ff  Cout =  10.9 ff  Cmax = 271.9 ff  G =  449  
+ABC: Path 20 --    7911 : 3    1 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =6251.6-1111.5 ps  S =  59.0 ps  Cin =  2.4 ff  Cout =   9.0 ff  Cmax = 309.5 ff  G =  369  
+ABC: Path 21 --    7916 : 2    2 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =6428.0-1029.0 ps  S = 269.7 ps  Cin =  8.5 ff  Cout =  17.5 ff  Cmax = 121.8 ff  G =  200  
+ABC: Path 22 --    7917 : 2    4 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =6721.8-1055.0 ps  S = 326.6 ps  Cin =  8.5 ff  Cout =  22.5 ff  Cmax = 121.8 ff  G =  255  
+ABC: Path 23 --    7918 : 2    4 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =6988.7-1064.6 ps  S = 265.1 ps  Cin =  8.5 ff  Cout =  17.1 ff  Cmax = 121.8 ff  G =  192  
+ABC: Path 24 --    7949 : 4    1 sky130_fd_sc_hd__or4_2    A =   8.76  Df =7653.5 -670.7 ps  S =  95.2 ps  Cin =  1.5 ff  Cout =   2.5 ff  Cmax = 310.4 ff  G =  155  
+ABC: Path 25 --    7950 : 4    2 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =7883.4 -589.8 ps  S =  44.5 ps  Cin =  2.4 ff  Cout =   3.9 ff  Cmax = 271.9 ff  G =  161  
+ABC: Path 26 --    8135 : 4    2 sky130_fd_sc_hd__a211o_2  A =  10.01  Df =8182.0 -762.7 ps  S =  58.2 ps  Cin =  2.4 ff  Cout =   6.6 ff  Cmax = 325.0 ff  G =  270  
+ABC: Path 27 --    8137 : 3    1 sky130_fd_sc_hd__and3_2   A =   7.51  Df =8395.4 -798.7 ps  S =  52.9 ps  Cin =  1.5 ff  Cout =   4.7 ff  Cmax = 309.5 ff  G =  298  
+ABC: Path 28 --    8138 : 2    3 sky130_fd_sc_hd__nor2_2   A =   6.26  Df =8552.6  -43.7 ps  S = 182.3 ps  Cin =  4.4 ff  Cout =  14.6 ff  Cmax = 141.9 ff  G =  320  
+ABC: Path 29 --   10257 : 2    3 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =8765.4  -29.5 ps  S = 248.6 ps  Cin =  8.5 ff  Cout =  15.7 ff  Cmax = 121.8 ff  G =  175  
+ABC: Path 30 --   10258 : 2    4 sky130_fd_sc_hd__and2_2   A =   7.51  Df =8996.6  -46.0 ps  S =  73.8 ps  Cin =  1.5 ff  Cout =  10.3 ff  Cmax = 303.0 ff  G =  670  
+ABC: Path 31 --   10261 : 3    2 sky130_fd_sc_hd__a21bo_2  A =  10.01  Df =9209.7  -45.9 ps  S =  72.7 ps  Cin =  2.0 ff  Cout =  10.9 ff  Cmax = 288.4 ff  G =  515  
+ABC: Path 32 --   10262 : 3    2 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =9443.6 -125.8 ps  S =  70.1 ps  Cin =  2.4 ff  Cout =  11.5 ff  Cmax = 309.5 ff  G =  469  
+ABC: Path 33 --   10264 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =9753.7  -92.0 ps  S =  82.1 ps  Cin =  2.4 ff  Cout =  13.9 ff  Cmax = 309.5 ff  G =  569  
+ABC: Path 34 --   10268 : 4    3 sky130_fd_sc_hd__a211o_2  A =  10.01  Df =9994.4  -76.2 ps  S =  78.5 ps  Cin =  2.4 ff  Cout =  13.7 ff  Cmax = 325.0 ff  G =  566  
+ABC: Path 35 --   10275 : 4    3 sky130_fd_sc_hd__a31oi_2  A =  12.51  Df =10209.8 -173.9 ps  S = 241.9 ps  Cin =  4.4 ff  Cout =  13.4 ff  Cmax = 118.1 ff  G =  290  
+ABC: Path 36 --   10318 : 4    3 sky130_fd_sc_hd__o211a_2  A =  10.01  Df =10481.1 -125.9 ps  S = 115.5 ps  Cin =  2.4 ff  Cout =  16.6 ff  Cmax = 268.3 ff  G =  673  
+ABC: Path 37 --   10362 : 3    4 sky130_fd_sc_hd__o21ai_2  A =   8.76  Df =10604.2  -12.2 ps  S = 246.5 ps  Cin =  4.5 ff  Cout =  18.6 ff  Cmax = 139.2 ff  G =  390  
+ABC: Path 38 --   10370 : 4    3 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =10863.4  -44.6 ps  S =  70.1 ps  Cin =  2.4 ff  Cout =   8.6 ff  Cmax = 271.9 ff  G =  352  
+ABC: Path 39 --   10376 : 4    2 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =11103.5 -118.6 ps  S =  60.8 ps  Cin =  2.4 ff  Cout =   7.0 ff  Cmax = 271.9 ff  G =  285  
+ABC: Path 40 --   10418 : 5    1 sky130_fd_sc_hd__a32o_2   A =  11.26  Df =11379.7 -202.3 ps  S =  78.3 ps  Cin =  2.3 ff  Cout =   9.0 ff  Cmax = 264.6 ff  G =  371  
+ABC: Path 41 --   10421 : 2    2 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =11641.4 -279.8 ps  S = 270.3 ps  Cin =  8.5 ff  Cout =  17.5 ff  Cmax = 121.8 ff  G =  198  
+ABC: Path 42 --   10422 : 2    3 sky130_fd_sc_hd__xor2_2   A =  16.27  Df =11989.5 -425.6 ps  S = 304.7 ps  Cin =  8.6 ff  Cout =  22.1 ff  Cmax = 130.0 ff  G =  249  
+ABC: Path 43 --   10426 : 2    3 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =12245.6 -445.2 ps  S = 244.0 ps  Cin =  8.5 ff  Cout =  15.3 ff  Cmax = 121.8 ff  G =  172  
+ABC: Path 44 --   10429 : 2    2 sky130_fd_sc_hd__or2_2    A =   6.26  Df =12563.7 -596.6 ps  S =  61.1 ps  Cin =  1.5 ff  Cout =   5.1 ff  Cmax = 299.4 ff  G =  329  
+ABC: Path 45 --   10430 : 5    2 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df =12980.5 -769.8 ps  S =  75.7 ps  Cin =  2.4 ff  Cout =   7.1 ff  Cmax = 324.1 ff  G =  285  
+ABC: Path 46 --   10501 : 5    3 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df =13438.2-1072.9 ps  S =  88.3 ps  Cin =  2.4 ff  Cout =  11.6 ff  Cmax = 324.1 ff  G =  462  
+ABC: Path 47 --   10525 : 4    3 sky130_fd_sc_hd__a211oi_2 A =  12.51  Df =13758.2-1302.7 ps  S = 281.3 ps  Cin =  4.4 ff  Cout =  11.6 ff  Cmax =  88.8 ff  G =  255  
+ABC: Path 48 --   10531 : 3    3 sky130_fd_sc_hd__o21bai_2 A =  11.26  Df =13896.2-1240.8 ps  S = 178.4 ps  Cin =  3.4 ff  Cout =  11.6 ff  Cmax = 140.1 ff  G =  328  
+ABC: Path 49 --   10619 : 5    3 sky130_fd_sc_hd__a311o_2  A =  11.26  Df =14289.6-1414.2 ps  S =  69.7 ps  Cin =  2.3 ff  Cout =   8.6 ff  Cmax = 298.5 ff  G =  361  
+ABC: Path 50 --   10621 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =14520.8-1504.2 ps  S =  57.4 ps  Cin =  2.4 ff  Cout =   8.7 ff  Cmax = 309.5 ff  G =  352  
+ABC: Path 51 --   10623 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =14734.3 -224.6 ps  S =  44.6 ps  Cin =  2.4 ff  Cout =   5.5 ff  Cmax = 309.5 ff  G =  226  
+ABC: Path 52 --   10627 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =14934.7 -198.1 ps  S =  61.6 ps  Cin =  2.4 ff  Cout =   9.6 ff  Cmax = 309.5 ff  G =  393  
+ABC: Path 53 --   10677 : 5    1 sky130_fd_sc_hd__a221o_2  A =  11.26  Df =15274.1 -402.6 ps  S =  50.0 ps  Cin =  2.3 ff  Cout =   2.4 ff  Cmax = 299.4 ff  G =   97  
+ABC: Path 54 --   10678 : 5    1 sky130_fd_sc_hd__a311o_2  A =  11.26  Df =15615.3 -319.5 ps  S =  51.2 ps  Cin =  2.3 ff  Cout =   2.4 ff  Cmax = 298.5 ff  G =  102  
+ABC: Path 55 --   10679 : 4    3 sky130_fd_sc_hd__o211a_2  A =  10.01  Df =15778.5 -264.7 ps  S = 110.4 ps  Cin =  2.4 ff  Cout =  15.7 ff  Cmax = 268.3 ff  G =  638  
+ABC: Path 56 --   10694 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =16006.9 -316.6 ps  S =  89.7 ps  Cin =  2.4 ff  Cout =  15.7 ff  Cmax = 309.5 ff  G =  646  
+ABC: Path 57 --   10893 : 4    4 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =16233.1 -262.5 ps  S =  80.3 ps  Cin =  2.4 ff  Cout =  10.9 ff  Cmax = 271.9 ff  G =  440  
+ABC: Path 58 --   10896 : 4    4 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =16517.6 -332.2 ps  S = 114.7 ps  Cin =  2.4 ff  Cout =  17.4 ff  Cmax = 271.9 ff  G =  716  
+ABC: Path 59 --   10995 : 4    2 sky130_fd_sc_hd__a31o_2   A =   8.76  Df =16786.6 -394.3 ps  S =  94.0 ps  Cin =  2.4 ff  Cout =  13.5 ff  Cmax = 271.9 ff  G =  555  
+ABC: Path 60 --   11002 : 2    3 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =17000.5 -432.4 ps  S = 236.3 ps  Cin =  8.5 ff  Cout =  14.6 ff  Cmax = 121.8 ff  G =  165  
+ABC: Path 61 --   11003 : 2    4 sky130_fd_sc_hd__xor2_2   A =  16.27  Df =17260.2 -515.3 ps  S = 203.7 ps  Cin =  8.6 ff  Cout =  12.7 ff  Cmax = 130.0 ff  G =  141  
+ABC: Path 62 --   11005 : 2    1 sky130_fd_sc_hd__or2_2    A =   6.26  Df =17411.8 -381.1 ps  S =  60.5 ps  Cin =  1.5 ff  Cout =   4.6 ff  Cmax = 299.4 ff  G =  304  
+ABC: Path 63 --   11006 : 2    3 sky130_fd_sc_hd__nand2_2  A =   6.26  Df =17480.2  -31.2 ps  S =  87.1 ps  Cin =  4.4 ff  Cout =  13.2 ff  Cmax = 295.7 ff  G =  284  
+ABC: Path 64 --   11008 : 3    2 sky130_fd_sc_hd__or3b_2   A =   8.76  Df =17922.9 -237.3 ps  S =  80.3 ps  Cin =  1.5 ff  Cout =   4.1 ff  Cmax = 269.2 ff  G =  256  
+ABC: Path 65 --   11013 : 5    3 sky130_fd_sc_hd__o221a_2  A =  11.26  Df =18808.1 -566.0 ps  S =  75.2 ps  Cin =  2.3 ff  Cout =   9.1 ff  Cmax = 281.1 ff  G =  371  
+ABC: Path 66 --   11018 : 5    3 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df =19297.9 -776.5 ps  S =  82.0 ps  Cin =  2.4 ff  Cout =   9.5 ff  Cmax = 324.1 ff  G =  378  
+ABC: Path 67 --   11023 : 5    2 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df =19785.3 -687.8 ps  S =  75.2 ps  Cin =  2.4 ff  Cout =   7.1 ff  Cmax = 324.1 ff  G =  282  
+ABC: Path 68 --   11024 : 3    5 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =20043.6 -775.4 ps  S = 101.5 ps  Cin =  2.4 ff  Cout =  18.2 ff  Cmax = 309.5 ff  G =  744  
+ABC: Path 69 --   11037 : 3    3 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =20283.4 -852.0 ps  S =  71.4 ps  Cin =  2.4 ff  Cout =  11.8 ff  Cmax = 309.5 ff  G =  477  
+ABC: Path 70 --   11039 : 3    4 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =20523.2 -216.2 ps  S =  77.9 ps  Cin =  2.4 ff  Cout =  13.2 ff  Cmax = 309.5 ff  G =  542  
+ABC: Path 71 --   13638 : 3    2 sky130_fd_sc_hd__and3_2   A =   7.51  Df =20727.5 -141.8 ps  S =  61.2 ps  Cin =  1.5 ff  Cout =   6.2 ff  Cmax = 309.5 ff  G =  391  
+ABC: Path 72 --   13640 : 3    1 sky130_fd_sc_hd__or3_2    A =   7.51  Df =21142.5 -316.0 ps  S =  84.5 ps  Cin =  1.5 ff  Cout =   5.0 ff  Cmax = 310.4 ff  G =  315  
+ABC: Path 73 --   13648 : 3    3 sky130_fd_sc_hd__a21boi_2 A =  11.26  Df =21320.1 -341.7 ps  S = 133.3 ps  Cin =  3.6 ff  Cout =   7.9 ff  Cmax = 129.1 ff  G =  206  
+ABC: Path 74 --   13655 : 3    3 sky130_fd_sc_hd__o21ai_2  A =   8.76  Df =21408.5 -262.5 ps  S = 175.9 ps  Cin =  4.5 ff  Cout =  11.7 ff  Cmax = 139.2 ff  G =  247  
+ABC: Path 75 --   13694 : 5    2 sky130_fd_sc_hd__a2111o_2 A =  12.51  Df =21889.0 -497.6 ps  S =  73.7 ps  Cin =  2.4 ff  Cout =   6.6 ff  Cmax = 324.1 ff  G =  261  
+ABC: Path 76 --   13761 : 3    2 sky130_fd_sc_hd__a21oi_2  A =   8.76  Df =22030.9 -548.7 ps  S =  93.4 ps  Cin =  4.6 ff  Cout =   4.0 ff  Cmax = 128.2 ff  G =   83  
+ABC: Path 77 --   13770 : 3    6 sky130_fd_sc_hd__o21ba_2  A =  10.01  Df =22268.3 -528.5 ps  S = 159.2 ps  Cin =  2.1 ff  Cout =  25.6 ff  Cmax = 264.6 ff  G = 1195  
+ABC: Path 78 --   13840 : 4    3 sky130_fd_sc_hd__a31oi_2  A =  12.51  Df =22399.9 -462.7 ps  S = 212.9 ps  Cin =  4.4 ff  Cout =  10.9 ff  Cmax = 118.1 ff  G =  233  
+ABC: Path 79 --   13873 : 3    3 sky130_fd_sc_hd__o21bai_2 A =  11.26  Df =22661.9 -577.3 ps  S = 247.7 ps  Cin =  3.4 ff  Cout =  18.5 ff  Cmax = 140.1 ff  G =  526  
+ABC: Path 80 --   13888 : 4    1 sky130_fd_sc_hd__a211oi_2 A =  12.51  Df =22770.7 -477.2 ps  S = 173.6 ps  Cin =  4.4 ff  Cout =   4.7 ff  Cmax =  88.8 ff  G =  101  
+ABC: Path 81 --   13889 : 3    2 sky130_fd_sc_hd__a21oi_2  A =   8.76  Df =22955.7 -587.5 ps  S = 188.8 ps  Cin =  4.6 ff  Cout =  13.0 ff  Cmax = 128.2 ff  G =  274  
+ABC: Path 82 --   13890 : 2    3 sky130_fd_sc_hd__xnor2_2  A =  16.27  Df =23159.0 -585.6 ps  S = 205.3 ps  Cin =  8.5 ff  Cout =  11.9 ff  Cmax = 121.8 ff  G =  132  
+ABC: Path 83 --   14599 : 3    1 sky130_fd_sc_hd__a21o_2   A =   8.76  Df =23373.6 -647.3 ps  S =  43.7 ps  Cin =  2.4 ff  Cout =   2.5 ff  Cmax = 309.5 ff  G =   99  
+ABC: Path 84 --   14600 : 4    1 sky130_fd_sc_hd__o22a_2   A =  10.01  Df =23537.9 -170.8 ps  S =  52.3 ps  Cin =  2.4 ff  Cout =   2.0 ff  Cmax = 304.9 ff  G =   79  
+ABC: Path 85 --   14601 : 3    1 sky130_fd_sc_hd__mux2_1   A =  11.26  Df =23973.3 -296.7 ps  S = 305.1 ps  Cin =  2.3 ff  Cout =  33.4 ff  Cmax = 173.0 ff  G = 1465  
+ABC: Start-point = pi219 (\chacha_unit.U_QR_COL_0.in_b [1]).  End-point = po658 ($auto$rtlil.cc:2739:MuxGate$119636).
+ABC: netlist                       : i/o = 3046/ 2968  lat =    0  nd = 15625  edge =  41393  area =150367.71  delay =86.00  lev = 86
+ABC: + write_blif /tmp/yosys-abc-C0TULD/output.blif 
+
+136.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o311ai_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2ai_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o2111a_2 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_2 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__or4bb_2 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a41o_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nand4_2 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a2111o_2 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__and4bb_2 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o21bai_2 cells:       35
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_2 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_2 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_2 cells:       18
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_2 cells:       36
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_2 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a221o_2 cells:      191
+ABC RESULTS:   sky130_fd_sc_hd__xor2_2 cells:      836
+ABC RESULTS:   sky130_fd_sc_hd__nand3_2 cells:       73
+ABC RESULTS:   sky130_fd_sc_hd__o21ba_2 cells:      102
+ABC RESULTS:   sky130_fd_sc_hd__o311a_2 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__o32a_2 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__a311o_2 cells:       31
+ABC RESULTS:   sky130_fd_sc_hd__o221a_2 cells:      153
+ABC RESULTS:   sky130_fd_sc_hd__o31a_2 cells:       45
+ABC RESULTS:   sky130_fd_sc_hd__mux4_2 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2o_2 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__and4_2 cells:       28
+ABC RESULTS:   sky130_fd_sc_hd__and4b_2 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__or4b_2 cells:       26
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_2 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__o22a_2 cells:      587
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_2 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_2 cells:     1715
+ABC RESULTS:   sky130_fd_sc_hd__or3_2 cells:       84
+ABC RESULTS:   sky130_fd_sc_hd__or4_2 cells:       45
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_2 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__a32o_2 cells:      273
+ABC RESULTS:   sky130_fd_sc_hd__nor3_2 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_2 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o41a_2 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a31o_2 cells:      111
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_2 cells:      224
+ABC RESULTS:   sky130_fd_sc_hd__nand2_2 cells:     1716
+ABC RESULTS:   sky130_fd_sc_hd__a211o_2 cells:       65
+ABC RESULTS:   sky130_fd_sc_hd__a21o_2 cells:     1251
+ABC RESULTS:   sky130_fd_sc_hd__or2_2 cells:     1181
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:     1275
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_2 cells:      402
+ABC RESULTS:   sky130_fd_sc_hd__or3b_2 cells:       39
+ABC RESULTS:   sky130_fd_sc_hd__and3_2 cells:      503
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_2 cells:      245
+ABC RESULTS:   sky130_fd_sc_hd__o21a_2 cells:      405
+ABC RESULTS:   sky130_fd_sc_hd__and2b_2 cells:      234
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_2 cells:      213
+ABC RESULTS:   sky130_fd_sc_hd__inv_2 cells:      318
+ABC RESULTS:   sky130_fd_sc_hd__o211a_2 cells:      143
+ABC RESULTS:   sky130_fd_sc_hd__and3b_2 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__a22o_2 cells:      499
+ABC RESULTS:   sky130_fd_sc_hd__nor2_2 cells:     1540
+ABC RESULTS:   sky130_fd_sc_hd__o2bb2a_2 cells:       22
+ABC RESULTS:   sky130_fd_sc_hd__and2_2 cells:      673
+ABC RESULTS:        internal signals:    20043
+ABC RESULTS:           input signals:     3046
+ABC RESULTS:          output signals:     2968
+Removing temp directory.
+
+137. Executing SETUNDEF pass (replace undef values with defined constants).
+
+138. Executing HILOMAP pass (mapping to constant drivers).
+
+139. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+140. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \asic_top..
+Removed 1 unused cells and 26074 unused wires.
+<suppressed ~4 debug messages>
+
+141. Executing INSBUF pass (insert buffer cells for connected wires).
+
+142. Executing CHECK pass (checking for obvious problems).
+Checking module asic_top...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 16.0.6 -fPIC -O3)",
+   "invocation": "stat -json -liberty /Users/prahalad/Asic-Cryptography/main/rtl/runs/RUN_2025-07-30_13-59-37/tmp/329b866ebb9747d8859729c260b97fd2.lib ",
+   "modules": {
+      "\\asic_top": {
+         "num_wires":         18549,
+         "num_wire_bits":     18679,
+         "num_pub_wires":     2924,
+         "num_pub_wire_bits": 3054,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         18603,
+         "area":              225822.832000,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 12,
+            "sky130_fd_sc_hd__a2111oi_2": 2,
+            "sky130_fd_sc_hd__a211o_2": 65,
+            "sky130_fd_sc_hd__a211oi_2": 8,
+            "sky130_fd_sc_hd__a21bo_2": 213,
+            "sky130_fd_sc_hd__a21boi_2": 36,
+            "sky130_fd_sc_hd__a21o_2": 1251,
+            "sky130_fd_sc_hd__a21oi_2": 402,
+            "sky130_fd_sc_hd__a221o_2": 191,
+            "sky130_fd_sc_hd__a221oi_2": 2,
+            "sky130_fd_sc_hd__a22o_2": 499,
+            "sky130_fd_sc_hd__a22oi_2": 7,
+            "sky130_fd_sc_hd__a2bb2o_2": 32,
+            "sky130_fd_sc_hd__a2bb2oi_2": 2,
+            "sky130_fd_sc_hd__a311o_2": 31,
+            "sky130_fd_sc_hd__a311oi_2": 2,
+            "sky130_fd_sc_hd__a31o_2": 111,
+            "sky130_fd_sc_hd__a31oi_2": 20,
+            "sky130_fd_sc_hd__a32o_2": 273,
+            "sky130_fd_sc_hd__a32oi_2": 1,
+            "sky130_fd_sc_hd__a41o_2": 2,
+            "sky130_fd_sc_hd__a41oi_2": 2,
+            "sky130_fd_sc_hd__and2_2": 673,
+            "sky130_fd_sc_hd__and2b_2": 234,
+            "sky130_fd_sc_hd__and3_2": 503,
+            "sky130_fd_sc_hd__and3b_2": 16,
+            "sky130_fd_sc_hd__and4_2": 28,
+            "sky130_fd_sc_hd__and4b_2": 9,
+            "sky130_fd_sc_hd__and4bb_2": 4,
+            "sky130_fd_sc_hd__dfrtp_2": 2426,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 551,
+            "sky130_fd_sc_hd__inv_2": 318,
+            "sky130_fd_sc_hd__mux2_1": 1275,
+            "sky130_fd_sc_hd__mux4_2": 32,
+            "sky130_fd_sc_hd__nand2_2": 1716,
+            "sky130_fd_sc_hd__nand2b_2": 224,
+            "sky130_fd_sc_hd__nand3_2": 73,
+            "sky130_fd_sc_hd__nand3b_2": 16,
+            "sky130_fd_sc_hd__nand4_2": 8,
+            "sky130_fd_sc_hd__nand4b_2": 3,
+            "sky130_fd_sc_hd__nor2_2": 1540,
+            "sky130_fd_sc_hd__nor3_2": 15,
+            "sky130_fd_sc_hd__nor3b_2": 3,
+            "sky130_fd_sc_hd__nor4_2": 2,
+            "sky130_fd_sc_hd__nor4b_2": 3,
+            "sky130_fd_sc_hd__o2111a_2": 6,
+            "sky130_fd_sc_hd__o2111ai_2": 2,
+            "sky130_fd_sc_hd__o211a_2": 143,
+            "sky130_fd_sc_hd__o211ai_2": 13,
+            "sky130_fd_sc_hd__o21a_2": 405,
+            "sky130_fd_sc_hd__o21ai_2": 245,
+            "sky130_fd_sc_hd__o21ba_2": 102,
+            "sky130_fd_sc_hd__o21bai_2": 35,
+            "sky130_fd_sc_hd__o221a_2": 153,
+            "sky130_fd_sc_hd__o22a_2": 587,
+            "sky130_fd_sc_hd__o22ai_2": 3,
+            "sky130_fd_sc_hd__o2bb2a_2": 22,
+            "sky130_fd_sc_hd__o2bb2ai_2": 1,
+            "sky130_fd_sc_hd__o311a_2": 26,
+            "sky130_fd_sc_hd__o311ai_2": 2,
+            "sky130_fd_sc_hd__o31a_2": 45,
+            "sky130_fd_sc_hd__o31ai_2": 18,
+            "sky130_fd_sc_hd__o32a_2": 16,
+            "sky130_fd_sc_hd__o41a_2": 10,
+            "sky130_fd_sc_hd__o41ai_2": 1,
+            "sky130_fd_sc_hd__or2_2": 1181,
+            "sky130_fd_sc_hd__or3_2": 84,
+            "sky130_fd_sc_hd__or3b_2": 39,
+            "sky130_fd_sc_hd__or4_2": 45,
+            "sky130_fd_sc_hd__or4b_2": 26,
+            "sky130_fd_sc_hd__or4bb_2": 5,
+            "sky130_fd_sc_hd__xnor2_2": 1715,
+            "sky130_fd_sc_hd__xor2_2": 836
+         }
+      }
+   },
+      "design": {
+         "num_wires":         18549,
+         "num_wire_bits":     18679,
+         "num_pub_wires":     2924,
+         "num_pub_wire_bits": 3054,
+         "num_ports":         23,
+         "num_port_bits":     153,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         18603,
+         "area":              225822.832000,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__a2111o_2": 12,
+            "sky130_fd_sc_hd__a2111oi_2": 2,
+            "sky130_fd_sc_hd__a211o_2": 65,
+            "sky130_fd_sc_hd__a211oi_2": 8,
+            "sky130_fd_sc_hd__a21bo_2": 213,
+            "sky130_fd_sc_hd__a21boi_2": 36,
+            "sky130_fd_sc_hd__a21o_2": 1251,
+            "sky130_fd_sc_hd__a21oi_2": 402,
+            "sky130_fd_sc_hd__a221o_2": 191,
+            "sky130_fd_sc_hd__a221oi_2": 2,
+            "sky130_fd_sc_hd__a22o_2": 499,
+            "sky130_fd_sc_hd__a22oi_2": 7,
+            "sky130_fd_sc_hd__a2bb2o_2": 32,
+            "sky130_fd_sc_hd__a2bb2oi_2": 2,
+            "sky130_fd_sc_hd__a311o_2": 31,
+            "sky130_fd_sc_hd__a311oi_2": 2,
+            "sky130_fd_sc_hd__a31o_2": 111,
+            "sky130_fd_sc_hd__a31oi_2": 20,
+            "sky130_fd_sc_hd__a32o_2": 273,
+            "sky130_fd_sc_hd__a32oi_2": 1,
+            "sky130_fd_sc_hd__a41o_2": 2,
+            "sky130_fd_sc_hd__a41oi_2": 2,
+            "sky130_fd_sc_hd__and2_2": 673,
+            "sky130_fd_sc_hd__and2b_2": 234,
+            "sky130_fd_sc_hd__and3_2": 503,
+            "sky130_fd_sc_hd__and3b_2": 16,
+            "sky130_fd_sc_hd__and4_2": 28,
+            "sky130_fd_sc_hd__and4b_2": 9,
+            "sky130_fd_sc_hd__and4bb_2": 4,
+            "sky130_fd_sc_hd__dfrtp_2": 2426,
+            "sky130_fd_sc_hd__dfstp_2": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 551,
+            "sky130_fd_sc_hd__inv_2": 318,
+            "sky130_fd_sc_hd__mux2_1": 1275,
+            "sky130_fd_sc_hd__mux4_2": 32,
+            "sky130_fd_sc_hd__nand2_2": 1716,
+            "sky130_fd_sc_hd__nand2b_2": 224,
+            "sky130_fd_sc_hd__nand3_2": 73,
+            "sky130_fd_sc_hd__nand3b_2": 16,
+            "sky130_fd_sc_hd__nand4_2": 8,
+            "sky130_fd_sc_hd__nand4b_2": 3,
+            "sky130_fd_sc_hd__nor2_2": 1540,
+            "sky130_fd_sc_hd__nor3_2": 15,
+            "sky130_fd_sc_hd__nor3b_2": 3,
+            "sky130_fd_sc_hd__nor4_2": 2,
+            "sky130_fd_sc_hd__nor4b_2": 3,
+            "sky130_fd_sc_hd__o2111a_2": 6,
+            "sky130_fd_sc_hd__o2111ai_2": 2,
+            "sky130_fd_sc_hd__o211a_2": 143,
+            "sky130_fd_sc_hd__o211ai_2": 13,
+            "sky130_fd_sc_hd__o21a_2": 405,
+            "sky130_fd_sc_hd__o21ai_2": 245,
+            "sky130_fd_sc_hd__o21ba_2": 102,
+            "sky130_fd_sc_hd__o21bai_2": 35,
+            "sky130_fd_sc_hd__o221a_2": 153,
+            "sky130_fd_sc_hd__o22a_2": 587,
+            "sky130_fd_sc_hd__o22ai_2": 3,
+            "sky130_fd_sc_hd__o2bb2a_2": 22,
+            "sky130_fd_sc_hd__o2bb2ai_2": 1,
+            "sky130_fd_sc_hd__o311a_2": 26,
+            "sky130_fd_sc_hd__o311ai_2": 2,
+            "sky130_fd_sc_hd__o31a_2": 45,
+            "sky130_fd_sc_hd__o31ai_2": 18,
+            "sky130_fd_sc_hd__o32a_2": 16,
+            "sky130_fd_sc_hd__o41a_2": 10,
+            "sky130_fd_sc_hd__o41ai_2": 1,
+            "sky130_fd_sc_hd__or2_2": 1181,
+            "sky130_fd_sc_hd__or3_2": 84,
+            "sky130_fd_sc_hd__or3b_2": 39,
+            "sky130_fd_sc_hd__or4_2": 45,
+            "sky130_fd_sc_hd__or4b_2": 26,
+            "sky130_fd_sc_hd__or4bb_2": 5,
+            "sky130_fd_sc_hd__xnor2_2": 1715,
+            "sky130_fd_sc_hd__xor2_2": 836
+         }
+      }
+}
+
+143. Printing statistics.
+
+=== asic_top ===
+
+   Number of wires:              18549
+   Number of wire bits:          18679
+   Number of public wires:        2924
+   Number of public wire bits:    3054
+   Number of ports:                 23
+   Number of port bits:            153
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              18603
+     sky130_fd_sc_hd__a2111o_2      12
+     sky130_fd_sc_hd__a2111oi_2      2
+     sky130_fd_sc_hd__a211o_2       65
+     sky130_fd_sc_hd__a211oi_2       8
+     sky130_fd_sc_hd__a21bo_2      213
+     sky130_fd_sc_hd__a21boi_2      36
+     sky130_fd_sc_hd__a21o_2      1251
+     sky130_fd_sc_hd__a21oi_2      402
+     sky130_fd_sc_hd__a221o_2      191
+     sky130_fd_sc_hd__a221oi_2       2
+     sky130_fd_sc_hd__a22o_2       499
+     sky130_fd_sc_hd__a22oi_2        7
+     sky130_fd_sc_hd__a2bb2o_2      32
+     sky130_fd_sc_hd__a2bb2oi_2      2
+     sky130_fd_sc_hd__a311o_2       31
+     sky130_fd_sc_hd__a311oi_2       2
+     sky130_fd_sc_hd__a31o_2       111
+     sky130_fd_sc_hd__a31oi_2       20
+     sky130_fd_sc_hd__a32o_2       273
+     sky130_fd_sc_hd__a32oi_2        1
+     sky130_fd_sc_hd__a41o_2         2
+     sky130_fd_sc_hd__a41oi_2        2
+     sky130_fd_sc_hd__and2_2       673
+     sky130_fd_sc_hd__and2b_2      234
+     sky130_fd_sc_hd__and3_2       503
+     sky130_fd_sc_hd__and3b_2       16
+     sky130_fd_sc_hd__and4_2        28
+     sky130_fd_sc_hd__and4b_2        9
+     sky130_fd_sc_hd__and4bb_2       4
+     sky130_fd_sc_hd__dfrtp_2     2426
+     sky130_fd_sc_hd__dfstp_2        1
+     sky130_fd_sc_hd__dfxtp_2      551
+     sky130_fd_sc_hd__inv_2        318
+     sky130_fd_sc_hd__mux2_1      1275
+     sky130_fd_sc_hd__mux4_2        32
+     sky130_fd_sc_hd__nand2_2     1716
+     sky130_fd_sc_hd__nand2b_2     224
+     sky130_fd_sc_hd__nand3_2       73
+     sky130_fd_sc_hd__nand3b_2      16
+     sky130_fd_sc_hd__nand4_2        8
+     sky130_fd_sc_hd__nand4b_2       3
+     sky130_fd_sc_hd__nor2_2      1540
+     sky130_fd_sc_hd__nor3_2        15
+     sky130_fd_sc_hd__nor3b_2        3
+     sky130_fd_sc_hd__nor4_2         2
+     sky130_fd_sc_hd__nor4b_2        3
+     sky130_fd_sc_hd__o2111a_2       6
+     sky130_fd_sc_hd__o2111ai_2      2
+     sky130_fd_sc_hd__o211a_2      143
+     sky130_fd_sc_hd__o211ai_2      13
+     sky130_fd_sc_hd__o21a_2       405
+     sky130_fd_sc_hd__o21ai_2      245
+     sky130_fd_sc_hd__o21ba_2      102
+     sky130_fd_sc_hd__o21bai_2      35
+     sky130_fd_sc_hd__o221a_2      153
+     sky130_fd_sc_hd__o22a_2       587
+     sky130_fd_sc_hd__o22ai_2        3
+     sky130_fd_sc_hd__o2bb2a_2      22
+     sky130_fd_sc_hd__o2bb2ai_2      1
+     sky130_fd_sc_hd__o311a_2       26
+     sky130_fd_sc_hd__o311ai_2       2
+     sky130_fd_sc_hd__o31a_2        45
+     sky130_fd_sc_hd__o31ai_2       18
+     sky130_fd_sc_hd__o32a_2        16
+     sky130_fd_sc_hd__o41a_2        10
+     sky130_fd_sc_hd__o41ai_2        1
+     sky130_fd_sc_hd__or2_2       1181
+     sky130_fd_sc_hd__or3_2         84
+     sky130_fd_sc_hd__or3b_2        39
+     sky130_fd_sc_hd__or4_2         45
+     sky130_fd_sc_hd__or4b_2        26
+     sky130_fd_sc_hd__or4bb_2        5
+     sky130_fd_sc_hd__xnor2_2     1715
+     sky130_fd_sc_hd__xor2_2       836
+
+   Chip area for module '\asic_top': 225822.832000
+     of which used for sequential elements: 75489.900800 (33.43%)
+
+144. Executing Verilog backend.
+Dumping module `\asic_top'.
+
+145. Executing JSON backend.
