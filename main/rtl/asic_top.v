@@ -54,7 +54,6 @@ module asic_top (
     localparam STREAM_KEY_OUT     = 4'b0010;
     localparam STREAM_NONCE_OUT   = 4'b0011;
     localparam LOAD_IN            = 4'b0100;
-    // PADDING state removed
     localparam CORE               = 4'b0101;
     localparam CORE_WAIT          = 4'b0110;
     localparam OUTPUT             = 4'b0111;
@@ -75,7 +74,6 @@ module asic_top (
     localparam NONCE  = 2'b01;
 
     reg [4:0] current_chunk_id;
-    // 'bytes_processed' removed
     reg [4:0] out_chunk_ptr;
     reg last_block_flag; // Flag to remember if the current block is the last one
 
@@ -101,7 +99,7 @@ module asic_top (
         if (!rst_n) begin
             // Reset
             fsm_state <= IDLE; busy <= 0; done <= 0; chunk_request <= 0; request_type <= KEY;
-            chunk_index <= 0; current_chunk_id <= 0; key <= 0; nonce <= 0; counter <= 0;
+            chunk_index <= 0; current_chunk_id <= 0; key <= 0; nonce <= 0; counter <= 1;
             temp_key <= 0; temp_nonce <= 0; core_start <= 0; trng_request <= 0;
             in_state_ptr <= 0; out_state_ptr <= 0; in_state_ready <= 0; out_state_valid <= 0;
             out_state_word <= 0; out_chunk_valid <= 0; out_chunk <= 0;
@@ -116,7 +114,7 @@ module asic_top (
                     if (start) begin
                         busy <= 1; fsm_state <= ACQUIRE; acquire_sub_state <= KEY;
                         current_chunk_id <= 0; temp_key <= 0; temp_nonce <= 0;
-                        key <= 0; nonce <= 0; counter <= 0; in_state_ptr <= 0; out_state_ptr <= 0;
+                        key <= 0; nonce <= 0; counter <= 1; in_state_ptr <= 0; out_state_ptr <= 0;
                         out_chunk_ptr <= 0; last_block_flag <= 0;
                     end
                 end
