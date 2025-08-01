@@ -14,6 +14,10 @@
 - `chacha20_nested_fsm.png` - **Nested FSM showing core embedded in main controller**
 - `chacha20_detailed_nested.png` - **Zoom-in view of nested core FSM**
 
+### Animations (NEW!)
+- `chacha20_asic_animation.gif` - **LIVE 3D chip animation with data flow**
+- `chacha20_waveform_animation.gif` - **Real-time waveform simulation**
+
 ### Source Code
 - `rtl/` - Original RTL source files
 - `testbenches/` - Original testbench files  
@@ -51,6 +55,13 @@ python run_simulation.py
 cd visualization/
 python chip_3d_generator_fixed.py
 python block_diagram_generator_fixed.py
+```
+
+### Create Animations
+```bash
+cd visualization/
+python chacha20_animation_generator.py
+python chacha20_waveform_animator.py
 ```
 
 ## Presentation Talking Points
