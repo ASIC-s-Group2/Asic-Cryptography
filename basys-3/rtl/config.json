@@ -1,0 +1,15 @@
+ { 
+  "DESIGN_NAME": "asic_top",
+    "VERILOG_FILES": [
+        "/Users/prahalad/Asic-Cryptography/main/rtl/trueAsicTop.v",
+        "/Users/prahalad/Asic-Cryptography/main/rtl/trng_hardened.v",
+        "/Users/prahalad/Asic-Cryptography/main/rtl/RingOsc.v",
+        "/Users/prahalad/Asic-Cryptography/main/rtl/qr.v",
+        "/Users/prahalad/Asic-Cryptography/main/rtl/chacha20_core.v"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 20.0,
+    "FP_CORE_UTIL": 35,
+    "PDK": "sky130A",
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd"
+}

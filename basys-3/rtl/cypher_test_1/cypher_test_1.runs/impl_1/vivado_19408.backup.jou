@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Wed Jul 30 12:50:38 2025
+# Process ID         : 19408
+# Current directory  : C:/Users/Admin/cypher_test_1/cypher_test_1.runs/impl_1
+# Command line       : vivado.exe -log TRNG.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source TRNG.tcl -notrace
+# Log file           : C:/Users/Admin/cypher_test_1/cypher_test_1.runs/impl_1/TRNG.vdi
+# Journal file       : C:/Users/Admin/cypher_test_1/cypher_test_1.runs/impl_1\vivado.jou
+# Running On         : Mirage
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 5 5600X 6-Core Processor             
+# CPU Frequency      : 3700 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 34267 MB
+# Swap memory        : 10737 MB
+# Total Virtual      : 45004 MB
+# Available Virtual  : 10478 MB
+#-----------------------------------------------------------
+source TRNG.tcl -notrace
